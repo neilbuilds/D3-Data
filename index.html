@@ -2,703 +2,409 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="theme-color" content="#050a0f">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#060b10">
 <title>Drishyam 3 — North America Box Office</title>
 <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ── Reset ── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --bg:       #050a0f;
-  --s1:       #090f18;
-  --s2:       #0d1825;
-  --s3:       #122030;
-  --b1:       #1a2e42;
-  --b2:       #243d56;
-  --gold:     #c9a84c;
-  --gold2:    #e8c96a;
-  --gold3:    #f5e2a8;
-  --crimson:  #8b1a1a;
-  --crimson2: #b52020;
-  --text:     #d8cdb8;
-  --text2:    #a89070;
-  --muted:    #607080;
-  --white:    #ede5d5;
-  --r:        12px;
-  --sh:       0 8px 32px rgba(0,0,0,.65);
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#060b10;--s1:#0a1018;--s2:#0e1822;--s3:#13202d;
+  --b1:#1c2f40;--b2:#263f54;
+  --gold:#c9a44a;--gold2:#e2ba6a;--gold3:#f0d898;
+  --cr:#8a1818;--cr2:#b52222;
+  --text:#d4c8b0;--text2:#9e8e72;--muted:#586878;
+  --white:#ece4d2;--r:12px;--sh:0 8px 28px rgba(0,0,0,.6);
 }
-html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: "Inter", system-ui, sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
-  min-height: 100vh;
-  background-image:
-    radial-gradient(ellipse 140% 50% at 50% 0%, rgba(139,26,26,.2) 0%, transparent 55%);
-  overflow-x: hidden;
-}
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent;}
+body{background:var(--bg);color:var(--text);font-family:"DM Sans",system-ui,sans-serif;font-size:14px;line-height:1.6;min-height:100vh;overflow-x:hidden;
+  background-image:radial-gradient(ellipse 140% 45% at 50% 0%,rgba(138,24,24,.22) 0%,transparent 55%);}
 
-/* ════════════════════════════════
-   GATE
-════════════════════════════════ */
-#gate {
-  position: fixed; inset: 0; z-index: 9999;
-  display: flex; align-items: center; justify-content: center;
-  padding: 20px;
-  background:
-    radial-gradient(ellipse 100% 55% at 50% 25%, rgba(139,26,26,.28) 0%, transparent 60%),
-    #050a0f;
-}
-#gate::before {
-  content: "";
-  position: absolute; inset: 0; pointer-events: none;
-  background-image:
-    repeating-linear-gradient(0deg, transparent 0, transparent 59px, rgba(201,168,76,.035) 60px),
-    repeating-linear-gradient(90deg, transparent 0, transparent 59px, rgba(201,168,76,.035) 60px);
-}
-.gate-card {
-  position: relative;
-  background: linear-gradient(155deg, #0f1e2e 0%, #090f18 70%);
-  border: 1px solid var(--b2);
-  border-radius: 18px;
-  padding: clamp(32px, 6vw, 52px) clamp(24px, 6vw, 44px);
-  width: 100%; max-width: 420px;
-  box-shadow: var(--sh), 0 0 60px rgba(139,26,26,.18), inset 0 1px 0 rgba(201,168,76,.1);
-  text-align: center;
-}
-.gate-card::before {
-  content: "";
-  position: absolute; top: 0; left: 16px; right: 16px; height: 1px;
-  background: linear-gradient(90deg, transparent, var(--gold2), transparent);
-  opacity: .45;
-}
-.gate-eyebrow {
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(10px,2.5vw,12px); letter-spacing: .2em;
-  text-transform: uppercase; color: var(--gold); opacity: .75;
-  margin-bottom: 14px;
-}
-.gate-d3 {
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(52px,14vw,72px); font-weight: 700; line-height: 1;
-  background: linear-gradient(150deg, var(--gold) 20%, var(--gold3) 60%, var(--gold) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-  filter: drop-shadow(0 2px 14px rgba(201,168,76,.35));
-  margin-bottom: 4px;
-}
-.gate-name {
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(14px,4vw,18px); letter-spacing: .1em;
-  color: var(--text2); margin-bottom: 4px;
-}
-.gate-rule {
-  width: 48px; height: 1px; margin: 18px auto;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
-}
-.gate-hint { font-size: 12px; color: var(--muted); margin-bottom: 22px; letter-spacing: .03em; }
-.gate-label {
-  display: block; font-size: 10px; font-weight: 700; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--muted); text-align: left; margin-bottom: 8px;
-}
-.gate-input {
-  width: 100%; padding: 15px 18px;
-  background: rgba(5,10,15,.85);
-  border: 1px solid var(--b2); border-radius: 8px;
-  color: var(--white); font-size: 16px; /* 16px prevents iOS zoom */
-  letter-spacing: .1em; outline: none;
-  transition: border-color .2s, box-shadow .2s;
-  margin-bottom: 14px;
-  -webkit-appearance: none;
-}
-.gate-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,.14); }
-.gate-input.err { border-color: #d04040; box-shadow: 0 0 0 3px rgba(208,64,64,.12); }
-.gate-btn {
-  width: 100%; padding: 16px;
-  background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson2) 50%, var(--crimson) 100%);
-  border: 1px solid rgba(201,168,76,.28); border-radius: 8px;
-  color: var(--gold3); font-family: "Cormorant Garamond", serif;
-  font-size: clamp(13px,3.5vw,16px); font-weight: 700;
-  letter-spacing: .16em; text-transform: uppercase;
-  cursor: pointer; transition: all .2s;
-  box-shadow: 0 4px 20px rgba(139,26,26,.45);
-  -webkit-appearance: none; touch-action: manipulation;
-  min-height: 52px; /* large tap target */
-}
-.gate-btn:hover { background: linear-gradient(135deg, #a82020 0%, #c0302b 50%, #a82020 100%); transform: translateY(-1px); }
-.gate-btn:active { transform: scale(.98); }
-.gate-err { font-size: 12px; color: #e05050; margin-top: 12px; display: none; min-height: 18px; }
-.gate-err.show { display: block; }
+/* ── GATE ── */
+#gate{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;
+  background:radial-gradient(ellipse 110% 50% at 50% 22%,rgba(138,24,24,.26) 0%,transparent 60%),#060b10;}
+#gate::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:repeating-linear-gradient(0deg,transparent 0,transparent 59px,rgba(201,164,74,.03) 60px),
+  repeating-linear-gradient(90deg,transparent 0,transparent 59px,rgba(201,164,74,.03) 60px);}
+.gc{position:relative;background:linear-gradient(150deg,#0f1e2c 0%,#090f18 65%);
+  border:1px solid var(--b2);border-radius:18px;
+  padding:clamp(28px,6vw,48px) clamp(22px,6vw,42px);
+  width:100%;max-width:400px;
+  box-shadow:var(--sh),0 0 50px rgba(138,24,24,.16),inset 0 1px 0 rgba(201,164,74,.1);text-align:center;}
+.gc::before{content:"";position:absolute;top:0;left:14px;right:14px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold2),transparent);opacity:.4;}
+.g-eye{font-family:"Playfair Display",serif;font-size:clamp(9px,2.5vw,11px);letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:12px;}
+.g-d3{font-family:"Playfair Display",serif;font-size:clamp(48px,13vw,68px);font-weight:700;line-height:1;
+  background:linear-gradient(145deg,var(--gold) 20%,var(--gold3) 60%,var(--gold) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 2px 12px rgba(201,164,74,.32));margin-bottom:4px;}
+.g-name{font-family:"Playfair Display",serif;font-size:clamp(13px,3.5vw,17px);
+  font-style:italic;color:var(--text2);margin-bottom:3px;}
+.g-rule{width:44px;height:1px;margin:16px auto;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.g-hint{font-size:12px;color:var(--muted);margin-bottom:20px;letter-spacing:.02em;}
+.g-lbl{display:block;font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:left;margin-bottom:7px;}
+.g-inp{width:100%;padding:14px 16px;background:rgba(6,11,16,.9);border:1px solid var(--b2);border-radius:8px;
+  color:var(--white);font-size:16px;font-family:"DM Sans",sans-serif;letter-spacing:.06em;
+  outline:none;transition:border-color .2s,box-shadow .2s;margin-bottom:12px;-webkit-appearance:none;}
+.g-inp:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,164,74,.13);}
+.g-inp.err{border-color:#d04040;}
+.g-btn{width:100%;padding:15px;
+  background:linear-gradient(135deg,var(--cr) 0%,var(--cr2) 50%,var(--cr) 100%);
+  border:1px solid rgba(201,164,74,.25);border-radius:8px;
+  color:var(--gold3);font-family:"Playfair Display",serif;font-size:clamp(12px,3vw,15px);
+  font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  cursor:pointer;transition:all .2s;box-shadow:0 4px 18px rgba(138,24,24,.42);
+  -webkit-appearance:none;touch-action:manipulation;min-height:50px;}
+.g-btn:active{transform:scale(.98);}
+.g-err{font-size:11.5px;color:#e05050;margin-top:10px;display:none;min-height:16px;}
+.g-err.show{display:block;}
 
-/* ════════════════════════════════
-   APP SHELL
-════════════════════════════════ */
-#app { display: none; }
+/* ── APP ── */
+#app{display:none;}
 
-/* ── Header ── */
-.hdr {
-  position: relative; overflow: hidden;
-  background: linear-gradient(180deg, #0d0505 0%, #090f18 100%);
-  border-bottom: 1px solid var(--b1);
-}
-.hdr-bg {
-  position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(ellipse 90% 120% at 50% -20%, rgba(139,26,26,.38) 0%, transparent 65%);
-}
-.hdr-inner {
-  position: relative; max-width: 1440px; margin: 0 auto;
-  padding: clamp(20px,4vw,36px) clamp(16px,4vw,40px);
-  display: flex; align-items: center; gap: clamp(14px,3vw,28px);
-}
-.hdr-medallion {
-  flex-shrink: 0;
-  width: clamp(52px,10vw,72px); height: clamp(52px,10vw,72px);
-  border-radius: 50%;
-  border: 1.5px solid var(--gold);
-  display: flex; align-items: center; justify-content: center;
-  background: radial-gradient(circle, rgba(139,26,26,.45) 0%, rgba(5,10,15,.85) 100%);
-  box-shadow: 0 0 28px rgba(201,168,76,.18), inset 0 0 18px rgba(139,26,26,.2);
-}
-.hdr-medallion-text {
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(18px,4vw,24px); font-weight: 700;
-  background: linear-gradient(135deg, var(--gold), var(--gold3));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.hdr-text {}
-.hdr-eyebrow {
-  font-size: 10px; font-weight: 700; letter-spacing: .18em;
-  text-transform: uppercase; color: var(--gold); opacity: .7; margin-bottom: 5px;
-}
-.hdr h1 {
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(18px,4.5vw,32px); font-weight: 700;
-  letter-spacing: .03em; color: var(--white); line-height: 1.15; margin-bottom: 6px;
-}
-.hdr h1 em {
-  font-style: italic;
-  background: linear-gradient(135deg, var(--gold), var(--gold3));
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.hdr-sub { font-size: 12px; color: var(--muted); line-height: 1.5; max-width: 560px; }
-.hdr-line {
-  position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent 0%, var(--gold) 30%, var(--gold) 70%, transparent 100%);
-  opacity: .15;
-}
+/* ── HEADER ── */
+.hdr{position:relative;overflow:hidden;background:linear-gradient(180deg,#0c0404 0%,#090f18 100%);border-bottom:1px solid var(--b1);}
+.hdr-bg{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 85% 110% at 50% -15%,rgba(138,24,24,.36) 0%,transparent 62%);}
+.hdr-inner{position:relative;max-width:1440px;margin:0 auto;
+  padding:clamp(18px,3.5vw,32px) clamp(16px,4vw,40px);
+  display:flex;align-items:center;gap:clamp(12px,2.5vw,24px);}
+.hdr-med{flex-shrink:0;width:clamp(48px,9vw,66px);height:clamp(48px,9vw,66px);border-radius:50%;
+  border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle,rgba(138,24,24,.42) 0%,rgba(6,11,16,.85) 100%);
+  box-shadow:0 0 24px rgba(201,164,74,.16),inset 0 0 16px rgba(138,24,24,.18);}
+.hdr-med-txt{font-family:"Playfair Display",serif;font-size:clamp(16px,3.5vw,22px);font-weight:700;
+  background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;background-clip:text;}
+.hdr-eye{font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.65;margin-bottom:4px;}
+.hdr h1{font-family:"Playfair Display",serif;font-size:clamp(17px,4vw,30px);font-weight:700;
+  letter-spacing:.02em;color:var(--white);line-height:1.15;margin-bottom:5px;}
+.hdr h1 em{font-style:italic;background:linear-gradient(135deg,var(--gold),var(--gold3));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hdr-sub{font-size:11.5px;color:var(--muted);line-height:1.5;}
+.hdr-line{position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent 0%,var(--gold) 30%,var(--gold) 70%,transparent 100%);opacity:.14;}
 
-/* ── KPI Grid ── */
-.kpi-strip {
-  background: var(--s1);
-  border-bottom: 1px solid var(--b1);
-  padding: 0 clamp(16px,4vw,40px);
-}
-.kpi-grid {
-  max-width: 1440px; margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0;
-}
-@media (min-width: 560px)  { .kpi-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (min-width: 900px)  { .kpi-grid { grid-template-columns: repeat(6, 1fr); } }
-.kpi-cell {
-  padding: 18px 16px;
-  border-bottom: 1px solid var(--b1);
-  border-right: 1px solid var(--b1);
-}
-.kpi-cell:nth-child(2n)   { border-right: none; }
-@media (min-width: 560px)  {
-  .kpi-cell:nth-child(2n)  { border-right: 1px solid var(--b1); }
-  .kpi-cell:nth-child(3n)  { border-right: none; }
-}
-@media (min-width: 900px)  {
-  .kpi-cell:nth-child(3n)  { border-right: 1px solid var(--b1); }
-  .kpi-cell { border-bottom: none; }
-  .kpi-cell:last-child     { border-right: none; }
-}
-.kpi-label {
-  font-size: 9px; font-weight: 700; letter-spacing: .16em;
-  text-transform: uppercase; color: var(--muted); margin-bottom: 5px;
-}
-.kpi-val {
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(20px,4vw,26px); font-weight: 700; line-height: 1;
-  background: linear-gradient(135deg, var(--gold) 0%, var(--gold3) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.kpi-sub { font-size: 10px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+/* ── FILTER BAR ── */
+.filter-bar{background:var(--s1);border-bottom:1px solid var(--b1);padding:0 clamp(16px,4vw,40px);}
+.filter-inner{max-width:1440px;margin:0 auto;display:flex;align-items:center;
+  gap:12px;padding:12px 0;flex-wrap:wrap;}
+.filter-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);flex-shrink:0;}
+.filter-pills{display:flex;gap:6px;}
+.pill{padding:7px 16px;border-radius:20px;border:1px solid var(--b2);background:transparent;
+  color:var(--text2);font-family:"DM Sans",sans-serif;font-size:12px;font-weight:600;
+  letter-spacing:.04em;cursor:pointer;transition:all .18s;white-space:nowrap;
+  touch-action:manipulation;min-height:36px;-webkit-appearance:none;}
+.pill:hover{border-color:var(--gold);color:var(--gold);}
+.pill.active{background:rgba(201,164,74,.12);border-color:var(--gold);color:var(--gold);}
 
-/* ── Tab Nav ── */
-.tabs-wrap {
-  background: var(--s1);
-  border-bottom: 1px solid var(--b1);
-  padding: 0 clamp(16px,4vw,40px);
-  position: sticky; top: 0; z-index: 100;
-  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
-}
-.tabs {
-  max-width: 1440px; margin: 0 auto;
-  display: flex; gap: 0;
-  overflow-x: auto; -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-.tabs::-webkit-scrollbar { display: none; }
-.tab-btn {
-  flex-shrink: 0;
-  padding: 14px 20px;
-  font-size: 12px; font-weight: 700; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--muted);
-  background: none; border: none; border-bottom: 2px solid transparent;
-  cursor: pointer; transition: color .2s, border-color .2s;
-  white-space: nowrap;
-  touch-action: manipulation; min-height: 48px;
-}
-.tab-btn:hover { color: var(--text); }
-.tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
-.tab-icon { margin-right: 6px; font-size: 13px; }
+/* ── KPI GRID ── */
+.kpi-strip{background:var(--s1);border-bottom:1px solid var(--b1);padding:0 clamp(16px,4vw,40px);}
+.kpi-grid{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);}
+@media(min-width:560px){.kpi-grid{grid-template-columns:repeat(3,1fr);}}
+@media(min-width:860px){.kpi-grid{grid-template-columns:repeat(5,1fr);}}
+.kpi-cell{padding:16px 14px;border-bottom:1px solid var(--b1);border-right:1px solid var(--b1);}
+.kpi-cell:nth-child(2n){border-right:none;}
+@media(min-width:560px){.kpi-cell:nth-child(2n){border-right:1px solid var(--b1);}.kpi-cell:nth-child(3n){border-right:none;}}
+@media(min-width:860px){.kpi-cell:nth-child(3n){border-right:1px solid var(--b1);}.kpi-cell{border-bottom:none;}.kpi-cell:last-child{border-right:none;}}
+.kpi-lbl{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.kpi-val{font-family:"Playfair Display",serif;font-size:clamp(18px,3.5vw,24px);font-weight:700;line-height:1;
+  background:linear-gradient(135deg,var(--gold) 0%,var(--gold3) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.kpi-sub{font-size:10px;color:var(--muted);margin-top:3px;line-height:1.4;}
 
-/* ── Tab Panels ── */
-.panel { display: none; }
-.panel.active { display: block; }
-.main-wrap { max-width: 1440px; margin: 0 auto; padding: clamp(20px,4vw,32px) clamp(16px,4vw,40px) 56px; }
+/* ── TABS ── */
+.tabs-wrap{background:var(--s1);border-bottom:1px solid var(--b1);
+  padding:0 clamp(16px,4vw,40px);position:sticky;top:0;z-index:100;
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);}
+.tabs{max-width:1440px;margin:0 auto;display:flex;overflow-x:auto;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.tabs::-webkit-scrollbar{display:none;}
+.tab-btn{flex-shrink:0;padding:13px 18px;font-size:11.5px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+  background:none;border:none;border-bottom:2px solid transparent;
+  cursor:pointer;transition:color .18s,border-color .18s;
+  white-space:nowrap;touch-action:manipulation;min-height:46px;
+  font-family:"DM Sans",sans-serif;}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
 
-/* ── Section heading ── */
-.sec-head {
-  display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
-}
-.sec-head::before {
-  content: ""; display: block; width: 3px; height: 20px;
-  border-radius: 2px;
-  background: linear-gradient(180deg, var(--gold), var(--crimson));
-}
-.sec-head h2 {
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(15px,3.5vw,18px); font-weight: 700;
-  color: var(--white); letter-spacing: .05em;
-}
-.sec-badge {
-  font-size: 9.5px; font-weight: 700; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--gold);
-  border: 1px solid rgba(201,168,76,.22);
-  border-radius: 20px; padding: 3px 10px;
-  background: rgba(201,168,76,.06);
-}
+/* ── PANELS ── */
+.panel{display:none;}
+.panel.active{display:block;}
+.wrap{max-width:1440px;margin:0 auto;padding:clamp(18px,3.5vw,28px) clamp(16px,4vw,40px) 56px;}
 
-/* ── Map Card ── */
-.map-card {
-  background: var(--s1); border: 1px solid var(--b1);
-  border-radius: var(--r); overflow: hidden;
-  box-shadow: var(--sh); margin-bottom: 24px;
-}
-.map-toolbar {
-  padding: 12px 16px; border-bottom: 1px solid var(--b1);
-  background: var(--s2);
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: 8px;
-}
-.map-hint-text { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
-.map-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; box-shadow: 0 0 6px rgba(201,168,76,.5); }
-.map-legend {
-  display: flex; align-items: center; gap: 8px; font-size: 10px; color: var(--muted);
-}
-.legend-bar {
-  width: 80px; height: 6px; border-radius: 3px;
-  background: linear-gradient(90deg, #3a0a0a, var(--crimson), var(--gold), var(--gold3));
-}
-.plotly-graph-div {
-  height: clamp(340px, 55vw, 820px) !important;
-  width: 100% !important;
-}
+/* ── SECTION HEAD ── */
+.sh{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.sh::before{content:"";display:block;width:3px;height:18px;border-radius:2px;
+  background:linear-gradient(180deg,var(--gold),var(--cr));}
+.sh h2{font-family:"Playfair Display",serif;font-size:clamp(14px,3vw,17px);font-weight:700;
+  color:var(--white);letter-spacing:.03em;}
+.sh-badge{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--gold);border:1px solid rgba(201,164,74,.2);border-radius:20px;
+  padding:3px 10px;background:rgba(201,164,74,.05);}
 
-/* ── Table Card ── */
-.tbl-card {
-  background: var(--s1); border: 1px solid var(--b1);
-  border-radius: var(--r); overflow: hidden;
-  box-shadow: var(--sh);
-}
-.tbl-head {
-  padding: 16px 20px; border-bottom: 1px solid var(--b1);
-  background: var(--s2);
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;
-}
-.tbl-head h3 {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 16px; font-weight: 700; color: var(--white); letter-spacing: .05em;
-}
-.tbl-note { font-size: 11px; color: var(--muted); font-style: italic; }
-.tbl-scroll-wrap {
-  position: relative; overflow: hidden;
-}
-.tbl-scroll-wrap::after {
-  content: "";
-  position: absolute; top: 0; right: 0; bottom: 0; width: 32px;
-  background: linear-gradient(90deg, transparent, rgba(9,15,24,.9));
-  pointer-events: none;
-}
-.tbl-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: var(--b2) transparent; }
-.tbl-scroll::-webkit-scrollbar { height: 4px; }
-.tbl-scroll::-webkit-scrollbar-track { background: transparent; }
-.tbl-scroll::-webkit-scrollbar-thumb { background: var(--b2); border-radius: 2px; }
-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 680px; }
-thead th {
-  background: var(--s2); color: var(--gold);
-  font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-  padding: 10px 14px; text-align: left;
-  border-bottom: 1px solid var(--b2); white-space: nowrap;
-  /* sticky first two cols */
-}
-th.sticky, td.sticky {
-  position: sticky; left: 0; z-index: 2;
-  background: var(--s2);
-}
-td.sticky { background: var(--s1); }
-tr:hover td.sticky { background: #0d1c2c; }
-th.sticky2, td.sticky2 {
-  position: sticky; left: 44px; z-index: 2;
-  background: var(--s2);
-  box-shadow: 2px 0 6px rgba(0,0,0,.3);
-}
-td.sticky2 { background: var(--s1); }
-tr:hover td.sticky2 { background: #0d1c2c; }
-.nr { text-align: right; font-variant-numeric: tabular-nums; }
-tbody tr { border-bottom: 1px solid rgba(26,46,66,.7); transition: background .1s; }
-tbody tr:hover { background: rgba(201,168,76,.04); }
-tbody td { padding: 11px 14px; color: var(--text); vertical-align: middle; }
-.rank-cell {
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 700; font-size: 15px; color: var(--muted);
-  width: 44px; text-align: right; padding-right: 10px;
-}
-tbody tr:nth-child(1) .rank-cell { color: #ffd700; }
-tbody tr:nth-child(2) .rank-cell { color: #c0c0c0; }
-tbody tr:nth-child(3) .rank-cell { color: #cd7f32; }
-.gross-cell { font-weight: 700; color: var(--gold2); white-space: nowrap; }
-.metro-cell { font-weight: 600; color: var(--white); white-space: nowrap; }
-.theater-cell { color: var(--muted); font-size: 12px; max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* ── MAP CARD ── */
+.map-card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:22px;}
+.map-bar{padding:10px 14px;border-bottom:1px solid var(--b1);background:var(--s2);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.map-hint{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px;}
+.map-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px rgba(201,164,74,.5);}
+.map-legend{display:flex;align-items:center;gap:7px;font-size:10px;color:var(--muted);}
+.leg-bar{width:70px;height:5px;border-radius:3px;background:linear-gradient(90deg,#3a0808,var(--cr),var(--gold),var(--gold3));}
+#map-plotly{width:100%;}
 
-/* ── Stats Panel ── */
-.stats-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-}
-@media (min-width: 800px) { .stats-grid { grid-template-columns: 1fr 1fr; } }
-.stat-card {
-  background: var(--s1); border: 1px solid var(--b1);
-  border-radius: var(--r); overflow: hidden;
-  box-shadow: var(--sh);
-}
-.stat-card-head {
-  padding: 14px 18px; border-bottom: 1px solid var(--b1);
-  background: var(--s2);
-}
-.stat-card-head h3 {
-  font-family: "Cormorant Garamond", serif;
-  font-size: 14px; font-weight: 700; color: var(--white); letter-spacing: .05em;
-}
-.stat-card-body { padding: 18px; }
+/* ── TABLE CARD ── */
+.tcard{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);}
+.tcard-head{padding:14px 18px;border-bottom:1px solid var(--b1);background:var(--s2);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.tcard-head h3{font-family:"Playfair Display",serif;font-size:15px;font-weight:700;color:var(--white);}
+.tcard-note{font-size:11px;color:var(--muted);font-style:italic;}
+.tbl-wrap{position:relative;overflow:hidden;}
+.tbl-wrap::after{content:"";position:absolute;top:0;right:0;bottom:0;width:28px;
+  background:linear-gradient(90deg,transparent,rgba(10,16,24,.9));pointer-events:none;}
+.tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--b2) transparent;}
+.tbl-scroll::-webkit-scrollbar{height:3px;}
+.tbl-scroll::-webkit-scrollbar-thumb{background:var(--b2);border-radius:2px;}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:600px;}
+thead th{background:var(--s2);color:var(--gold);font-size:9px;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;padding:10px 13px;text-align:left;
+  border-bottom:1px solid var(--b2);white-space:nowrap;}
+th.st,td.st{position:sticky;left:0;z-index:2;background:var(--s2);}
+td.st{background:var(--s1);}
+tr:hover td.st{background:#0e1d2a;}
+th.st2,td.st2{position:sticky;left:42px;z-index:2;background:var(--s2);
+  box-shadow:2px 0 8px rgba(0,0,0,.35);}
+td.st2{background:var(--s1);}
+tr:hover td.st2{background:#0e1d2a;}
+.nr{text-align:right;font-variant-numeric:tabular-nums;}
+tbody tr{border-bottom:1px solid rgba(28,47,64,.7);transition:background .1s;}
+tbody tr:hover{background:rgba(201,164,74,.04);}
+tbody td{padding:10px 13px;color:var(--text);vertical-align:middle;}
+.rnk{font-family:"Playfair Display",serif;font-weight:700;font-size:14px;color:var(--muted);width:42px;text-align:right;padding-right:8px;}
+tbody tr:nth-child(1) .rnk{color:#ffd700;}
+tbody tr:nth-child(2) .rnk{color:#c0c0c0;}
+tbody tr:nth-child(3) .rnk{color:#cd7f32;}
+.gc2{font-weight:700;color:var(--gold2);white-space:nowrap;}
+.mc{font-weight:600;color:var(--white);white-space:nowrap;}
+.tc{color:var(--muted);font-size:11.5px;max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
-/* Bar chart */
-.bar-row {
-  display: flex; align-items: center; gap: 10px;
-  margin-bottom: 10px; font-size: 12px;
-}
-.bar-label {
-  width: 110px; flex-shrink: 0; color: var(--text2); font-size: 11px;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: right;
-}
-.bar-track {
-  flex: 1; height: 22px; background: var(--s3); border-radius: 4px; overflow: hidden;
-  position: relative;
-}
-.bar-fill {
-  height: 100%; border-radius: 4px;
-  background: linear-gradient(90deg, var(--crimson), var(--gold));
-  transition: width .6s cubic-bezier(.4,0,.2,1);
-  display: flex; align-items: center; justify-content: flex-end; padding-right: 6px;
-  min-width: 2px;
-}
-.bar-val {
-  font-size: 10px; font-weight: 700; color: rgba(255,255,255,.85);
-  white-space: nowrap;
-}
+/* ── STATS ── */
+.stats-grid{display:grid;grid-template-columns:1fr;gap:18px;}
+@media(min-width:800px){.stats-grid{grid-template-columns:1fr 1fr;}}
+.scard{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);}
+.scard-h{padding:13px 16px;border-bottom:1px solid var(--b1);background:var(--s2);}
+.scard-h h3{font-family:"Playfair Display",serif;font-size:14px;font-weight:700;color:var(--white);}
+.scard-b{padding:16px;}
+.br{display:flex;align-items:center;gap:8px;margin-bottom:9px;font-size:12px;}
+.bl{width:108px;flex-shrink:0;color:var(--text2);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:right;}
+.bt{flex:1;height:20px;background:var(--s3);border-radius:3px;overflow:hidden;}
+.bf{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--cr),var(--gold));
+  display:flex;align-items:center;justify-content:flex-end;padding-right:5px;min-width:2px;}
+.bv{font-size:9.5px;font-weight:700;color:rgba(255,255,255,.8);white-space:nowrap;}
+.cr{display:flex;align-items:center;justify-content:space-between;padding:8px 0;
+  border-bottom:1px solid rgba(28,47,64,.55);font-size:12px;}
+.cr:last-child{border-bottom:none;}
+.cn{color:var(--text2);font-weight:500;}
+.cbw{flex:1;margin:0 10px;height:4px;background:var(--s3);border-radius:2px;overflow:hidden;}
+.cb{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--cr),var(--gold));}
+.cv{color:var(--gold2);font-weight:700;white-space:nowrap;font-size:11.5px;}
+.ins{list-style:none;}
+.in{display:flex;gap:10px;padding:11px 0;border-bottom:1px solid rgba(28,47,64,.55);font-size:12.5px;}
+.in:last-child{border-bottom:none;}
+.ii{font-size:15px;flex-shrink:0;margin-top:1px;}
+.it{color:var(--text2);line-height:1.5;}
+.it strong{color:var(--white);font-weight:600;}
 
-/* Circuit breakdown */
-.circuit-row {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 9px 0; border-bottom: 1px solid rgba(26,46,66,.6);
-  font-size: 12.5px;
-}
-.circuit-row:last-child { border-bottom: none; }
-.circuit-name { color: var(--text2); font-weight: 500; }
-.circuit-bar-wrap { flex: 1; margin: 0 12px; height: 4px; background: var(--s3); border-radius: 2px; overflow: hidden; }
-.circuit-bar { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--crimson), var(--gold)); }
-.circuit-val { color: var(--gold2); font-weight: 700; white-space: nowrap; font-size: 12px; }
-
-/* Insights */
-.insight-list { list-style: none; }
-.insight-item {
-  display: flex; gap: 12px;
-  padding: 12px 0; border-bottom: 1px solid rgba(26,46,66,.6); font-size: 12.5px;
-}
-.insight-item:last-child { border-bottom: none; }
-.insight-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-.insight-text { color: var(--text2); line-height: 1.5; }
-.insight-text strong { color: var(--white); font-weight: 600; }
-
-/* ── Footer ── */
-.footer-note {
-  font-size: 11px; color: var(--muted);
-  border-top: 1px solid var(--b1);
-  padding-top: 18px; margin-top: 8px; line-height: 1.6;
-}
-.footer-note strong { color: var(--text2); font-weight: 500; }
+/* ── FOOTER ── */
+.fn{font-size:11px;color:var(--muted);border-top:1px solid var(--b1);padding-top:16px;margin-top:6px;line-height:1.6;}
+.fn strong{color:var(--text2);font-weight:500;}
 </style>
 </head>
 <body>
 
-<!-- ════ GATE ════ -->
+<!-- GATE -->
 <div id="gate">
-  <div class="gate-card">
-    <div class="gate-eyebrow">Box Office Intelligence</div>
-    <div class="gate-d3">D3</div>
-    <div class="gate-name">Drishyam 3</div>
-    <div class="gate-rule"></div>
-    <div class="gate-hint">North America Collections — Enter access code</div>
-    <label class="gate-label" for="pw">Access Code</label>
-    <input type="password" id="pw" class="gate-input" placeholder="Enter access code" autocomplete="off" spellcheck="false" inputmode="text">
-    <button class="gate-btn" onclick="checkPw()">Enter Dashboard</button>
-    <div class="gate-err" id="gate-err">Incorrect access code. Please try again.</div>
+  <div class="gc">
+    <div class="g-eye">Box Office Intelligence</div>
+    <div class="g-d3">D3</div>
+    <div class="g-name">Drishyam 3</div>
+    <div class="g-rule"></div>
+    <div class="g-hint">North America Collections — Enter access code</div>
+    <label class="g-lbl" for="pw">Access Code</label>
+    <input type="password" id="pw" class="g-inp" placeholder="Enter access code" autocomplete="off" spellcheck="false">
+    <button class="g-btn" onclick="checkPw()">Enter Dashboard</button>
+    <div class="g-err" id="g-err">Incorrect access code. Please try again.</div>
   </div>
 </div>
 
-<!-- ════ APP ════ -->
+<!-- APP -->
 <div id="app">
 
-  <header class="hdr">
-    <div class="hdr-bg"></div>
-    <div class="hdr-inner">
-      <div class="hdr-medallion"><span class="hdr-medallion-text">D3</span></div>
-      <div class="hdr-text">
-        <div class="hdr-eyebrow">North America Box Office · Date Range Report</div>
-        <h1><em>Drishyam 3</em> — Collections by Metro</h1>
-        <p class="hdr-sub">Hover bubbles for detail · Tap tabs to switch views</p>
-      </div>
-    </div>
-    <div class="hdr-line"></div>
-  </header>
-
-  <div class="kpi-strip">
-    <div class="kpi-grid">
-      <div class="kpi-cell">
-        <div class="kpi-label">Total Gross</div>
-        <div class="kpi-val" style="font-size:clamp(16px,3.5vw,22px);">$1,117,589</div>
-        <div class="kpi-sub">USD · North America</div>
-      </div>
-      <div class="kpi-cell">
-        <div class="kpi-label">Theaters</div>
-        <div class="kpi-val">308</div>
-        <div class="kpi-sub">US &amp; Canada</div>
-      </div>
-      <div class="kpi-cell">
-        <div class="kpi-label">Screens</div>
-        <div class="kpi-val">5,012</div>
-        <div class="kpi-sub">Total screens</div>
-      </div>
-      <div class="kpi-cell">
-        <div class="kpi-label">Metros</div>
-        <div class="kpi-val">101</div>
-        <div class="kpi-sub">Markets</div>
-      </div>
-      <div class="kpi-cell">
-        <div class="kpi-label">Top Metro</div>
-        <div class="kpi-val" style="font-size:clamp(14px,3vw,18px);padding-top:3px;">Toronto, ON</div>
-        <div class="kpi-sub">$230,897 · 20.7%</div>
-      </div>
-      <div class="kpi-cell">
-        <div class="kpi-label">#1 Theater</div>
-        <div class="kpi-val" style="font-size:clamp(12px,2.5vw,15px);padding-top:4px;line-height:1.25;">York Cinema</div>
-        <div class="kpi-sub">Richmond Hill · $98,191</div>
-      </div>
+<header class="hdr">
+  <div class="hdr-bg"></div>
+  <div class="hdr-inner">
+    <div class="hdr-med"><span class="hdr-med-txt">D3</span></div>
+    <div>
+      <div class="hdr-eye">North America Box Office &middot; Date Range Report</div>
+      <h1><em>Drishyam 3</em> &mdash; Collections by Metro</h1>
+      <p class="hdr-sub">Bubble size = metro gross &middot; Tap tabs to switch views &middot; Use filter to compare markets</p>
     </div>
   </div>
+  <div class="hdr-line"></div>
+</header>
 
-  <!-- Tab Nav -->
-  <div class="tabs-wrap">
-    <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('map',this)"><span class="tab-icon">🗺</span>Map</button>
-      <button class="tab-btn" onclick="switchTab('table',this)"><span class="tab-icon">📋</span>Top 20</button>
-      <button class="tab-btn" onclick="switchTab('stats',this)"><span class="tab-icon">📊</span>Insights</button>
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-inner">
+    <span class="filter-label">Market</span>
+    <div class="filter-pills">
+      <button class="pill active" onclick="setFilter('all',this)">🌎 All Markets</button>
+      <button class="pill" onclick="setFilter('US',this)">🇺🇸 United States</button>
+      <button class="pill" onclick="setFilter('CA',this)">🇨🇦 Canada</button>
     </div>
   </div>
+</div>
 
-  <!-- MAP PANEL -->
-  <div id="panel-map" class="panel active">
-    <div class="main-wrap">
-      <div class="sec-head">
-        <h2>Geographic Distribution</h2>
-        <span class="sec-badge">101 Metros</span>
-      </div>
-      <div class="map-card">
-        <div class="map-toolbar">
-          <div class="map-hint-text"><div class="map-dot"></div>Bubble area = metro gross · Hover / tap for detail</div>
-          <div class="map-legend">
-            <span>Low</span>
-            <div class="legend-bar"></div>
-            <span>High</span>
-          </div>
-        </div>
-        <div id="474295db-649b-41e7-a7c4-3e3fe9e9673b" class="plotly-graph-div" style="width:100%;"></div>
-      </div>
-      <p class="footer-note"><strong>Note:</strong> Metro coordinates are approximate centroids. Gross from theater-level records. Total: <strong>$1,117,589</strong> · <strong>308 theaters</strong> · <strong>5,012 screens</strong>.</p>
-    </div>
+<!-- KPI STRIP -->
+<div class="kpi-strip">
+  <div class="kpi-grid">
+    <div class="kpi-cell"><div class="kpi-lbl">Total Gross</div><div class="kpi-val" id="kv-gross" style="font-size:clamp(14px,3vw,20px);">$1,117,589</div><div class="kpi-sub" id="kv-gross-sub">USD · North America</div></div>
+    <div class="kpi-cell"><div class="kpi-lbl">Theaters</div><div class="kpi-val" id="kv-thtr">308</div><div class="kpi-sub" id="kv-thtr-sub">US &amp; Canada</div></div>
+    <div class="kpi-cell"><div class="kpi-lbl">Metros</div><div class="kpi-val" id="kv-met">101</div><div class="kpi-sub" id="kv-met-sub">Markets active</div></div>
+    <div class="kpi-cell"><div class="kpi-lbl">Top Metro</div><div class="kpi-val" id="kv-top" style="font-size:clamp(13px,2.5vw,17px);padding-top:3px;">Toronto, ON</div><div class="kpi-sub" id="kv-top-sub">$230,897 · 20.7%</div></div>
+    <div class="kpi-cell"><div class="kpi-lbl">#1 Theater</div><div class="kpi-val" style="font-size:clamp(11px,2vw,14px);padding-top:4px;line-height:1.25;">York Cinema</div><div class="kpi-sub">Richmond Hill · $98,191</div></div>
   </div>
+</div>
 
-  <!-- TABLE PANEL -->
-  <div id="panel-table" class="panel">
-    <div class="main-wrap">
-      <div class="sec-head">
-        <h2>Top 20 Metros</h2>
-        <span class="sec-badge">Ranked by Gross</span>
-      </div>
-      <div class="tbl-card">
-        <div class="tbl-head">
-          <h3>Metro Performance</h3>
-          <span class="tbl-note">← Scroll right for more columns</span>
-        </div>
-        <div class="tbl-scroll-wrap">
-          <div class="tbl-scroll">
-            <table>
-              <thead>
-                <tr>
-                  <th class="sticky nr">#</th>
-                  <th class="sticky2">Metro</th>
-                  <th class="nr">Gross</th>
-                  <th class="nr">Theaters</th>
-                  <th class="nr">Screens</th>
-                  <th class="nr">Avg/Theater</th>
-                  <th>Top Theater</th>
-                  <th class="nr">Top Gross</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td class="rank-cell sticky nr">1</td><td class="metro-cell sticky2">Toronto, ON</td><td class="gross-cell nr">$230,897</td><td class="nr">4</td><td class="nr">15</td><td class="nr">$57,724</td><td class="theater-cell">York Cinema (Richmond Hill, ON)</td><td class="gross-cell nr">$98,191</td></tr>
-                <tr><td class="rank-cell sticky nr">2</td><td class="metro-cell sticky2">New York</td><td class="gross-cell nr">$84,646</td><td class="nr">18</td><td class="nr">251</td><td class="nr">$4,703</td><td class="theater-cell">Regal Commerce Center (NJ)</td><td class="gross-cell nr">$15,364</td></tr>
-                <tr><td class="rank-cell sticky nr">3</td><td class="metro-cell sticky2">Dallas-Ft. Worth</td><td class="gross-cell nr">$78,460</td><td class="nr">17</td><td class="nr">276</td><td class="nr">$4,615</td><td class="theater-cell">Cinemark 14 + XD (Lewisville, TX)</td><td class="gross-cell nr">$13,493</td></tr>
-                <tr><td class="rank-cell sticky nr">4</td><td class="metro-cell sticky2">San Francisco</td><td class="gross-cell nr">$68,239</td><td class="nr">13</td><td class="nr">223</td><td class="nr">$5,249</td><td class="theater-cell">Cine Lounge Fremont 7</td><td class="gross-cell nr">$14,845</td></tr>
-                <tr><td class="rank-cell sticky nr">5</td><td class="metro-cell sticky2">Kitchener, ON</td><td class="gross-cell nr">$52,285</td><td class="nr">1</td><td class="nr">1</td><td class="nr">$52,285</td><td class="theater-cell">Apollo Cinema (Kitchener, ON)</td><td class="gross-cell nr">$52,285</td></tr>
-                <tr><td class="rank-cell sticky nr">6</td><td class="metro-cell sticky2">Houston</td><td class="gross-cell nr">$46,746</td><td class="nr">8</td><td class="nr">165</td><td class="nr">$5,843</td><td class="theater-cell">Cinemark Missouri City and XD</td><td class="gross-cell nr">$24,524</td></tr>
-                <tr><td class="rank-cell sticky nr">7</td><td class="metro-cell sticky2">Chicago</td><td class="gross-cell nr">$39,771</td><td class="nr">12</td><td class="nr">205</td><td class="nr">$3,314</td><td class="theater-cell">Cine Lounge at Niles (IL)</td><td class="gross-cell nr">$17,351</td></tr>
-                <tr><td class="rank-cell sticky nr">8</td><td class="metro-cell sticky2">Atlanta</td><td class="gross-cell nr">$39,420</td><td class="nr">9</td><td class="nr">137</td><td class="nr">$4,380</td><td class="theater-cell">Regal Medlock Crossing (GA)</td><td class="gross-cell nr">$19,890</td></tr>
-                <tr><td class="rank-cell sticky nr">9</td><td class="metro-cell sticky2">Philadelphia</td><td class="gross-cell nr">$34,178</td><td class="nr">13</td><td class="nr">216</td><td class="nr">$2,629</td><td class="theater-cell">AMC Neshaminy 24 (PA)</td><td class="gross-cell nr">$9,511</td></tr>
-                <tr><td class="rank-cell sticky nr">10</td><td class="metro-cell sticky2">Seattle-Tacoma</td><td class="gross-cell nr">$30,950</td><td class="nr">9</td><td class="nr">117</td><td class="nr">$3,439</td><td class="theater-cell">Lincoln Square Bistro 22 (WA)</td><td class="gross-cell nr">$23,162</td></tr>
-                <tr><td class="rank-cell sticky nr">11</td><td class="metro-cell sticky2">Washington, DC</td><td class="gross-cell nr">$25,366</td><td class="nr">5</td><td class="nr">80</td><td class="nr">$5,073</td><td class="theater-cell">Regal Fox (Ashburn, VA)</td><td class="gross-cell nr">$12,714</td></tr>
-                <tr><td class="rank-cell sticky nr">12</td><td class="metro-cell sticky2">Austin</td><td class="gross-cell nr">$22,117</td><td class="nr">4</td><td class="nr">57</td><td class="nr">$5,529</td><td class="theater-cell">Tinseltown 20 + XD (TX)</td><td class="gross-cell nr">$18,712</td></tr>
-                <tr><td class="rank-cell sticky nr">13</td><td class="metro-cell sticky2">Calgary, AB</td><td class="gross-cell nr">$21,205</td><td class="nr">1</td><td class="nr">10</td><td class="nr">$21,205</td><td class="theater-cell">Canyon Meadows 10 (Calgary)</td><td class="gross-cell nr">$21,205</td></tr>
-                <tr><td class="rank-cell sticky nr">14</td><td class="metro-cell sticky2">London, ON</td><td class="gross-cell nr">$20,636</td><td class="nr">1</td><td class="nr">6</td><td class="nr">$20,636</td><td class="theater-cell">Imagine Cinemas London Galleria</td><td class="gross-cell nr">$20,636</td></tr>
-                <tr><td class="rank-cell sticky nr">15</td><td class="metro-cell sticky2">Los Angeles</td><td class="gross-cell nr">$16,971</td><td class="nr">11</td><td class="nr">216</td><td class="nr">$1,543</td><td class="theater-cell">Orange Stadium Promenade 25</td><td class="gross-cell nr">$6,507</td></tr>
-                <tr><td class="rank-cell sticky nr">16</td><td class="metro-cell sticky2">Vancouver, BC</td><td class="gross-cell nr">$16,060</td><td class="nr">1</td><td class="nr">4</td><td class="nr">$16,060</td><td class="theater-cell">Hollywood Cinema Caprice</td><td class="gross-cell nr">$16,060</td></tr>
-                <tr><td class="rank-cell sticky nr">17</td><td class="metro-cell sticky2">Charlotte</td><td class="gross-cell nr">$15,878</td><td class="nr">4</td><td class="nr">82</td><td class="nr">$3,970</td><td class="theater-cell">AMC Concord Mills 24 (NC)</td><td class="gross-cell nr">$8,024</td></tr>
-                <tr><td class="rank-cell sticky nr">18</td><td class="metro-cell sticky2">Boston</td><td class="gross-cell nr">$14,545</td><td class="nr">8</td><td class="nr">124</td><td class="nr">$1,818</td><td class="theater-cell">Regal Solomon Pond (MA)</td><td class="gross-cell nr">$6,154</td></tr>
-                <tr><td class="rank-cell sticky nr">19</td><td class="metro-cell sticky2">Victoria, BC</td><td class="gross-cell nr">$13,311</td><td class="nr">3</td><td class="nr">8</td><td class="nr">$4,437</td><td class="theater-cell">Duncan Cinemas (BC)</td><td class="gross-cell nr">$5,702</td></tr>
-                <tr><td class="rank-cell sticky nr">20</td><td class="metro-cell sticky2">Raleigh-Durham</td><td class="gross-cell nr">$13,021</td><td class="nr">5</td><td class="nr">78</td><td class="nr">$2,604</td><td class="theater-cell">AMC Southpoint 17 (NC)</td><td class="gross-cell nr">$4,064</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <p class="footer-note"><strong>Note:</strong> Gross from theater-level records. Total: <strong>$1,117,589</strong> · <strong>308 theaters</strong> · <strong>5,012 screens</strong>.</p>
-    </div>
+<!-- TABS -->
+<div class="tabs-wrap">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('map',this)">🗺 Map</button>
+    <button class="tab-btn" onclick="switchTab('table',this)">📋 Rankings</button>
+    <button class="tab-btn" onclick="switchTab('stats',this)">📊 Insights</button>
   </div>
+</div>
 
-  <!-- STATS PANEL -->
-  <div id="panel-stats" class="panel">
-    <div class="main-wrap">
-      <div class="stats-grid">
+<!-- MAP PANEL -->
+<div id="panel-map" class="panel active">
+  <div class="wrap">
+    <div class="sh"><h2>Geographic Distribution</h2><span class="sh-badge" id="map-badge">101 Metros</span></div>
+    <div class="map-card">
+      <div class="map-bar">
+        <div class="map-hint"><div class="map-dot"></div>Bubble = metro gross &middot; Pinch/scroll to zoom &middot; Tap bubble for detail</div>
+        <div class="map-legend"><span>Low</span><div class="leg-bar"></div><span>High</span></div>
+      </div>
+      <div id="map-plotly" style="height:clamp(340px,55vw,820px);"></div>
+    </div>
+    <p class="fn"><strong>Note:</strong> Coordinates are approximate metro centroids. Gross from theater-level records.</p>
+  </div>
+</div>
 
-        <div class="stat-card">
-          <div class="stat-card-head"><h3>Top 10 Metros — Gross</h3></div>
-          <div class="stat-card-body">
-            <div class="bar-row"><span class="bar-label">Toronto, ON</span><div class="bar-track"><div class="bar-fill" style="width:100%"><span class="bar-val">$230,897</span></div></div></div>
-            <div class="bar-row"><span class="bar-label">New York</span><div class="bar-track"><div class="bar-fill" style="width:36.7%"><span class="bar-val">$84,646</span></div></div></div>
-            <div class="bar-row"><span class="bar-label">Dallas-FW</span><div class="bar-track"><div class="bar-fill" style="width:34.0%"><span class="bar-val">$78,460</span></div></div></div>
-            <div class="bar-row"><span class="bar-label">San Francisco</span><div class="bar-track"><div class="bar-fill" style="width:29.6%"><span class="bar-val">$68,239</span></div></div></div>
-            <div class="bar-row"><span class="bar-label">Kitchener, ON</span><div class="bar-track"><div class="bar-fill" style="width:22.6%"><span class="bar-val">$52,285</span></div></div></div>
-            <div class="bar-row"><span class="bar-label">Houston</span><div class="bar-track"><div class="bar-fill" style="width:20.2%"><span class="bar-val">$46,746</span></div></div></div>
-            <div class="bar-row"><span class="bar-label">Chicago</span><div class="bar-track"><div class="bar-fill" style="width:17.2%"><span class="bar-val">$39,771</span></div></div></div>
-            <div class="bar-row"><span class="bar-label">Atlanta</span><div class="bar-track"><div class="bar-fill" style="width:17.1%"><span class="bar-val">$39,420</span></div></div></div>
-            <div class="bar-row"><span class="bar-label">Philadelphia</span><div class="bar-track"><div class="bar-fill" style="width:14.8%"><span class="bar-val">$34,178</span></div></div></div>
-            <div class="bar-row"><span class="bar-label">Seattle</span><div class="bar-track"><div class="bar-fill" style="width:13.4%"><span class="bar-val">$30,950</span></div></div></div>
-          </div>
+<!-- TABLE PANEL -->
+<div id="panel-table" class="panel">
+  <div class="wrap">
+    <div class="sh"><h2>Market Rankings</h2><span class="sh-badge" id="tbl-badge">Top 20</span></div>
+    <div class="tcard">
+      <div class="tcard-head">
+        <h3>Metro Performance</h3>
+        <span class="tcard-note" id="tcard-note">← Scroll right for more</span>
+      </div>
+      <div class="tbl-wrap">
+        <div class="tbl-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th class="st nr">#</th>
+                <th class="st2">Metro</th>
+                <th class="nr">Gross</th>
+                <th class="nr">Theaters</th>
+                <th class="nr">Avg/Theater</th>
+                <th>Top Theater</th>
+                <th class="nr">Top Gross</th>
+              </tr>
+            </thead>
+            <tbody id="tbl-body"></tbody>
+          </table>
         </div>
-
-        <div class="stat-card">
-          <div class="stat-card-head"><h3>Circuit Breakdown</h3></div>
-          <div class="stat-card-body">
-            <div class="circuit-row"><span class="circuit-name">Cinemark (CNMK)</span><div class="circuit-bar-wrap"><div class="circuit-bar" style="width:38%"></div></div><span class="circuit-val">81 locations</span></div>
-            <div class="circuit-row"><span class="circuit-name">Regal (REG)</span><div class="circuit-bar-wrap"><div class="circuit-bar" style="width:32%"></div></div><span class="circuit-val">68 locations</span></div>
-            <div class="circuit-row"><span class="circuit-name">AMC</span><div class="circuit-bar-wrap"><div class="circuit-bar" style="width:24%"></div></div><span class="circuit-val">50 locations</span></div>
-            <div class="circuit-row"><span class="circuit-name">Woodland (WOOD)</span><div class="circuit-bar-wrap"><div class="circuit-bar" style="width:15%"></div></div><span class="circuit-val">4 locations</span></div>
-            <div class="circuit-row"><span class="circuit-name">CWBS</span><div class="circuit-bar-wrap"><div class="circuit-bar" style="width:12%"></div></div><span class="circuit-val">6 locations</span></div>
-            <div class="circuit-row"><span class="circuit-name">Marcus (MARC)</span><div class="circuit-bar-wrap"><div class="circuit-bar" style="width:10%"></div></div><span class="circuit-val">12 locations</span></div>
-            <div class="circuit-row"><span class="circuit-name">Apple (APPL)</span><div class="circuit-bar-wrap"><div class="circuit-bar" style="width:8%"></div></div><span class="circuit-val">8 locations</span></div>
-            <div class="circuit-row"><span class="circuit-name">Others</span><div class="circuit-bar-wrap"><div class="circuit-bar" style="width:14%"></div></div><span class="circuit-val">79 locations</span></div>
-          </div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-card-head"><h3>Key Insights</h3></div>
-          <div class="stat-card-body">
-            <ul class="insight-list">
-              <li class="insight-item"><span class="insight-icon">🇨🇦</span><div class="insight-text"><strong>Canada punches hard.</strong> Toronto, Kitchener, Calgary, London &amp; Vancouver together account for ~31% of total gross despite far fewer screens than US metros.</div></li>
-              <li class="insight-item"><span class="insight-icon">⚡</span><div class="insight-text"><strong>York Cinema efficiency.</strong> A 6-screen indie in Richmond Hill outgrossed every major-chain multiplex — $98K on 6 screens vs. $23K on 22 screens at Lincoln Square.</div></li>
-              <li class="insight-item"><span class="insight-icon">📍</span><div class="insight-text"><strong>Diaspora clustering is clear.</strong> Top metros align tightly with South Asian diaspora density: Toronto, Bay Area, DFW, Houston, Chicago, NY, Seattle.</div></li>
-              <li class="insight-item"><span class="insight-icon">📉</span><div class="insight-text"><strong>LA underperforms.</strong> Ranked #15 despite being the largest media market — only $16.9K across 11 locations. Opportunity or distribution gap.</div></li>
-              <li class="insight-item"><span class="insight-icon">🎯</span><div class="insight-text"><strong>Top 5 metros = 56% of gross.</strong> Highly concentrated — Toronto, NY, DFW, SF, and Kitchener drive the majority of revenue.</div></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="stat-card">
-          <div class="stat-card-head"><h3>Avg Gross Per Theater — Top 10</h3></div>
-          <div class="stat-card-body">
-            <div class="bar-row"><span class="bar-label">Kitchener, ON</span><div class="bar-track"><div class="bar-fill" style="width:100%"><span class="bar-val">$52,285</span></div></div></div>
-            <div class="bar-row"><span class="bar-label">Toronto, ON</span><div class="bar-track"><div class="bar-fill" style="width:100%"><span class="bar-val">$57,724</span></div></div></div>
-            <div class="bar-row"><span class="bar-label">London, ON</span><div class="bar-track"><div class="bar-fill" style="width:36.4%"><span class="bar-val">$20,636</span></div></div></div>
-            <div class="bar-row"><span class="bar-label">Calgary, AB</span><div class="bar-track"><div class="bar-fill" style="width:36.7%"><span class="bar-val">$21,205</span></div></div></div>
-            <div class="bar-row"><span class="bar-label">Vancouver, BC</span><div class="bar-track"><div class="bar-fill" style="width:27.8%"><span class="bar-val">$16,060</span></div></div></div>
-            <div class="bar-row"><span class="bar-label">Baltimore</span><div class="bar-track"><div class="bar-fill" style="width:13.4%"><span class="bar-val">$7,734</span></div></div></div>
-            <div class="bar-row"><span class="bar-label">Houston</span><div class="bar-track"><div class="bar-fill" style="width:10.1%"><span class="bar-val">$5,843</span></div></div></div>
-            <div class="bar-row"><span class="bar-label">San Francisco</span><div class="bar-track"><div class="bar-fill" style="width:9.1%"><span class="bar-val">$5,249</span></div></div></div>
-            <div class="bar-row"><span class="bar-label">Austin</span><div class="bar-track"><div class="bar-fill" style="width:9.6%"><span class="bar-val">$5,529</span></div></div></div>
-            <div class="bar-row"><span class="bar-label">Washington DC</span><div class="bar-track"><div class="bar-fill" style="width:8.8%"><span class="bar-val">$5,073</span></div></div></div>
-          </div>
-        </div>
-
       </div>
     </div>
+    <p class="fn"><strong>Note:</strong> Gross from theater-level records. Avg/theater = total gross ÷ locations in that metro.</p>
   </div>
+</div>
+
+<!-- STATS PANEL -->
+<div id="panel-stats" class="panel">
+  <div class="wrap">
+    <div class="stats-grid">
+
+      <div class="scard">
+        <div class="scard-h"><h3>Top 10 Metros — Gross</h3></div>
+        <div class="scard-b" id="stats-bar"></div>
+      </div>
+
+      <div class="scard">
+        <div class="scard-h"><h3>Malayalam Market Context</h3></div>
+        <div class="scard-b">
+          <ul class="ins">
+            <li class="in"><span class="ii">🥇</span><div class="it"><strong>Canada overperforms dramatically.</strong> 10 Canadian metros generate $377K (33.8%) of total gross. Toronto alone ($231K) outpaces all 91 US metros except New York and Dallas-FW combined.</div></li>
+            <li class="in"><span class="ii">⚡</span><div class="it"><strong>York Cinema is a phenomenon.</strong> A 6-screen indie in Richmond Hill, ON grossed $98K — more than entire metros like Seattle ($31K) or Washington DC ($25K). Pure diaspora density effect.</div></li>
+            <li class="in"><span class="ii">📍</span><div class="it"><strong>Malayalam diaspora map.</strong> Rankings mirror Kerala community concentrations — Toronto, Bay Area, Dallas-FW, Houston, Chicago, Kitchener. These are not general Hindi film markets.</div></li>
+            <li class="in"><span class="ii">🔍</span><div class="it"><strong>LA is genuinely mid-tier here.</strong> #15 overall, $17K across 11 locations. The LA Malayalam community is smaller than Toronto or even Kitchener despite LA being the largest US market.</div></li>
+            <li class="in"><span class="ii">🎯</span><div class="it"><strong>Top 5 metros = 56% of gross.</strong> Toronto, NY, Dallas-FW, SF Bay Area, Kitchener. Highly concentrated — a small number of diaspora-dense markets drive the film's performance.</div></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="scard">
+        <div class="scard-h"><h3>Avg Gross / Theater (Efficiency)</h3></div>
+        <div class="scard-b" id="stats-avg"></div>
+      </div>
+
+      <div class="scard">
+        <div class="scard-h"><h3>Circuit Breakdown</h3></div>
+        <div class="scard-b">
+          <div class="cr"><span class="cn">Cinemark (CNMK)</span><div class="cbw"><div class="cb" style="width:100%"></div></div><span class="cv">81 locations</span></div>
+          <div class="cr"><span class="cn">Regal (REG)</span><div class="cbw"><div class="cb" style="width:84%"></div></div><span class="cv">68 locations</span></div>
+          <div class="cr"><span class="cn">AMC</span><div class="cbw"><div class="cb" style="width:62%"></div></div><span class="cv">50 locations</span></div>
+          <div class="cr"><span class="cn">Marcus (MARC)</span><div class="cbw"><div class="cb" style="width:15%"></div></div><span class="cv">12 locations</span></div>
+          <div class="cr"><span class="cn">Apple Cinemas</span><div class="cbw"><div class="cb" style="width:10%"></div></div><span class="cv">8 locations</span></div>
+          <div class="cr"><span class="cn">CWBS / Indie Canada</span><div class="cbw"><div class="cb" style="width:7%"></div></div><span class="cv">6 locations</span></div>
+          <div class="cr"><span class="cn">Woodland (WOOD)</span><div class="cbw"><div class="cb" style="width:5%"></div></div><span class="cv">4 locations</span></div>
+          <div class="cr"><span class="cn">All Others</span><div class="cbw"><div class="cb" style="width:97%"></div></div><span class="cv">79 locations</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 </div><!-- #app -->
 
 <script>
-// ── Gate ──
+// ── DATA ──
+var METROS = [{"n":"Toronto, ON","g":230897,"gl":"$230,897","t":4,"a":57724,"tt":"York Cinema (Richmond Hill, ON)","tg":98191,"lat":43.6532,"lon":-79.3832,"c":"CA"},{"n":"New York","g":84646,"gl":"$84,646","t":18,"a":4703,"tt":"Regal Commerce Center (North Brunswick, NJ)","tg":15364,"lat":40.7128,"lon":-74.006,"c":"US"},{"n":"Dallas-Ft. Worth","g":78460,"gl":"$78,460","t":17,"a":4615,"tt":"Cinemark 14 + XD (Lewisville, TX)","tg":13493,"lat":32.7767,"lon":-96.797,"c":"US"},{"n":"San Francisco-Oak-San Jose","g":68239,"gl":"$68,239","t":13,"a":5249,"tt":"Cine Lounge Fremont 7 (Fremont, CA)","tg":14845,"lat":37.7749,"lon":-122.4194,"c":"US"},{"n":"Kitchener, ON","g":52285,"gl":"$52,285","t":1,"a":52285,"tt":"Apollo Cinema (Kitchener, ON)","tg":52285,"lat":43.4516,"lon":-80.4925,"c":"CA"},{"n":"Houston","g":46746,"gl":"$46,746","t":8,"a":5843,"tt":"Cinemark Missouri City and XD (Missouri City, TX)","tg":24524,"lat":29.7604,"lon":-95.3698,"c":"US"},{"n":"Chicago","g":39771,"gl":"$39,771","t":12,"a":3314,"tt":"Cine Lounge at Niles (Niles, IL)","tg":17351,"lat":41.8781,"lon":-87.6298,"c":"US"},{"n":"Atlanta","g":39420,"gl":"$39,420","t":9,"a":4380,"tt":"Regal Medlock Crossing (Duluth, GA)","tg":19890,"lat":33.749,"lon":-84.388,"c":"US"},{"n":"Philadelphia","g":34178,"gl":"$34,178","t":13,"a":2629,"tt":"AMC Neshaminy 24 with IMAX, Dolby (Bensalem, PA)","tg":9511,"lat":39.9526,"lon":-75.1652,"c":"US"},{"n":"Seattle-Tacoma","g":30950,"gl":"$30,950","t":9,"a":3439,"tt":"Lincoln Square Cinema Bistro 22 with IMAX (Bellevue, WA)","tg":23162,"lat":47.6062,"lon":-122.3321,"c":"US"},{"n":"Washington, DC (Hagrstwn)","g":25366,"gl":"$25,366","t":5,"a":5073,"tt":"Regal Fox (Ashburn, VA)","tg":12714,"lat":38.9072,"lon":-77.0369,"c":"US"},{"n":"Austin","g":22117,"gl":"$22,117","t":4,"a":5529,"tt":"Tinseltown 20 + XD (Pflugerville, TX)","tg":18712,"lat":30.2672,"lon":-97.7431,"c":"US"},{"n":"Calgary, AB","g":21205,"gl":"$21,205","t":1,"a":21205,"tt":"Canyon Meadows 10 (Calgary, AB)","tg":21205,"lat":51.0447,"lon":-114.0719,"c":"CA"},{"n":"London, ON","g":20636,"gl":"$20,636","t":1,"a":20636,"tt":"Imagine Cinemas London Galleria (London, ON)","tg":20636,"lat":42.9849,"lon":-81.2453,"c":"CA"},{"n":"Los Angeles","g":16971,"gl":"$16,971","t":11,"a":1543,"tt":"Orange Stadium Promenade 25 + XD (Orange, CA)","tg":6507,"lat":34.0522,"lon":-118.2437,"c":"US"},{"n":"Vancouver, BC","g":16060,"gl":"$16,060","t":1,"a":16060,"tt":"Hollywood Cinema Caprice (White Rock, BC)","tg":16060,"lat":49.2827,"lon":-123.1207,"c":"CA"},{"n":"Charlotte","g":15878,"gl":"$15,878","t":4,"a":3970,"tt":"AMC Concord Mills 24 with IMAX, Dolby (Concord, NC)","tg":8024,"lat":35.2271,"lon":-80.8431,"c":"US"},{"n":"Boston (Manchester)","g":14545,"gl":"$14,545","t":8,"a":1818,"tt":"Regal Solomon Pond (Marlborough, MA)","tg":6154,"lat":42.3601,"lon":-71.0589,"c":"US"},{"n":"Victoria, BC","g":13311,"gl":"$13,311","t":3,"a":4437,"tt":"Duncan Cinemas (Duncan, BC)","tg":5702,"lat":48.4284,"lon":-123.3656,"c":"CA"},{"n":"Raleigh-Durham (Fayetvlle)","g":13021,"gl":"$13,021","t":5,"a":2604,"tt":"AMC Southpoint 17 with IMAX, Dolby (Durham, NC)","tg":4064,"lat":35.7796,"lon":-78.6382,"c":"US"},{"n":"Detroit","g":12931,"gl":"$12,931","t":5,"a":2586,"tt":"AMC Forum 30 with IMAX, Dolby (Sterling Heights, MI)","tg":3711,"lat":42.3314,"lon":-83.0458,"c":"US"},{"n":"Tampa-St. Pete (Sarasota)","g":12771,"gl":"$12,771","t":4,"a":3193,"tt":"AMC Regency 20 with IMAX, Dolby (Brandon, FL)","tg":6797,"lat":27.9506,"lon":-82.4572,"c":"US"},{"n":"Sacramnto-Stkton-Modesto","g":12662,"gl":"$12,662","t":4,"a":3166,"tt":"Movies 14 (Tracy, CA)","tg":6719,"lat":38.5816,"lon":-121.4944,"c":"US"},{"n":"Winnipeg, MB","g":12020,"gl":"$12,020","t":1,"a":12020,"tt":"Garden City Cinemas (Winnipeg, MB)","tg":12020,"lat":49.8951,"lon":-97.1384,"c":"CA"},{"n":"Phoenix (Prescott)","g":11963,"gl":"$11,963","t":8,"a":1495,"tt":"Cinemark 16 (Mesa, AZ)","tg":3890,"lat":33.4484,"lon":-112.074,"c":"US"},{"n":"Hartford & New Haven","g":10657,"gl":"$10,657","t":3,"a":3552,"tt":"Buckland Hills 18 IMAX (Manchester, CT)","tg":7438,"lat":41.7658,"lon":-72.6734,"c":"US"},{"n":"Denver","g":8237,"gl":"$8,237","t":8,"a":1030,"tt":"Century Aurora + XD (Aurora, CO)","tg":5365,"lat":39.7392,"lon":-104.9903,"c":"US"},{"n":"Miami-Ft. Lauderdale","g":7907,"gl":"$7,907","t":2,"a":3954,"tt":"Paradise 24 + XD (Davie, FL)","tg":7688,"lat":25.7617,"lon":-80.1918,"c":"US"},{"n":"Baltimore","g":7734,"gl":"$7,734","t":1,"a":7734,"tt":"Egyptian 24 + XD (Hanover, MD)","tg":7734,"lat":39.2904,"lon":-76.6122,"c":"US"},{"n":"Orlando-Daytona Bch-Melbrn","g":7253,"gl":"$7,253","t":3,"a":2418,"tt":"Cinemark Orlando + XD (Orlando, FL)","tg":6187,"lat":28.5383,"lon":-81.3792,"c":"US"},{"n":"Columbus, OH","g":6778,"gl":"$6,778","t":5,"a":1356,"tt":"Polaris 18 + XD (Columbus, OH)","tg":6122,"lat":39.9612,"lon":-82.9988,"c":"US"},{"n":"Kansas City","g":6567,"gl":"$6,567","t":6,"a":1094,"tt":"AMC Town Center 20 with IMAX, Dolby, Prime (Leawood, KS)","tg":1830,"lat":39.0997,"lon":-94.5786,"c":"US"},{"n":"San Diego","g":6338,"gl":"$6,338","t":5,"a":1268,"tt":"Regal Edwards Mira Mesa (San Diego, CA)","tg":2773,"lat":32.7157,"lon":-117.1611,"c":"US"},{"n":"Minneapolis-St. Paul","g":5158,"gl":"$5,158","t":3,"a":1719,"tt":"AMC Eden Prairie Mall 18 with IMAX, Prime (Eden Prairie, MN)","tg":2124,"lat":44.9778,"lon":-93.265,"c":"US"},{"n":"San Antonio","g":4915,"gl":"$4,915","t":3,"a":1638,"tt":"Cinemark San Antonio 16 (San Antonio, TX)","tg":4047,"lat":29.4241,"lon":-98.4936,"c":"US"},{"n":"Richmond-Petersburg","g":4822,"gl":"$4,822","t":3,"a":1607,"tt":"Regal Commonwealth (Midlothian, VA)","tg":2139,"lat":37.5407,"lon":-77.436,"c":"US"},{"n":"Saint John, NB","g":4055,"gl":"$4,055","t":1,"a":4055,"tt":"Amherst Theatre (Amherst, NS)","tg":4055,"lat":45.2733,"lon":-66.0633,"c":"CA"},{"n":"Pittsburgh","g":3964,"gl":"$3,964","t":2,"a":1982,"tt":"Cinemark Robinson Township + XD (Robinson Township, PA)","tg":3356,"lat":40.4406,"lon":-79.9959,"c":"US"},{"n":"Ft. Smith-Fay-Sprngdl-Rgrs","g":3876,"gl":"$3,876","t":1,"a":3876,"tt":"Pinnacle Hills Cinema 12 (Rogers, AR)","tg":3876,"lat":36.0822,"lon":-94.1719,"c":"US"},{"n":"St. Louis","g":3727,"gl":"$3,727","t":3,"a":1242,"tt":"Marcus St. Charles Cinema 18 with SuperScreen (Saint Charles, MO)","tg":1952,"lat":38.627,"lon":-90.1994,"c":"US"},{"n":"Edmonton, AB","g":3613,"gl":"$3,613","t":4,"a":903,"tt":"Fort Cinema (Fort Saskatchewan, AB)","tg":1609,"lat":53.5461,"lon":-113.4938,"c":"CA"},{"n":"Nashville","g":3572,"gl":"$3,572","t":2,"a":1786,"tt":"Regal Hollywood - Nashville (Nashville, TN)","tg":3250,"lat":36.1627,"lon":-86.7816,"c":"US"},{"n":"Cincinnati","g":3482,"gl":"$3,482","t":3,"a":1161,"tt":"Milford 16 (Milford, OH)","tg":1914,"lat":39.1031,"lon":-84.512,"c":"US"},{"n":"Saskatoon, SK","g":3366,"gl":"$3,366","t":1,"a":3366,"tt":"Rainbow Roxy Theatre (Saskatoon, SK)","tg":3366,"lat":52.1579,"lon":-106.6702,"c":"CA"},{"n":"Portland, OR","g":3255,"gl":"$3,255","t":3,"a":1085,"tt":"Beaverton Cedar Hills 16 (Beaverton, OR)","tg":2747,"lat":45.5152,"lon":-122.6784,"c":"US"},{"n":"Indianapolis","g":3241,"gl":"$3,241","t":5,"a":648,"tt":"Cinemark Greenwood Corners 8 (Indianapolis, IN)","tg":1274,"lat":39.7684,"lon":-86.1581,"c":"US"},{"n":"Jacksonville","g":3108,"gl":"$3,108","t":3,"a":1036,"tt":"Tinseltown 20 + XD (Jacksonville, FL)","tg":2959,"lat":30.3322,"lon":-81.6557,"c":"US"},{"n":"Cleveland-Akron (Canton)","g":2990,"gl":"$2,990","t":1,"a":2990,"tt":"Valley View 24 + XD (Valley View, OH)","tg":2990,"lat":41.4993,"lon":-81.6944,"c":"US"},{"n":"Oklahoma City","g":2891,"gl":"$2,891","t":3,"a":964,"tt":"Cinemark Tinseltown 20 + XD (Oklahoma City, OK)","tg":1977,"lat":35.4676,"lon":-97.5164,"c":"US"},{"n":"Milwaukee","g":2651,"gl":"$2,651","t":2,"a":1326,"tt":"Marcus Ridge Cinema 19 with SuperScreen, Screen X (New Berlin, WI)","tg":2169,"lat":43.0389,"lon":-87.9065,"c":"US"},{"n":"Dayton","g":2412,"gl":"$2,412","t":2,"a":1206,"tt":"Dayton South 16 + XD (West Carrollton, OH)","tg":2351,"lat":39.7589,"lon":-84.1916,"c":"US"},{"n":"West Palm Beach-Ft. Pierce","g":2187,"gl":"$2,187","t":2,"a":1094,"tt":"Cinemark Palace 21 + XD (Boca Raton, FL)","tg":1378,"lat":26.7153,"lon":-80.0534,"c":"US"},{"n":"Peoria-Bloomington","g":2164,"gl":"$2,164","t":2,"a":1082,"tt":"Marcus Bloomington Galaxy Cinema 14 with IMAX, SuperScreen (Bloomington, IL)","tg":1472,"lat":40.6936,"lon":-89.589,"c":"US"},{"n":"Buffalo","g":2057,"gl":"$2,057","t":1,"a":2057,"tt":"Regal Elmwood Center (Buffalo, NY)","tg":2057,"lat":42.8864,"lon":-78.8784,"c":"US"},{"n":"Albany-Schenectady-Troy","g":2020,"gl":"$2,020","t":1,"a":2020,"tt":"Regal Crossgates (Albany, NY)","tg":2020,"lat":42.6526,"lon":-73.7562,"c":"US"},{"n":"Memphis","g":1995,"gl":"$1,995","t":1,"a":1995,"tt":"Cordova 15 (Cordova, TN)","tg":1995,"lat":35.1495,"lon":-90.049,"c":"US"},{"n":"Harrisburg-Lncstr-Leb-York","g":1984,"gl":"$1,984","t":2,"a":992,"tt":"Regal Harrisburg (Harrisburg, PA)","tg":1493,"lat":40.2732,"lon":-76.8867,"c":"US"},{"n":"Louisville","g":1725,"gl":"$1,725","t":2,"a":862,"tt":"Cinemark Tinseltown + XD (Louisville, KY)","tg":1446,"lat":38.2527,"lon":-85.7585,"c":"US"},{"n":"Albuquerque-Santa Fe","g":1609,"gl":"$1,609","t":1,"a":1609,"tt":"Albuquerque Rio 24 + XD (Albuquerque, NM)","tg":1609,"lat":35.0844,"lon":-106.6504,"c":"US"},{"n":"Boise","g":1566,"gl":"$1,566","t":2,"a":783,"tt":"Cinemark Majestic Cinemas 18 (Meridian, ID)","tg":1540,"lat":43.615,"lon":-116.2023,"c":"US"},{"n":"Providence-New Bedford","g":1540,"gl":"$1,540","t":2,"a":770,"tt":"Apple Cinemas Providence Place IMAX (Providence, RI)","tg":1235,"lat":41.824,"lon":-71.4128,"c":"US"},{"n":"Salt Lake City","g":1498,"gl":"$1,498","t":1,"a":1498,"tt":"Cinemark 24 + XD (West Jordan, UT)","tg":1498,"lat":40.7608,"lon":-111.891,"c":"US"},{"n":"Birmingham (Ann And Tusc)","g":1265,"gl":"$1,265","t":2,"a":632,"tt":"AMC Patton Creek 15 with IMAX (Birmingham, AL)","tg":861,"lat":33.5186,"lon":-86.8104,"c":"US"},{"n":"Rochester, NY","g":1244,"gl":"$1,244","t":1,"a":1244,"tt":"Apple Cinemas Greece Ridge (Rochester, NY)","tg":1244,"lat":43.1566,"lon":-77.6088,"c":"US"},{"n":"Syracuse","g":1226,"gl":"$1,226","t":1,"a":1226,"tt":"Regal Destiny USA (Syracuse, NY)","tg":1226,"lat":43.0481,"lon":-76.1474,"c":"US"},{"n":"Norfolk-Portsmth-Newpt Nws","g":1089,"gl":"$1,089","t":1,"a":1089,"tt":"Cinemark City Center 12 + XD (Newport News, VA)","tg":1089,"lat":36.8508,"lon":-76.2859,"c":"US"},{"n":"Tallahassee-Thomasville","g":1040,"gl":"$1,040","t":1,"a":1040,"tt":"AMC Tallahassee 20 with IMAX, Dolby (Tallahassee, FL)","tg":1040,"lat":30.4383,"lon":-84.2807,"c":"US"},{"n":"Gainesville","g":978,"gl":"$978","t":1,"a":978,"tt":"Regal Royal Park (Gainesville, FL)","tg":978,"lat":29.6516,"lon":-82.3248,"c":"US"},{"n":"Reno","g":953,"gl":"$953","t":1,"a":953,"tt":"Summit Sierra 16 (Reno, NV)","tg":953,"lat":39.5296,"lon":-119.8138,"c":"US"},{"n":"Omaha","g":907,"gl":"$907","t":2,"a":454,"tt":"Marcus Village Pointe Cinema 16 with UltraScreen (Omaha, NE)","tg":636,"lat":41.2565,"lon":-95.9345,"c":"US"},{"n":"Las Vegas","g":901,"gl":"$901","t":1,"a":901,"tt":"Century Orleans 18 + XD (Las Vegas, NV)","tg":901,"lat":36.1699,"lon":-115.1398,"c":"US"},{"n":"Grand Rapids-Kalmzoo-B.Crk","g":887,"gl":"$887","t":1,"a":887,"tt":"Celebration Grand Rapids North 17 + IMAX (Grand Rapids, MI)","tg":887,"lat":42.9634,"lon":-85.6681,"c":"US"},{"n":"Greensboro-H.Point-W.Salem","g":859,"gl":"$859","t":1,"a":859,"tt":"Regal Greensboro Grande (Greensboro, NC)","tg":859,"lat":36.0726,"lon":-79.792,"c":"US"},{"n":"Greenvll-Spart-Ashevll-And","g":839,"gl":"$839","t":1,"a":839,"tt":"Regal Cherrydale (Greenville, SC)","tg":839,"lat":34.8526,"lon":-82.394,"c":"US"},{"n":"Little Rock-Pine Bluff","g":802,"gl":"$802","t":1,"a":802,"tt":"Colonel Glenn 18 + XD (Little Rock, AR)","tg":802,"lat":34.7465,"lon":-92.2896,"c":"US"},{"n":"Augusta-Aiken","g":761,"gl":"$761","t":1,"a":761,"tt":"Regal Augusta Exchange (Augusta, GA)","tg":761,"lat":33.4735,"lon":-82.0105,"c":"US"},{"n":"Lansing","g":725,"gl":"$725","t":1,"a":725,"tt":"Celebration - Lansing 20 + IMAX (Lansing, MI)","tg":725,"lat":42.7325,"lon":-84.5555,"c":"US"},{"n":"Waco-Temple-Bryan","g":723,"gl":"$723","t":1,"a":723,"tt":"College Station + XD (College Station, TX)","tg":723,"lat":31.5493,"lon":-97.1467,"c":"US"},{"n":"Tucson (Sierra Vista)","g":694,"gl":"$694","t":2,"a":347,"tt":"Century El Con + XD (Tucson, AZ)","tg":441,"lat":32.2226,"lon":-110.9747,"c":"US"},{"n":"Des Moines-Ames","g":620,"gl":"$620","t":1,"a":620,"tt":"W. Des Moines Jordan Creek + XD (West Des Moines, IA)","tg":620,"lat":41.5868,"lon":-93.625,"c":"US"},{"n":"Chattanooga","g":619,"gl":"$619","t":1,"a":619,"tt":"AMC Chattanooga 18 with IMAX (Chattanooga, TN)","tg":619,"lat":35.0456,"lon":-85.3097,"c":"US"},{"n":"Cedar Rapids-Wtrlo-Iwc&Dub","g":583,"gl":"$583","t":2,"a":292,"tt":"Marcus Cedar Rapids Cinema 16 with Superscreen (Cedar Rapids, IA)","tg":385,"lat":41.9779,"lon":-91.6656,"c":"US"},{"n":"Huntsville-Decatur (Flor)","g":569,"gl":"$569","t":1,"a":569,"tt":"AMC Valley Bend 18 with IMAX (Huntsville, AL)","tg":569,"lat":34.7304,"lon":-86.5861,"c":"US"},{"n":"Wichita-Hutchinson Plus","g":472,"gl":"$472","t":1,"a":472,"tt":"Regal Warren East (Wichita, KS)","tg":472,"lat":37.6872,"lon":-97.3301,"c":"US"},{"n":"Colorado Springs-Pueblo","g":415,"gl":"$415","t":1,"a":415,"tt":"Tinseltown 20 + XD (Colorado Springs, CO)","tg":415,"lat":38.8339,"lon":-104.8214,"c":"US"},{"n":"Davenport-R.Island-Moline","g":411,"gl":"$411","t":1,"a":411,"tt":"Davenport 53 18 + IMAX (Davenport, IA)","tg":411,"lat":41.5236,"lon":-90.5776,"c":"US"},{"n":"Toledo","g":410,"gl":"$410","t":1,"a":410,"tt":"Franklin Park 16 + XD (Toledo, OH)","tg":410,"lat":41.6528,"lon":-83.5379,"c":"US"},{"n":"Champaign&Sprngfld-Decatur","g":399,"gl":"$399","t":1,"a":399,"tt":"Phoenix Theatres Savoy 16 + IMAX (Savoy, IL)","tg":399,"lat":40.1164,"lon":-88.2434,"c":"US"},{"n":"Wilkes Barre-Scranton-Hztn","g":356,"gl":"$356","t":2,"a":178,"tt":"Regal Dickson City (Dickson City, PA)","tg":178,"lat":41.2459,"lon":-75.8813,"c":"US"},{"n":"Binghamton","g":355,"gl":"$355","t":1,"a":355,"tt":"Regal Binghamton (Binghamton, NY)","tg":355,"lat":42.0987,"lon":-75.918,"c":"US"},{"n":"Beaumont-Port Arthur","g":353,"gl":"$353","t":1,"a":353,"tt":"Tinseltown USA 15 + XD (Beaumont, TX)","tg":353,"lat":30.0802,"lon":-94.1266,"c":"US"},{"n":"Roanoke-Lynchburg","g":346,"gl":"$346","t":1,"a":346,"tt":"Regal Valley View Grande (Roanoke, VA)","tg":346,"lat":37.27097,"lon":-79.9414,"c":"US"},{"n":"Erie","g":330,"gl":"$330","t":1,"a":330,"tt":"Tinseltown 17 (Erie, PA)","tg":330,"lat":42.1292,"lon":-80.0851,"c":"US"},{"n":"Green Bay-Appleton","g":285,"gl":"$285","t":1,"a":285,"tt":"Marcus Hollywood Cinema 14 with UltraScreen (Grand Chute, WI)","tg":285,"lat":44.5133,"lon":-88.0133,"c":"US"},{"n":"Ft. Wayne","g":272,"gl":"$272","t":1,"a":272,"tt":"Regal Coldwater Crossing (Fort Wayne, IN)","tg":272,"lat":41.0793,"lon":-85.1394,"c":"US"},{"n":"Palm Springs","g":232,"gl":"$232","t":1,"a":232,"tt":"Regal Rancho Mirage (Rancho Mirage, CA)","tg":232,"lat":33.8303,"lon":-116.5453,"c":"US"},{"n":"Flint-Saginaw-Bay City","g":221,"gl":"$221","t":1,"a":221,"tt":"Celebration - Mt Pleasant 11 (Mount Pleasant, MI)","tg":221,"lat":43.0125,"lon":-83.6875,"c":"US"},{"n":"Harrisonburg","g":174,"gl":"$174","t":1,"a":174,"tt":"Regal Harrisonburg (Harrisonburg, VA)","tg":174,"lat":38.4496,"lon":-78.8689,"c":"US"},{"n":"Portland-Auburn","g":154,"gl":"$154","t":1,"a":154,"tt":"Apple Cinemas Westbrook (Westbrook, ME)","tg":154,"lat":43.6591,"lon":-70.2568,"c":"US"},{"n":"Fargo-Valley City","g":129,"gl":"$129","t":1,"a":129,"tt":"Marcus West Acres Cinema 14 with UltraScreen (Fargo, ND)","tg":129,"lat":46.8772,"lon":-96.7898,"c":"US"},{"n":"Fresno-Visalia","g":28,"gl":"$28","t":1,"a":28,"tt":"Regal Manchester - Fresno (Fresno, CA)","tg":28,"lat":36.7378,"lon":-119.7871,"c":"US"}];
+
+var totals = {
+  all: { gross:1117589, thtr:308, met:101 },
+  US:  { gross:740141,  thtr:290,  met:91  },
+  CA:  { gross:377448,  thtr:18,  met:10  }
+};
+
+var activeFilter = "all";
+
+// ── GATE ──
 function checkPw() {
   var val = document.getElementById("pw").value;
   if (val === "avdcinemas") {
     document.getElementById("gate").style.display = "none";
     document.getElementById("app").style.display = "block";
-    initPlot();
+    init();
   } else {
     document.getElementById("pw").classList.add("err");
-    document.getElementById("gate-err").classList.add("show");
+    document.getElementById("g-err").classList.add("show");
     document.getElementById("pw").value = "";
     document.getElementById("pw").focus();
   }
@@ -706,46 +412,217 @@ function checkPw() {
 document.getElementById("pw").addEventListener("keydown", function(e) {
   if (e.key === "Enter") { checkPw(); return; }
   this.classList.remove("err");
-  document.getElementById("gate-err").classList.remove("show");
+  document.getElementById("g-err").classList.remove("show");
 });
 
-// ── Tabs ──
+// ── FILTER ──
+function setFilter(f, btn) {
+  activeFilter = f;
+  document.querySelectorAll(".pill").forEach(function(p) { p.classList.remove("active"); });
+  btn.classList.add("active");
+  updateKPIs();
+  renderMap();
+  renderTable();
+  renderStats();
+}
+
+function filtered() {
+  if (activeFilter === "all") return METROS;
+  return METROS.filter(function(m) { return m.c === activeFilter; });
+}
+
+// ── KPIs ──
+function fmt(n) {
+  if (n >= 1000000) return "$" + (n/1000000).toFixed(2) + "M";
+  return "$" + n.toLocaleString();
+}
+function updateKPIs() {
+  var d = filtered();
+  var t = totals[activeFilter === "all" ? "all" : activeFilter];
+  var top = d[0];
+  var pct = ((top.g / totals.all.gross) * 100).toFixed(1);
+  document.getElementById("kv-gross").textContent = fmt(t.gross);
+  document.getElementById("kv-thtr").textContent = t.thtr;
+  document.getElementById("kv-met").textContent = t.met;
+  document.getElementById("kv-top").textContent = top.n;
+  document.getElementById("kv-top-sub").textContent = fmt(top.g) + " · " + pct + "% of total";
+  var sub = activeFilter === "CA" ? "Canada only" : activeFilter === "US" ? "United States only" : "US & Canada";
+  document.getElementById("kv-gross-sub").textContent = sub;
+  document.getElementById("kv-thtr-sub").textContent = sub;
+}
+
+// ── MAP ──
+var mapInited = false;
+function renderMap() {
+  var d = filtered();
+  var maxG = Math.max.apply(null, d.map(function(m) { return m.g; }));
+
+  var lats = d.map(function(m) { return m.lat; });
+  var lons = d.map(function(m) { return m.lon; });
+  var sizes = d.map(function(m) { return Math.sqrt(m.g / maxG) * 55 + 8; });
+  var colors = d.map(function(m) { return m.g; });
+  var texts = d.map(function(m) {
+    return "<b>" + m.n + "</b><br>Gross: " + m.gl +
+      "<br>Theaters: " + m.t +
+      "<br>Avg/Theater: $" + m.a.toLocaleString() +
+      "<br>Top: " + m.tt.substring(0,40) +
+      "<br>Top Gross: $" + m.tg.toLocaleString();
+  });
+  var labels = d.filter(function(m) { return m.g > maxG * 0.04; })
+    .map(function(m) { return m.n.replace(/-.*/, "").replace(/,.*/,"").trim() + "<br>" + m.gl; });
+  var llats = d.filter(function(m) { return m.g > maxG * 0.04; }).map(function(m) { return m.lat; });
+  var llons = d.filter(function(m) { return m.g > maxG * 0.04; }).map(function(m) { return m.lon; });
+
+  var mapH = Math.max(340, Math.min(window.innerWidth * 0.55, 820));
+  document.getElementById("map-plotly").style.height = mapH + "px";
+
+  var trBubbles = {
+    type: "scattergeo", mode: "markers",
+    lat: lats, lon: lons,
+    marker: {
+      size: sizes, sizemode: "diameter",
+      color: colors,
+      colorscale: [
+        [0.0, "rgb(25,8,4)"], [0.12, "rgb(80,16,8)"],
+        [0.3, "rgb(138,24,24)"], [0.55, "rgb(175,95,18)"],
+        [0.78, "rgb(201,164,74)"], [1.0, "rgb(240,216,140)"]
+      ],
+      showscale: false,
+      opacity: 0.88,
+      line: { width: 0.8, color: "rgba(201,164,74,0.4)" }
+    },
+    hovertext: texts,
+    hovertemplate: "%{hovertext}<extra></extra>",
+    hoverlabel: { bgcolor: "#0e1822", bordercolor: "#c9a44a", font: { color: "#ece4d2", size: 12 } }
+  };
+
+  var trLabels = {
+    type: "scattergeo", mode: "text",
+    lat: llats, lon: llons,
+    text: labels,
+    hoverinfo: "skip",
+    textfont: { color: "rgba(240,216,140,0.9)", size: 10 },
+    textposition: "top center"
+  };
+
+  // scope and center based on filter
+  var scope = "north america";
+  var center = {};
+  var latRange = [24, 57];
+  var lonRange = [-130, -60];
+  if (activeFilter === "CA") {
+    latRange = [43, 57]; lonRange = [-130, -62];
+    center = { lat: 50, lon: -96 };
+  } else if (activeFilter === "US") {
+    latRange = [24, 50]; lonRange = [-126, -66];
+    center = { lat: 38, lon: -96 };
+  }
+
+  var layout = {
+    geo: {
+      scope: scope, projection: { type: "natural earth" },
+      center: center,
+      lataxis: { range: latRange },
+      lonaxis: { range: lonRange },
+      showland: true, landcolor: "rgb(12,20,30)",
+      showocean: true, oceancolor: "rgb(5,10,15)",
+      showcountries: true, countrycolor: "rgba(90,70,40,0.38)",
+      showsubunits: true, subunitcolor: "rgba(90,70,40,0.22)",
+      showlakes: true, lakecolor: "rgb(5,10,15)",
+      bgcolor: "rgba(0,0,0,0)"
+    },
+    paper_bgcolor: "rgba(0,0,0,0)",
+    plot_bgcolor: "rgba(0,0,0,0)",
+    font: { color: "#c9a44a", family: "DM Sans, Arial, sans-serif", size: 12 },
+    margin: { l: 0, r: 0, t: 0, b: 0 },
+    dragmode: "pan",
+    showlegend: false
+  };
+
+  var config = {
+    responsive: true,
+    scrollZoom: true,
+    displayModeBar: true,
+    modeBarButtonsToRemove: ["select2d","lasso2d","resetCameraDefault3d","hoverClosestGeo"],
+    modeBarButtonsToAdd: [],
+    displaylogo: false,
+    toImageButtonOptions: { format: "png", filename: "drishyam3_map" }
+  };
+
+  if (!mapInited) {
+    Plotly.newPlot("map-plotly", [trBubbles, trLabels], layout, config);
+    mapInited = true;
+  } else {
+    Plotly.react("map-plotly", [trBubbles, trLabels], layout, config);
+  }
+
+  var cnt = d.length;
+  document.getElementById("map-badge").textContent = cnt + " Metro" + (cnt !== 1 ? "s" : "");
+}
+
+// ── TABLE ──
+function renderTable() {
+  var d = filtered();
+  var rows = "";
+  d.forEach(function(m, i) {
+    rows += "<tr>" +
+      "<td class='rnk st nr'>" + (i+1) + "</td>" +
+      "<td class='mc st2'>" + m.n + "</td>" +
+      "<td class='gc2 nr'>" + m.gl + "</td>" +
+      "<td class='nr'>" + m.t + "</td>" +
+      "<td class='gc2 nr'>$" + m.a.toLocaleString() + "</td>" +
+      "<td class='tc'>" + m.tt + "</td>" +
+      "<td class='gc2 nr'>$" + m.tg.toLocaleString() + "</td>" +
+      "</tr>";
+  });
+  document.getElementById("tbl-body").innerHTML = rows;
+  document.getElementById("tbl-badge").textContent = "All " + d.length;
+  document.getElementById("tcard-note").textContent = d.length + " markets shown";
+}
+
+// ── STATS BARS ──
+function renderStats() {
+  var d = filtered();
+  var top10 = d.slice(0, 10);
+  var maxG = top10[0].g;
+
+  var barHtml = "";
+  top10.forEach(function(m) {
+    var pct = (m.g / maxG * 100).toFixed(1);
+    var label = m.n.replace("-Oak-San Jose","").replace("-Ft. Worth","").replace(", ON","").replace(", AB","").replace(", BC","").replace(", MB","");
+    barHtml += "<div class='br'><span class='bl'>" + label + "</span><div class='bt'><div class='bf' style='width:" + pct + "%'><span class='bv'>" + m.gl + "</span></div></div></div>";
+  });
+  document.getElementById("stats-bar").innerHTML = barHtml;
+
+  // Avg per theater top 10
+  var byAvg = d.slice().filter(function(m) { return m.t >= 1; }).sort(function(a,b) { return b.a - a.a; }).slice(0,10);
+  var maxA = byAvg[0].a;
+  var avgHtml = "";
+  byAvg.forEach(function(m) {
+    var pct = (m.a / maxA * 100).toFixed(1);
+    var label = m.n.replace("-Oak-San Jose","").replace("-Ft. Worth","").replace(", ON","").replace(", AB","").replace(", BC","");
+    avgHtml += "<div class='br'><span class='bl'>" + label + "</span><div class='bt'><div class='bf' style='width:" + pct + "%'><span class='bv'>$" + m.a.toLocaleString() + "</span></div></div></div>";
+  });
+  document.getElementById("stats-avg").innerHTML = avgHtml;
+}
+
+// ── TABS ──
 function switchTab(id, btn) {
   document.querySelectorAll(".panel").forEach(function(p) { p.classList.remove("active"); });
   document.querySelectorAll(".tab-btn").forEach(function(b) { b.classList.remove("active"); });
   document.getElementById("panel-" + id).classList.add("active");
   btn.classList.add("active");
+  if (id === "map") { setTimeout(function() { Plotly.Plots.resize("map-plotly"); }, 50); }
 }
 
-// ── Plot ──
-var plotInited = false;
-function initPlot() {
-  if (plotInited) return;
-  plotInited = true;
-  window.PlotlyConfig = {MathJaxConfig: "local"};
-Plotly.newPlot(                        "474295db-649b-41e7-a7c4-3e3fe9e9673b",                        [{"customdata":[["$230,897",4,15,57724.25,"York Cinema (Richmond Hill, ON)",98191,43.6532,-79.3832,230897],["$84,646",18,251,4702.555555555556,"Regal Commerce Center (North Brunswick, NJ)",15364,40.7128,-74.006,84646],["$78,460",17,276,4615.294117647059,"Cinemark 14 + XD (Lewisville, TX)",13493,32.7767,-96.797,78460],["$68,239",13,223,5249.153846153846,"Cine Lounge Fremont 7 (Fremont, CA)",14845,37.7749,-122.4194,68239],["$52,285",1,1,52285.0,"Apollo Cinema (Kitchener, ON)",52285,43.4516,-80.4925,52285],["$46,746",8,165,5843.25,"Cinemark Missouri City and XD (Missouri City, TX)",24524,29.7604,-95.3698,46746],["$39,771",12,205,3314.25,"Cine Lounge at Niles (Niles, IL)",17351,41.8781,-87.6298,39771],["$39,420",9,137,4380.0,"Regal Medlock Crossing (Duluth, GA)",19890,33.749,-84.388,39420],["$34,178",13,216,2629.076923076923,"AMC Neshaminy 24 with IMAX, Dolby (Bensalem, PA)",9511,39.9526,-75.1652,34178],["$30,950",9,117,3438.8888888888887,"Lincoln Square Cinema Bistro 22 with IMAX (Bellevue, WA)",23162,47.6062,-122.3321,30950],["$25,366",5,80,5073.2,"Regal Fox (Ashburn, VA)",12714,38.9072,-77.0369,25366],["$22,117",4,57,5529.25,"Tinseltown 20 + XD (Pflugerville, TX)",18712,30.2672,-97.7431,22117],["$21,205",1,10,21205.0,"Canyon Meadows 10 (Calgary, AB)",21205,51.0447,-114.0719,21205],["$20,636",1,6,20636.0,"Imagine Cinemas London Galleria (London, ON)",20636,42.9849,-81.2453,20636],["$16,971",11,216,1542.8181818181818,"Orange Stadium Promenade 25 + XD (Orange, CA)",6507,34.0522,-118.2437,16971],["$16,060",1,4,16060.0,"Hollywood Cinema Caprice (White Rock, BC)",16060,49.2827,-123.1207,16060],["$15,878",4,82,3969.5,"AMC Concord Mills 24 with IMAX, Dolby (Concord, NC)",8024,35.2271,-80.8431,15878],["$14,545",8,124,1818.125,"Regal Solomon Pond (Marlborough, MA)",6154,42.3601,-71.0589,14545],["$13,311",3,8,4437.0,"Duncan Cinemas (Duncan, BC)",5702,48.4284,-123.3656,13311],["$13,021",5,78,2604.2,"AMC Southpoint 17 with IMAX, Dolby (Durham, NC)",4064,35.7796,-78.6382,13021],["$12,931",5,102,2586.2,"AMC Forum 30 with IMAX, Dolby (Sterling Heights, MI)",3711,42.3314,-83.0458,12931],["$12,771",4,80,3192.75,"AMC Regency 20 with IMAX, Dolby (Brandon, FL)",6797,27.9506,-82.4572,12771],["$12,662",4,60,3165.5,"Movies 14 (Tracy, CA)",6719,38.5816,-121.4944,12662],["$12,020",1,2,12020.0,"Garden City Cinemas (Winnipeg, MB)",12020,49.8951,-97.1384,12020],["$11,963",8,146,1495.375,"Cinemark 16 (Mesa, AZ)",3890,33.4484,-112.074,11963],["$10,657",3,44,3552.3333333333335,"Buckland Hills 18 IMAX (Manchester, CT)",7438,41.7658,-72.6734,10657],["$8,237",8,142,1029.625,"Century Aurora + XD (Aurora, CO)",5365,39.7392,-104.9903,8237],["$7,907",2,48,3953.5,"Paradise 24 + XD (Davie, FL)",7688,25.7617,-80.1918,7907],["$7,734",1,24,7734.0,"Egyptian 24 + XD (Hanover, MD)",7734,39.2904,-76.6122,7734],["$7,253",3,57,2417.6666666666665,"Cinemark Orlando + XD (Orlando, FL)",6187,28.5383,-81.3792,7253],["$6,778",5,102,1355.6,"Polaris 18 + XD (Columbus, OH)",6122,39.9612,-82.9988,6778],["$6,567",6,129,1094.5,"AMC Town Center 20 with IMAX, Dolby, Prime (Leawood, KS)",1830,39.0997,-94.5786,6567],["$6,338",5,86,1267.6,"Regal Edwards Mira Mesa (San Diego, CA)",2773,32.7157,-117.1611,6338],["$5,158",3,48,1719.3333333333333,"AMC Eden Prairie Mall 18 with IMAX, Prime (Eden Prairie, MN)",2124,44.9778,-93.265,5158],["$4,915",3,48,1638.3333333333333,"Cinemark San Antonio 16 (San Antonio, TX)",4047,29.4241,-98.4936,4915],["$4,822",3,54,1607.3333333333333,"Regal Commonwealth (Midlothian, VA)",2139,37.5407,-77.436,4822],["$4,055",1,3,4055.0,"Amherst Theatre (Amherst, NS)",4055,45.2733,-66.0633,4055],["$3,964",2,28,1982.0,"Cinemark Robinson Township + XD (Robinson Township, PA)",3356,40.4406,-79.9959,3964],["$3,876",1,12,3876.0,"Pinnacle Hills Cinema 12 (Rogers, AR)",3876,36.0822,-94.1719,3876],["$3,727",3,52,1242.3333333333333,"Marcus St. Charles Cinema 18 with SuperScreen (Saint Charles, MO)",1952,38.627,-90.1994,3727],["$3,613",4,15,903.25,"Fort Cinema (Fort Saskatchewan, AB)",1609,53.5461,-113.4938,3613],["$3,572",2,41,1786.0,"Regal Hollywood - Nashville (Nashville, TN)",3250,36.1627,-86.7816,3572],["$3,482",3,50,1160.6666666666667,"Milford 16 (Milford, OH)",1914,39.1031,-84.512,3482],["$3,366",1,2,3366.0,"Rainbow Roxy Theatre (Saskatoon, SK)",3366,52.1579,-106.6702,3366],["$3,255",3,52,1085.0,"Beaverton Cedar Hills 16 (Beaverton, OR)",2747,45.5152,-122.6784,3255],["$3,241",5,66,648.2,"Cinemark Greenwood Corners 8 (Indianapolis, IN)",1274,39.7684,-86.1581,3241],["$3,108",3,64,1036.0,"Tinseltown 20 + XD (Jacksonville, FL)",2959,30.3322,-81.6557,3108],["$2,990",1,24,2990.0,"Valley View 24 + XD (Valley View, OH)",2990,41.4993,-81.6944,2990],["$2,891",3,60,963.6666666666666,"Cinemark Tinseltown 20 + XD (Oklahoma City, OK)",1977,35.4676,-97.5164,2891],["$2,651",2,37,1325.5,"Marcus Ridge Cinema 19 with SuperScreen, Screen X (New Berlin, WI)",2169,43.0389,-87.9065,2651],["$2,412",2,36,1206.0,"Dayton South 16 + XD (West Carrollton, OH)",2351,39.7589,-84.1916,2412],["$2,187",2,39,1093.5,"Cinemark Palace 21 + XD (Boca Raton, FL)",1378,26.7153,-80.0534,2187],["$2,164",2,32,1082.0,"Marcus Bloomington Galaxy Cinema 14 with IMAX, SuperScreen (Bloomington, IL)",1472,40.6936,-89.589,2164],["$2,057",1,16,2057.0,"Regal Elmwood Center (Buffalo, NY)",2057,42.8864,-78.8784,2057],["$2,020",1,18,2020.0,"Regal Crossgates (Albany, NY)",2020,42.6526,-73.7562,2020],["$1,995",1,15,1995.0,"Cordova 15 (Cordova, TN)",1995,35.1495,-90.049,1995],["$1,984",2,30,992.0,"Regal Harrisburg (Harrisburg, PA)",1493,40.2732,-76.8867,1984],["$1,725",2,39,862.5,"Cinemark Tinseltown + XD (Louisville, KY)",1446,38.2527,-85.7585,1725],["$1,609",1,24,1609.0,"Albuquerque Rio 24 + XD (Albuquerque, NM)",1609,35.0844,-106.6504,1609],["$1,566",2,40,783.0,"Cinemark Majestic Cinemas 18 (Meridian, ID)",1540,43.615,-116.2023,1566],["$1,540",2,29,770.0,"Apple Cinemas Providence Place IMAX (Providence, RI)",1235,41.824,-71.4128,1540],["$1,498",1,24,1498.0,"Cinemark 24 + XD (West Jordan, UT)",1498,40.7608,-111.891,1498],["$1,265",2,31,632.5,"AMC Patton Creek 15 with IMAX (Birmingham, AL)",861,33.5186,-86.8104,1265],["$1,244",1,12,1244.0,"Apple Cinemas Greece Ridge (Rochester, NY)",1244,43.1566,-77.6088,1244],["$1,226",1,19,1226.0,"Regal Destiny USA (Syracuse, NY)",1226,43.0481,-76.1474,1226],["$1,089",1,12,1089.0,"Cinemark City Center 12 + XD (Newport News, VA)",1089,36.8508,-76.2859,1089],["$1,040",1,20,1040.0,"AMC Tallahassee 20 with IMAX, Dolby (Tallahassee, FL)",1040,30.4383,-84.2807,1040],["$978",1,16,978.0,"Regal Royal Park (Gainesville, FL)",978,29.6516,-82.3248,978],["$953",1,16,953.0,"Summit Sierra 16 (Reno, NV)",953,39.5296,-119.8138,953],["$907",2,35,453.5,"Marcus Village Pointe Cinema 16 with UltraScreen (Omaha, NE)",636,41.2565,-95.9345,907],["$901",1,18,901.0,"Century Orleans 18 + XD (Las Vegas, NV)",901,36.1699,-115.1398,901],["$887",1,18,887.0,"Celebration Grand Rapids North 17 + IMAX (Grand Rapids, MI)",887,42.9634,-85.6681,887],["$859",1,16,859.0,"Regal Greensboro Grande (Greensboro, NC)",859,36.0726,-79.792,859],["$839",1,16,839.0,"Regal Cherrydale (Greenville, SC)",839,34.8526,-82.394,839],["$802",1,18,802.0,"Colonel Glenn 18 + XD (Little Rock, AR)",802,34.7465,-92.2896,802],["$761",1,20,761.0,"Regal Augusta Exchange (Augusta, GA)",761,33.4735,-82.0105,761],["$725",1,20,725.0,"Celebration - Lansing 20 + IMAX (Lansing, MI)",725,42.7325,-84.5555,725],["$723",1,16,723.0,"College Station + XD (College Station, TX)",723,31.5493,-97.1467,723],["$694",2,38,347.0,"Century El Con + XD (Tucson, AZ)",441,32.2226,-110.9747,694],["$620",1,20,620.0,"W. Des Moines Jordan Creek + XD (West Des Moines, IA)",620,41.5868,-93.625,620],["$619",1,18,619.0,"AMC Chattanooga 18 with IMAX (Chattanooga, TN)",619,35.0456,-85.3097,619],["$583",2,28,291.5,"Marcus Cedar Rapids Cinema 16 with Superscreen (Cedar Rapids, IA)",385,41.9779,-91.6656,583],["$569",1,18,569.0,"AMC Valley Bend 18 with IMAX (Huntsville, AL)",569,34.7304,-86.5861,569],["$472",1,20,472.0,"Regal Warren East (Wichita, KS)",472,37.6872,-97.3301,472],["$415",1,20,415.0,"Tinseltown 20 + XD (Colorado Springs, CO)",415,38.8339,-104.8214,415],["$411",1,18,411.0,"Davenport 53 18 + IMAX (Davenport, IA)",411,41.5236,-90.5776,411],["$410",1,16,410.0,"Franklin Park 16 + XD (Toledo, OH)",410,41.6528,-83.5379,410],["$399",1,16,399.0,"Phoenix Theatres Savoy 16 + IMAX (Savoy, IL)",399,40.1164,-88.2434,399],["$356",2,34,178.0,"Regal Dickson City (Dickson City, PA)",178,41.2459,-75.8813,356],["$355",1,12,355.0,"Regal Binghamton (Binghamton, NY)",355,42.0987,-75.918,355],["$353",1,15,353.0,"Tinseltown USA 15 + XD (Beaumont, TX)",353,30.0802,-94.1266,353],["$346",1,16,346.0,"Regal Valley View Grande (Roanoke, VA)",346,37.27097,-79.9414,346],["$330",1,17,330.0,"Tinseltown 17 (Erie, PA)",330,42.1292,-80.0851,330],["$285",1,11,285.0,"Marcus Hollywood Cinema 14 with UltraScreen (Grand Chute, WI)",285,44.5133,-88.0133,285],["$272",1,14,272.0,"Regal Coldwater Crossing (Fort Wayne, IN)",272,41.0793,-85.1394,272],["$232",1,16,232.0,"Regal Rancho Mirage (Rancho Mirage, CA)",232,33.8303,-116.5453,232],["$221",1,11,221.0,"Celebration - Mt Pleasant 11 (Mount Pleasant, MI)",221,43.0125,-83.6875,221],["$174",1,14,174.0,"Regal Harrisonburg (Harrisonburg, VA)",174,38.4496,-78.8689,174],["$154",1,16,154.0,"Apple Cinemas Westbrook (Westbrook, ME)",154,43.6591,-70.2568,154],["$129",1,14,129.0,"Marcus West Acres Cinema 14 with UltraScreen (Fargo, ND)",129,46.8772,-96.7898,129],["$28",1,16,28.0,"Regal Manchester - Fresno (Fresno, CA)",28,36.7378,-119.7871,28]],"geo":"geo","hovertemplate":"\u003cb\u003e%{hovertext}\u003c\u002fb\u003e\u003cbr\u003e\u003cbr\u003eGrossLabel=%{customdata[0]}\u003cbr\u003eTheaters=%{customdata[1]}\u003cbr\u003eScreens=%{customdata[2]}\u003cbr\u003eAvgPerTheater=%{customdata[3]:.0f}\u003cbr\u003eTop Theater=%{customdata[4]}\u003cbr\u003eTop Theater Gross=%{customdata[5]:,.0f}\u003cextra\u003e\u003c\u002fextra\u003e","hovertext":["Toronto, ON","New York","Dallas-Ft. Worth","San Francisco-Oak-San Jose","Kitchener, ON","Houston","Chicago","Atlanta","Philadelphia","Seattle-Tacoma","Washington, DC (Hagrstwn)","Austin","Calgary, AB","London, ON","Los Angeles","Vancouver, BC","Charlotte","Boston (Manchester)","Victoria, BC","Raleigh-Durham (Fayetvlle)","Detroit","Tampa-St. Pete (Sarasota)","Sacramnto-Stkton-Modesto","Winnipeg, MB","Phoenix (Prescott)","Hartford & New Haven","Denver","Miami-Ft. Lauderdale","Baltimore","Orlando-Daytona Bch-Melbrn","Columbus, OH","Kansas City","San Diego","Minneapolis-St. Paul","San Antonio","Richmond-Petersburg","Saint John, NB","Pittsburgh","Ft. Smith-Fay-Sprngdl-Rgrs","St. Louis","Edmonton, AB","Nashville","Cincinnati","Saskatoon, SK","Portland, OR","Indianapolis","Jacksonville","Cleveland-Akron (Canton)","Oklahoma City","Milwaukee","Dayton","West Palm Beach-Ft. Pierce","Peoria-Bloomington","Buffalo","Albany-Schenectady-Troy","Memphis","Harrisburg-Lncstr-Leb-York","Louisville","Albuquerque-Santa Fe","Boise","Providence-New Bedford","Salt Lake City","Birmingham (Ann And Tusc)","Rochester, NY","Syracuse","Norfolk-Portsmth-Newpt Nws","Tallahassee-Thomasville","Gainesville","Reno","Omaha","Las Vegas","Grand Rapids-Kalmzoo-B.Crk","Greensboro-H.Point-W.Salem","Greenvll-Spart-Ashevll-And","Little Rock-Pine Bluff","Augusta-Aiken","Lansing","Waco-Temple-Bryan","Tucson (Sierra Vista)","Des Moines-Ames","Chattanooga","Cedar Rapids-Wtrlo-Iwc&Dub","Huntsville-Decatur (Flor)","Wichita-Hutchinson Plus","Colorado Springs-Pueblo","Davenport-R.Island-Moline","Toledo","Champaign&Sprngfld-Decatur","Wilkes Barre-Scranton-Hztn","Binghamton","Beaumont-Port Arthur","Roanoke-Lynchburg","Erie","Green Bay-Appleton","Ft. Wayne","Palm Springs","Flint-Saginaw-Bay City","Harrisonburg","Portland-Auburn","Fargo-Valley City","Fresno-Visalia"],"lat":{"dtype":"f8","bdata":"pN++DpzTRUBeS8gHPVtEQM9m1edqY0BA0NVW7C\u002fjQkDSb18HzrlFQN\u002fgC5Opwj1ADk+vlGXwREAdWmQ7399AQLUV+8vu+UNA6Gor9pfNR0Aydy0hH3RDQL99HThnRD5AyxDHuriFSUBL6gQ0EX5FQPRsVn2uBkFAI0p7gy+kSED3deCcEZ1BQBKlvcEXLkVAn82qz9U2SEAW+8vuyeNBQHzysFBrKkVA3pOHhVrzO0BDrWnecUpDQCZTBaOS8khAYcPTK2W5QEBuowG8BeJEQAKaCBue3kNA+1xtxf7COUATYcPTK6VDQNJvXwfOiTxAJXUCmgj7Q0CitDf4woxDQKTfvg6cW0BAsAPnjCh9RkDNO07RkWw9QD55WKg1xUJAl\u002f+QfvuiRkAOT6+UZThEQJjdk4eFCkJAx0s3iUFQQ0A9LNSa5sVKQJSHhVrTFEJA2ht8YTKNQ0DqBDQRNhRKQBlz1xLywUZAih9j7lriQ0AwuycPC1U+QEdy+Q\u002fpv0RAB84ZUdq7QUA+6Nms+oRFQJp3nKIj4UNALNSa5h23OkC4QILix1hEQFOWIY51cUVAT6+UZYhTRUBCYOXQIpNBQDSitDf4IkRAf9k9eVggQ0Am5IOezYpBQB+F61G4zkVAtvP91HjpRED+ZffkYWFEQFHaG3xhwkBA3EYDeAuURUADeAskKIZFQOm3rwPnbEJAOdbFbTRwPkDXEvJBz6Y9QBb7y+7Jw0NARrbz\u002fdSgRECSy39IvxVCQLN78rBQe0VARdjw9EoJQkDpSC7\u002fIW1BQGQ730+NX0FA+FPjpZu8QED2KFyPwl1FQFuxv+yejD9AeAskKH4cQEB6pSxDHMtEQEtZhjjWhUFAE2HD0yv9REDMf0i\u002ffV1BQNXnaiv210JANBE2PL1qQ0DCFyZTBcNEQBZqTfOO00RAkKD4MeYOREAPC7WmeZ9EQL8OnDOiDEVAoyO5\u002fIcUPkA7GRwlr6JCQFRSJ6CJEEVAtoR80LNBRkBSSZ2AJopEQDXvOEVH6kBAmpmZmZmBRUALJCh+jDlDQJVliGNd1EVAjgbwFkhwR0CRfvs6cF5CQA=="},"legendgroup":"","lon":{"dtype":"f8","bdata":"8fRKWYbYU8Cq8dJNYoBSwF66SQwCM1jAUPwYc9eaXsDsUbgehR9UwOSDns2q11fAVcGopE7oVcBGtvP91BhVwCZTBaOSylLAGsBbIEGVXsA8TtGRXEJTwBZqTfOOb1jARiV1ApqEXMBdbcX+sk9UwEGC4seYj13AJCh+jLnHXsB90LNZ9TVUwABvgQTFw1HAutqK\u002fWXXXsCpE9BE2KhTwAmKH2PuwlTAzO7Jw0KdVMAdyeU\u002fpF9ewA1xrIvbSFjA2\u002fl+arwEXMAXSFD8GCtSwKVOQBNhP1rA3NeBc0YMVMAep+hILidTwCqpE9BEWFTAq8\u002fVVuy\u002fVMDMXUvIB6VXwK7YX3ZPSl3AKVyPwvVQV8CPU3Qkl59YwJZDi2znW1PAjnVxGw2EUMCIhVrTvP9TwKyL22gAi1fAorQ3+MKMVsDysFBrml9cwG6jAbwFslXAVOOlm8QgVcDecYqO5KpawM9m1edqq17A2V92Tx6KVcAu\u002fyH99mlUwOqVsgxxbFTA4umVsgxhWMC8dJMYBPpVwHh6pSxDDFXAz2bV52oDVMAEVg4tsmVWwJwzorQ3uFPADk+vlGVwUsBCYOXQIoNWwD9XW7G\u002fOFPABoGVQ4twVcBhVFInoKlawMX+snvyDF3AfPKwUGvaUcAbL90kBvlbwGsr9pfds1XAgnNGlPZmU8CM22gAbwlTwEp7gy9MElPALv8h\u002ffYRVcBpb\u002fCFyZRUwAdfmEwV9F3AK4cW2c77V8DF\u002frJ78shcwEmdgCbCalXAppvEILDyU8Dwp8ZLN5lUwPs6cM6IElfA6SYxCKyAVMBkO99PjSNVwK+UZYhjSVjAUdobfGG+W8AAAAAAAGhXwI\u002fk8h\u002fSU1XA7Q2+MJnqVsDhC5OpgqVVwDcawFsgVVjAzTtO0ZE0WsDbiv1l96RWwC0hH\u002fRs4lTAK\u002faX3ZMPVsC\u002ffR04Z\u002fhSwJhuEoPA+lLAHOviNhqIV8AVHcnlP\u002fxTwO84RUdyBVTAW0I+6NkAVsD+Q\u002frt60hVwJCg+DHmIl3AAAAAAADsVMCk374OnLdTwDhnRGlvkFHAX5hMFYwyWMCfq63YX\u002fJdwA=="},"marker":{"color":{"dtype":"i4","bdata":"8YUDAKZKAQB8MgEAjwoBAD3MAACatgAAW5sAAPyZAACChQAA5ngAABZjAABlVgAA1VIAAJxQAABLQgAAvD4AAAY+AADROAAA\u002fzMAAN0yAACDMgAA4zEAAHYxAAD0LgAAuy4AAKEpAAAtIAAA4x4AADYeAABVHAAAehoAAKcZAADCGAAAJhQAADMTAADWEgAA1w8AAHwPAAAkDwAAjw4AAB0OAAD0DQAAmg0AACYNAAC3DAAAqQwAACQMAACuCwAASwsAAFsKAABsCQAAiwgAAHQIAAAJCAAA5AcAAMsHAADABwAAvQYAAEkGAAAeBgAABAYAANoFAADxBAAA3AQAAMoEAABBBAAAEAQAANIDAAC5AwAAiwMAAIUDAAB3AwAAWwMAAEcDAAAiAwAA+QIAANUCAADTAgAAtgIAAGwCAABrAgAARwIAADkCAADYAQAAnwEAAJsBAACaAQAAjwEAAGQBAABjAQAAYQEAAFoBAABKAQAAHQEAABABAADoAAAA3QAAAK4AAACaAAAAgQAAABwAAAA="},"coloraxis":"coloraxis","size":{"dtype":"i4","bdata":"8YUDAKZKAQB8MgEAjwoBAD3MAACatgAAW5sAAPyZAACChQAA5ngAABZjAABlVgAA1VIAAJxQAABLQgAAvD4AAAY+AADROAAA\u002fzMAAN0yAACDMgAA4zEAAHYxAAD0LgAAuy4AAKEpAAAtIAAA4x4AADYeAABVHAAAehoAAKcZAADCGAAAJhQAADMTAADWEgAA1w8AAHwPAAAkDwAAjw4AAB0OAAD0DQAAmg0AACYNAAC3DAAAqQwAACQMAACuCwAASwsAAFsKAABsCQAAiwgAAHQIAAAJCAAA5AcAAMsHAADABwAAvQYAAEkGAAAeBgAABAYAANoFAADxBAAA3AQAAMoEAABBBAAAEAQAANIDAAC5AwAAiwMAAIUDAAB3AwAAWwMAAEcDAAAiAwAA+QIAANUCAADTAgAAtgIAAGwCAABrAgAARwIAADkCAADYAQAAnwEAAJsBAACaAQAAjwEAAGQBAABjAQAAYQEAAFoBAABKAQAAHQEAABABAADoAAAA3QAAAK4AAACaAAAAgQAAABwAAAA="},"sizemode":"area","sizeref":64.13805555555555,"symbol":"circle"},"mode":"markers","name":"","showlegend":false,"type":"scattergeo"},{"hoverinfo":"skip","lat":[43.6532],"lon":[-79.3832],"mode":"text","showlegend":false,"text":["Toronto, ON\u003cbr\u003e$230,897"],"textfont":{"color":"white","size":10},"textposition":"top center","type":"scattergeo"},{"hoverinfo":"skip","lat":[40.7128],"lon":[-74.006],"mode":"text","showlegend":false,"text":["New York\u003cbr\u003e$84,646"],"textfont":{"color":"white","size":10},"textposition":"top center","type":"scattergeo"},{"hoverinfo":"skip","lat":[32.7767],"lon":[-96.797],"mode":"text","showlegend":false,"text":["Dallas-Ft. Worth\u003cbr\u003e$78,460"],"textfont":{"color":"white","size":10},"textposition":"top center","type":"scattergeo"},{"hoverinfo":"skip","lat":[37.7749],"lon":[-122.4194],"mode":"text","showlegend":false,"text":["San Francisco-Oak-San Jose\u003cbr\u003e$68,239"],"textfont":{"color":"white","size":10},"textposition":"top center","type":"scattergeo"},{"hoverinfo":"skip","lat":[43.4516],"lon":[-80.4925],"mode":"text","showlegend":false,"text":["Kitchener, ON\u003cbr\u003e$52,285"],"textfont":{"color":"white","size":10},"textposition":"top center","type":"scattergeo"},{"hoverinfo":"skip","lat":[29.7604],"lon":[-95.3698],"mode":"text","showlegend":false,"text":["Houston\u003cbr\u003e$46,746"],"textfont":{"color":"white","size":10},"textposition":"top center","type":"scattergeo"},{"hoverinfo":"skip","lat":[41.8781],"lon":[-87.6298],"mode":"text","showlegend":false,"text":["Chicago\u003cbr\u003e$39,771"],"textfont":{"color":"white","size":10},"textposition":"top center","type":"scattergeo"},{"hoverinfo":"skip","lat":[33.749],"lon":[-84.388],"mode":"text","showlegend":false,"text":["Atlanta\u003cbr\u003e$39,420"],"textfont":{"color":"white","size":10},"textposition":"top center","type":"scattergeo"},{"hoverinfo":"skip","lat":[39.9526],"lon":[-75.1652],"mode":"text","showlegend":false,"text":["Philadelphia\u003cbr\u003e$34,178"],"textfont":{"color":"white","size":10},"textposition":"top center","type":"scattergeo"},{"hoverinfo":"skip","lat":[47.6062],"lon":[-122.3321],"mode":"text","showlegend":false,"text":["Seattle-Tacoma\u003cbr\u003e$30,950"],"textfont":{"color":"white","size":10},"textposition":"top center","type":"scattergeo"},{"hoverinfo":"skip","lat":[38.9072],"lon":[-77.0369],"mode":"text","showlegend":false,"text":["Washington, DC (Hagrstwn)\u003cbr\u003e$25,366"],"textfont":{"color":"white","size":10},"textposition":"top center","type":"scattergeo"},{"hoverinfo":"skip","lat":[30.2672],"lon":[-97.7431],"mode":"text","showlegend":false,"text":["Austin\u003cbr\u003e$22,117"],"textfont":{"color":"white","size":10},"textposition":"top center","type":"scattergeo"},{"hoverinfo":"skip","lat":[51.0447],"lon":[-114.0719],"mode":"text","showlegend":false,"text":["Calgary, AB\u003cbr\u003e$21,205"],"textfont":{"color":"white","size":10},"textposition":"top center","type":"scattergeo"},{"hoverinfo":"skip","lat":[42.9849],"lon":[-81.2453],"mode":"text","showlegend":false,"text":["London, ON\u003cbr\u003e$20,636"],"textfont":{"color":"white","size":10},"textposition":"top center","type":"scattergeo"},{"hoverinfo":"skip","lat":[34.0522],"lon":[-118.2437],"mode":"text","showlegend":false,"text":["Los Angeles\u003cbr\u003e$16,971"],"textfont":{"color":"white","size":10},"textposition":"top center","type":"scattergeo"}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"rgb(17,17,17)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#f2f5fa"},"error_y":{"color":"#f2f5fa"},"marker":{"line":{"color":"rgb(17,17,17)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#A2B1C6","gridcolor":"#506784","linecolor":"#506784","minorgridcolor":"#506784","startlinecolor":"#A2B1C6"},"baxis":{"endlinecolor":"#A2B1C6","gridcolor":"#506784","linecolor":"#506784","minorgridcolor":"#506784","startlinecolor":"#A2B1C6"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"line":{"color":"#283442"}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"marker":{"line":{"color":"#283442"}},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#506784"},"line":{"color":"rgb(17,17,17)"}},"header":{"fill":{"color":"#2a3f5f"},"line":{"color":"rgb(17,17,17)"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#f2f5fa","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#f2f5fa"},"geo":{"bgcolor":"rgb(17,17,17)","lakecolor":"rgb(17,17,17)","landcolor":"rgb(17,17,17)","showlakes":true,"showland":true,"subunitcolor":"#506784"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"dark"},"paper_bgcolor":"rgb(17,17,17)","plot_bgcolor":"rgb(17,17,17)","polar":{"angularaxis":{"gridcolor":"#506784","linecolor":"#506784","ticks":""},"bgcolor":"rgb(17,17,17)","radialaxis":{"gridcolor":"#506784","linecolor":"#506784","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"rgb(17,17,17)","gridcolor":"#506784","gridwidth":2,"linecolor":"#506784","showbackground":true,"ticks":"","zerolinecolor":"#C8D4E3"},"yaxis":{"backgroundcolor":"rgb(17,17,17)","gridcolor":"#506784","gridwidth":2,"linecolor":"#506784","showbackground":true,"ticks":"","zerolinecolor":"#C8D4E3"},"zaxis":{"backgroundcolor":"rgb(17,17,17)","gridcolor":"#506784","gridwidth":2,"linecolor":"#506784","showbackground":true,"ticks":"","zerolinecolor":"#C8D4E3"}},"shapedefaults":{"line":{"color":"#f2f5fa"}},"sliderdefaults":{"bgcolor":"#C8D4E3","bordercolor":"rgb(17,17,17)","borderwidth":1,"tickwidth":0},"ternary":{"aaxis":{"gridcolor":"#506784","linecolor":"#506784","ticks":""},"baxis":{"gridcolor":"#506784","linecolor":"#506784","ticks":""},"bgcolor":"rgb(17,17,17)","caxis":{"gridcolor":"#506784","linecolor":"#506784","ticks":""}},"title":{"x":0.05},"updatemenudefaults":{"bgcolor":"#506784","borderwidth":0},"xaxis":{"automargin":true,"gridcolor":"#283442","linecolor":"#506784","ticks":"","title":{"standoff":15},"zerolinecolor":"#283442","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#283442","linecolor":"#506784","ticks":"","title":{"standoff":15},"zerolinecolor":"#283442","zerolinewidth":2}}},"geo":{"domain":{"x":[0.0,1.0],"y":[0.0,1.0]},"projection":{"type":"natural earth"},"center":{},"scope":"north america","lataxis":{"range":[24,56]},"lonaxis":{"range":[-128,-62]},"showland":true,"landcolor":"rgb(244, 241, 235)","showocean":true,"oceancolor":"rgb(14, 26, 43)","showcountries":true,"countrycolor":"rgb(120,120,120)","showsubunits":true,"subunitcolor":"rgb(170,170,170)"},"coloraxis":{"colorbar":{"title":{"text":"Gross"}},"colorscale":[[0.0,"rgb(255,255,204)"],[0.125,"rgb(255,237,160)"],[0.25,"rgb(254,217,118)"],[0.375,"rgb(254,178,76)"],[0.5,"rgb(253,141,60)"],[0.625,"rgb(252,78,42)"],[0.75,"rgb(227,26,28)"],[0.875,"rgb(189,0,38)"],[1.0,"rgb(128,0,38)"]]},"legend":{"tracegroupgap":0,"itemsizing":"constant"},"title":{"text":"Drishyam 3 North America Collections by Metro","font":{"size":28},"x":0.5},"margin":{"l":10,"r":10,"t":70,"b":10},"font":{"family":"Arial","size":13},"height":820,"paper_bgcolor":"rgb(8, 15, 28)","plot_bgcolor":"rgb(8, 15, 28)"},                        {"responsive": true}                    )
-  // Restyle map for D3 theme
-  var d = document.getElementById("474295db-649b-41e7-a7c4-3e3fe9e9673b");
-  Plotly.relayout(d, {
-    "geo.landcolor": "rgb(12, 20, 30)",
-    "geo.oceancolor": "rgb(5, 10, 15)",
-    "geo.bgcolor": "rgb(5, 10, 15)",
-    "geo.countrycolor": "rgba(90,70,40,0.4)",
-    "geo.subunitcolor": "rgba(90,70,40,0.22)",
-    "geo.lakecolor": "rgb(5, 10, 15)",
-    "paper_bgcolor": "rgba(0,0,0,0)",
-    "plot_bgcolor": "rgba(0,0,0,0)",
-    "font.color": "#c9a84c",
-    "font.family": "Inter, Arial, sans-serif",
-    "coloraxis.colorscale": [
-      [0.0,  "rgb(25, 10, 5)"],
-      [0.15, "rgb(80, 18, 10)"],
-      [0.35, "rgb(139, 26, 26)"],
-      [0.6,  "rgb(175, 95, 18)"],
-      [0.8,  "rgb(201, 168, 76)"],
-      [1.0,  "rgb(240, 218, 145)"]
-    ],
-    margin: {l: 0, r: 0, t: 0, b: 0}
+// ── INIT ──
+function init() {
+  updateKPIs();
+  renderMap();
+  renderTable();
+  renderStats();
+  window.addEventListener("resize", function() {
+    if (mapInited) Plotly.Plots.resize("map-plotly");
   });
 }
 </script>
