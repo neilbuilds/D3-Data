@@ -6,7 +6,6 @@
 <meta name="theme-color" content="#060b10">
 <title>Malayalam Box Office — North America</title>
 <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.3.1.min.js" integrity="sha256-4rD3fugVb/nVJYUv5Ky3v+fYXoouHaBSP20WIJuEiWg=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -442,11 +441,91 @@ tbody tr:nth-child(3) .rnk{color:#cd7f32;}
 </div><!-- #app -->
 
 <script>
-// ── SUPABASE ──────────────────────────────────────────────────────────────────
+// ── SUPABASE REST ─────────────────────────────────────────────────────────────
 var SUPABASE_URL  = 'https://xqhdzxxzfurexehmrhtc.supabase.co';
-var SUPABASE_ANON = 'sb_publishable_VGf5jF8jraUYO0p4CnnSJQ_ubNK76DF';
-var sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+var SUPABASE_ANON = 'PASTE_YOUR_NEW_ANON_KEY_HERE';
 
+async function sbFetch(table, params) {
+  var url = SUPABASE_URL + '/rest/v1/' + table + '?' + params;
+  var res = await fetch(url, {
+    headers: {
+      'apikey':        SUPABASE_ANON,
+      'Authorization': 'Bearer ' + SUPABASE_ANON,
+      'Accept':        'application/json'
+    }
+  });
+  if (!res.ok) {
+    var err = await res.text();
+    throw new Error(table + ' ' + res.status + ': ' + err);
+  }
+  return res.json();
+}
+
+async function loadFilm(filmId) {
+  if (cache[filmId]) return cache[filmId];
+
+  var enc = encodeURIComponent;
+
+  var results = await Promise.all([
+    sbFetch('metros',   'film_id=eq.' + enc(filmId) + '&order=gross.desc&select=*'),
+    sbFetch('circuits', 'film_id=eq.' + enc(filmId) + '&order=gross_all.desc&select=*'),
+    sbFetch('theaters', 'film_id=eq.' + enc(filmId) + '&select=*')
+  ]);
+
+  var metroData   = results[0];
+  var circuitData = results[1];
+  var theaterData = results[2];
+
+  // Group theaters by metro_name
+  var theatersByMetro = {};
+  var owgByMetro = {};
+  theaterData.forEach(function(th) {
+    if (!theatersByMetro[th.metro_name]) theatersByMetro[th.metro_name] = [];
+    theatersByMetro[th.metro_name].push({
+      n:   th.name,
+      owg: th.opening_weekend,
+      drg: th.total_gross
+    });
+    owgByMetro[th.metro_name] = (owgByMetro[th.metro_name] || 0) + th.opening_weekend;
+  });
+
+  var metros = metroData.map(function(m) {
+    return {
+      n:   m.name,
+      g:   m.gross,
+      gl:  '$' + m.gross.toLocaleString(),
+      t:   m.theaters,
+      a:   Math.round(m.gross / m.theaters),
+      tt:  m.top_theater,
+      tg:  m.top_gross,
+      lat: parseFloat(m.lat),
+      lon: parseFloat(m.lon),
+      c:   m.country
+    };
+  });
+
+  var circuits = circuitData.map(function(c) {
+    var pct = parseFloat(c.settlement_pct);
+    return {
+      n:   c.name,
+      pct: pct,
+      all: c.locations_all, us: c.locations_us, ca: c.locations_ca,
+      g:   c.gross_all,     gu: c.gross_us,     gc: c.gross_ca,
+      es:  Math.round(c.gross_all * pct),
+      esu: Math.round(c.gross_us  * pct),
+      esc: Math.round(c.gross_ca  * pct)
+    };
+  });
+
+  cache[filmId] = {
+    metros:       metros,
+    circuits_all: circuits,
+    theatres:     theatersByMetro,
+    owgByMetro:   owgByMetro
+  };
+
+  return cache[filmId];
+}
 // Film metadata (labels/badges only — no box office data)
 var FILM_META = {
   KR:{label:"Karuppu",badge:"KR"},   AT:{label:"Athiradi",badge:"AT"},
