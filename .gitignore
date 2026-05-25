@@ -1,0 +1,15 @@
+# Never commit migration or dev tools
+migrate.html
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor directories
+.vscode/
+.idea/
+
+# Local env files — if you ever add a build step
+.env
+.env.local
+.env.production
