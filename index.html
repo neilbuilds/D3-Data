@@ -21,15 +21,12 @@ html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent;}
 select option{background:#0e1822;color:#ece4d2;}
 body{background:var(--bg);color:var(--text);font-family:"DM Sans",system-ui,sans-serif;font-size:14px;line-height:1.6;min-height:100vh;overflow-x:hidden;
   background-image:radial-gradient(ellipse 140% 45% at 50% 0%,rgba(138,24,24,.2) 0%,transparent 55%);}
-
-/* GATE */
 #gate{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;
   background:radial-gradient(ellipse 110% 50% at 50% 22%,rgba(138,24,24,.25) 0%,transparent 60%),#060b10;}
 #gate::before{content:"";position:absolute;inset:0;pointer-events:none;
   background-image:repeating-linear-gradient(0deg,transparent 0,transparent 59px,rgba(201,164,74,.03) 60px),
   repeating-linear-gradient(90deg,transparent 0,transparent 59px,rgba(201,164,74,.03) 60px);}
-.gc{position:relative;background:linear-gradient(150deg,#0f1e2c 0%,#090f18 65%);
-  border:1px solid var(--b2);border-radius:18px;
+.gc{position:relative;background:linear-gradient(150deg,#0f1e2c 0%,#090f18 65%);border:1px solid var(--b2);border-radius:18px;
   padding:clamp(28px,6vw,48px) clamp(22px,6vw,42px);width:100%;max-width:400px;
   box-shadow:var(--sh),0 0 50px rgba(138,24,24,.15),inset 0 1px 0 rgba(201,164,74,.1);text-align:center;}
 .gc::before{content:"";position:absolute;top:0;left:14px;right:14px;height:1px;
@@ -56,58 +53,34 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",system-ui,sans
 .g-btn:active{transform:scale(.98);}
 .g-err{font-size:11.5px;color:#e05050;margin-top:10px;display:none;}
 .g-err.show{display:block;}
-
-/* LOADING */
 #loading{position:fixed;inset:0;z-index:8888;display:none;align-items:center;justify-content:center;
   background:var(--bg);flex-direction:column;gap:16px;}
 .ld-ring{width:36px;height:36px;border:2px solid var(--b2);border-top-color:var(--gold);
   border-radius:50%;animation:spin .7s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .ld-txt{font-size:12px;color:var(--muted);letter-spacing:.1em;}
-
-/* APP */
 #app{display:none;}
-
-/* HEADER */
 .hdr{position:relative;overflow:hidden;background:linear-gradient(180deg,#0c0404 0%,#090f18 100%);border-bottom:1px solid var(--b1);}
-.hdr-bg{position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(ellipse 85% 110% at 50% -15%,rgba(138,24,24,.34) 0%,transparent 62%);}
-.hdr-inner{position:relative;max-width:1440px;margin:0 auto;
-  padding:clamp(16px,3vw,28px) clamp(16px,4vw,40px);
-  display:flex;align-items:center;gap:clamp(12px,2.5vw,22px);}
-.hdr-med{flex-shrink:0;width:clamp(44px,8vw,60px);height:clamp(44px,8vw,60px);border-radius:50%;
-  border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;
-  background:radial-gradient(circle,rgba(138,24,24,.42) 0%,rgba(6,11,16,.85) 100%);
-  box-shadow:0 0 22px rgba(201,164,74,.15);}
+.hdr-bg{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 85% 110% at 50% -15%,rgba(138,24,24,.34) 0%,transparent 62%);}
+.hdr-inner{position:relative;max-width:1440px;margin:0 auto;padding:clamp(16px,3vw,28px) clamp(16px,4vw,40px);display:flex;align-items:center;gap:clamp(12px,2.5vw,22px);}
+.hdr-med{flex-shrink:0;width:clamp(44px,8vw,60px);height:clamp(44px,8vw,60px);border-radius:50%;border:1.5px solid var(--gold);display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle,rgba(138,24,24,.42) 0%,rgba(6,11,16,.85) 100%);box-shadow:0 0 22px rgba(201,164,74,.15);}
 .hdr-med-txt{font-family:"Playfair Display",serif;font-size:clamp(14px,3vw,20px);font-weight:700;
   background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .hdr-eye{font-size:9.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);opacity:.65;margin-bottom:4px;}
-.hdr h1{font-family:"Playfair Display",serif;font-size:clamp(16px,3.8vw,28px);font-weight:700;
-  letter-spacing:.02em;color:var(--white);line-height:1.15;margin-bottom:4px;}
-.hdr h1 em{font-style:italic;background:linear-gradient(135deg,var(--gold),var(--gold3));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hdr h1{font-family:"Playfair Display",serif;font-size:clamp(16px,3.8vw,28px);font-weight:700;letter-spacing:.02em;color:var(--white);line-height:1.15;margin-bottom:4px;}
+.hdr h1 em{font-style:italic;background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .hdr-sub{font-size:11px;color:var(--muted);line-height:1.5;}
-.hdr-line{position:absolute;bottom:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent 0%,var(--gold) 30%,var(--gold) 70%,transparent 100%);opacity:.13;}
-
-/* CONTROL BAR */
+.hdr-line{position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent 0%,var(--gold) 30%,var(--gold) 70%,transparent 100%);opacity:.13;}
 .ctrl-bar{background:var(--s1);border-bottom:1px solid var(--b1);}
-.ctrl-inner{max-width:1440px;margin:0 auto;padding:10px clamp(16px,4vw,40px);
-  display:flex;align-items:center;flex-wrap:wrap;gap:16px;}
+.ctrl-inner{max-width:1440px;margin:0 auto;padding:10px clamp(16px,4vw,40px);display:flex;align-items:center;flex-wrap:wrap;gap:16px;}
 .ctrl-group{display:flex;align-items:center;gap:8px;}
 .ctrl-label{font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);flex-shrink:0;}
 .ctrl-divider{width:1px;height:24px;background:var(--b2);flex-shrink:0;}
-.pill{padding:6px 14px;border-radius:20px;border:1px solid var(--b2);background:transparent;
-  color:var(--text2);font-family:"DM Sans",sans-serif;font-size:11.5px;font-weight:600;
-  letter-spacing:.03em;cursor:pointer;transition:all .18s;white-space:nowrap;
-  touch-action:manipulation;min-height:34px;-webkit-appearance:none;display:inline-flex;align-items:center;gap:5px;}
+.pill{padding:6px 14px;border-radius:20px;border:1px solid var(--b2);background:transparent;color:var(--text2);font-family:"DM Sans",sans-serif;font-size:11.5px;font-weight:600;
+  letter-spacing:.03em;cursor:pointer;transition:all .18s;white-space:nowrap;touch-action:manipulation;min-height:34px;-webkit-appearance:none;display:inline-flex;align-items:center;gap:5px;}
 .pill:hover{border-color:var(--gold);color:var(--gold);}
 .pill.active{background:rgba(201,164,74,.11);border-color:var(--gold);color:var(--gold);}
-.pill-soon{opacity:.4;cursor:not-allowed;position:relative;}
-.pill-soon::after{content:"Soon";position:absolute;top:-6px;right:-4px;font-size:7px;
-  background:var(--b2);color:var(--muted);padding:1px 4px;border-radius:4px;letter-spacing:.06em;}
-
-/* KPI GRID */
 .kpi-strip{background:var(--s1);border-bottom:1px solid var(--b1);padding:0 clamp(16px,4vw,40px);}
 .kpi-grid{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:repeat(6,1fr);}
 .kpi-cell{padding:15px 13px;border-bottom:1px solid var(--b1);border-right:1px solid var(--b1);}
@@ -116,61 +89,40 @@ body{background:var(--bg);color:var(--text);font-family:"DM Sans",system-ui,sans
 @media(min-width:860px){.kpi-cell:nth-child(3n){border-right:1px solid var(--b1);}.kpi-cell{border-bottom:none;}.kpi-cell:last-child{border-right:none;}}
 .kpi-lbl{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
 .kpi-val{font-family:"Playfair Display",serif;font-size:clamp(17px,3.2vw,23px);font-weight:700;line-height:1;
-  background:linear-gradient(135deg,var(--gold) 0%,var(--gold3) 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  background:linear-gradient(135deg,var(--gold) 0%,var(--gold3) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .kpi-sub{font-size:9.5px;color:var(--muted);margin-top:3px;line-height:1.4;}
-
-/* TABS */
-.tabs-wrap{background:var(--s1);border-bottom:1px solid var(--b1);padding:0 clamp(16px,4vw,40px);
-  position:sticky;top:0;z-index:100;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);}
+.tabs-wrap{background:var(--s1);border-bottom:1px solid var(--b1);padding:0 clamp(16px,4vw,40px);position:sticky;top:0;z-index:100;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);}
 .tabs{max-width:1440px;margin:0 auto;display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .tabs::-webkit-scrollbar{display:none;}
-.tab-btn{flex-shrink:0;padding:12px 16px;font-size:11px;font-weight:600;letter-spacing:.09em;
-  text-transform:uppercase;color:var(--muted);background:none;border:none;
-  border-bottom:2px solid transparent;cursor:pointer;transition:color .18s,border-color .18s;
-  white-space:nowrap;touch-action:manipulation;min-height:44px;font-family:"DM Sans",sans-serif;}
+.tab-btn{flex-shrink:0;padding:12px 16px;font-size:11px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);background:none;border:none;
+  border-bottom:2px solid transparent;cursor:pointer;transition:color .18s,border-color .18s;white-space:nowrap;touch-action:manipulation;min-height:44px;font-family:"DM Sans",sans-serif;}
 .tab-btn:hover{color:var(--text);}
 .tab-btn.active{color:var(--gold);border-bottom-color:var(--gold);}
-
-/* PANELS */
 .panel{display:none;}
 .panel.active{display:block;}
 .wrap{max-width:1440px;margin:0 auto;padding:clamp(18px,3vw,26px) clamp(16px,4vw,40px) 56px;}
-
-/* SECTION HEAD */
 .sh{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
-.sh::before{content:"";display:block;width:3px;height:18px;border-radius:2px;
-  background:linear-gradient(180deg,var(--gold),var(--cr));}
+.sh::before{content:"";display:block;width:3px;height:18px;border-radius:2px;background:linear-gradient(180deg,var(--gold),var(--cr));}
 .sh h2{font-family:"Playfair Display",serif;font-size:clamp(14px,3vw,17px);font-weight:700;color:var(--white);letter-spacing:.03em;}
-.sh-badge{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);
-  border:1px solid rgba(201,164,74,.2);border-radius:20px;padding:3px 10px;background:rgba(201,164,74,.05);}
-
-/* MAP */
+.sh-badge{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,164,74,.2);border-radius:20px;padding:3px 10px;background:rgba(201,164,74,.05);}
 .map-card{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);margin-bottom:20px;}
-.map-bar{padding:10px 14px;border-bottom:1px solid var(--b1);background:var(--s2);
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.map-bar{padding:10px 14px;border-bottom:1px solid var(--b1);background:var(--s2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
 .map-hint{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px;}
 .map-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 5px rgba(201,164,74,.5);}
 .map-legend{display:flex;align-items:center;gap:7px;font-size:10px;color:var(--muted);}
 .leg-bar{width:68px;height:5px;border-radius:3px;background:linear-gradient(90deg,#3a0808,var(--cr),var(--gold),var(--gold3));}
 #map-plotly{width:100%;}
-
-/* TABLE */
 .tcard{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);}
-.tcard-head{padding:13px 17px;border-bottom:1px solid var(--b1);background:var(--s2);
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.tcard-head{padding:13px 17px;border-bottom:1px solid var(--b1);background:var(--s2);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
 .tcard-head h3{font-family:"Playfair Display",serif;font-size:15px;font-weight:700;color:var(--white);}
 .tcard-note{font-size:11px;color:var(--muted);font-style:italic;}
 .tbl-wrap{position:relative;overflow:hidden;}
-.tbl-wrap::after{content:"";position:absolute;top:0;right:0;bottom:0;width:26px;
-  background:linear-gradient(90deg,transparent,rgba(10,16,24,.9));pointer-events:none;}
+.tbl-wrap::after{content:"";position:absolute;top:0;right:0;bottom:0;width:26px;background:linear-gradient(90deg,transparent,rgba(10,16,24,.9));pointer-events:none;}
 .tbl-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:var(--b2) transparent;}
 .tbl-scroll::-webkit-scrollbar{height:3px;}
 .tbl-scroll::-webkit-scrollbar-thumb{background:var(--b2);border-radius:2px;}
 table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:560px;}
-thead th{background:var(--s2);color:var(--gold);font-size:9px;font-weight:700;
-  letter-spacing:.12em;text-transform:uppercase;padding:9px 12px;text-align:left;
-  border-bottom:1px solid var(--b2);white-space:nowrap;}
+thead th{background:var(--s2);color:var(--gold);font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:9px 12px;text-align:left;border-bottom:1px solid var(--b2);white-space:nowrap;}
 th.st,td.st{position:sticky;left:0;z-index:2;background:var(--s2);}
 td.st{background:var(--s1);}
 tr:hover td.st{background:#0e1d2a;}
@@ -188,22 +140,17 @@ tbody tr:nth-child(3) .rnk{color:#cd7f32;}
 .gc2{font-weight:700;color:var(--gold2);white-space:nowrap;}
 .mc{font-weight:600;color:var(--white);white-space:nowrap;}
 .tc{color:var(--muted);font-size:11px;max-width:190px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-
-/* STATS */
 .stats-grid{display:grid;grid-template-columns:1fr;gap:16px;}
 @media(min-width:800px){.stats-grid{grid-template-columns:1fr 1fr;}}
 .scard{background:var(--s1);border:1px solid var(--b1);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);}
-.scard-h{padding:12px 16px;border-bottom:1px solid var(--b1);background:var(--s2);
-  display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.scard-h{padding:12px 16px;border-bottom:1px solid var(--b1);background:var(--s2);display:flex;align-items:center;justify-content:space-between;gap:8px;}
 .scard-h h3{font-family:"Playfair Display",serif;font-size:14px;font-weight:700;color:var(--white);}
 .scard-filter-note{font-size:10px;color:var(--gold);font-style:italic;opacity:.8;}
 .scard-b{padding:15px;}
 .br{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
 .bl{width:100px;flex-shrink:0;color:var(--text2);font-size:10.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:right;}
 .bt{flex:1;height:20px;background:var(--s3);border-radius:3px;overflow:hidden;}
-.bf{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--cr),var(--gold));
-  display:flex;align-items:center;justify-content:flex-end;padding-right:5px;min-width:2px;
-  transition:width .5s cubic-bezier(.4,0,.2,1);}
+.bf{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--cr),var(--gold));display:flex;align-items:center;justify-content:flex-end;padding-right:5px;min-width:2px;transition:width .5s cubic-bezier(.4,0,.2,1);}
 .bv{font-size:9.5px;font-weight:700;color:rgba(255,255,255,.85);white-space:nowrap;}
 .ins{list-style:none;}
 .in{display:flex;gap:10px;padding:11px 0;border-bottom:1px solid rgba(28,47,64,.5);font-size:12.5px;}
@@ -213,9 +160,7 @@ tbody tr:nth-child(3) .rnk{color:#cd7f32;}
 .it strong{color:var(--white);font-weight:600;}
 .stat-kpi-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
 .sk{background:var(--s3);border-radius:8px;padding:12px;text-align:center;}
-.sk-v{font-family:"Playfair Display",serif;font-size:22px;font-weight:700;
-  background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.sk-v{font-family:"Playfair Display",serif;font-size:22px;font-weight:700;background:linear-gradient(135deg,var(--gold),var(--gold3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
 .sk-l{font-size:9.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:3px;}
 .divider{height:1px;background:var(--b1);margin:12px 0;}
 .fn{font-size:11px;color:var(--muted);border-top:1px solid var(--b1);padding-top:15px;margin-top:6px;line-height:1.6;}
@@ -224,7 +169,6 @@ tbody tr:nth-child(3) .rnk{color:#cd7f32;}
 </head>
 <body>
 
-<!-- GATE -->
 <div id="gate">
   <div class="gc">
     <div class="g-eye">Malayalam Box Office Intelligence</div>
@@ -239,15 +183,12 @@ tbody tr:nth-child(3) .rnk{color:#cd7f32;}
   </div>
 </div>
 
-<!-- LOADING -->
 <div id="loading">
   <div class="ld-ring"></div>
   <div class="ld-txt">Loading film data...</div>
 </div>
 
-<!-- APP -->
 <div id="app">
-
 <header class="hdr">
   <div class="hdr-bg"></div>
   <div class="hdr-inner">
@@ -261,7 +202,6 @@ tbody tr:nth-child(3) .rnk{color:#cd7f32;}
   <div class="hdr-line"></div>
 </header>
 
-<!-- CONTROL BAR -->
 <div class="ctrl-bar">
   <div class="ctrl-inner">
     <div class="ctrl-group">
@@ -299,23 +239,19 @@ tbody tr:nth-child(3) .rnk{color:#cd7f32;}
   </div>
 </div>
 
-<!-- KPI STRIP -->
 <div class="kpi-strip">
   <div class="kpi-grid" style="grid-template-columns:repeat(6,1fr);">
     <div class="kpi-cell" style="border-right:1px solid rgba(201,164,74,.15);">
       <div class="kpi-lbl">Total Gross</div>
       <div class="kpi-val" id="kv-gross">—</div>
-      <div class="kpi-sub" id="kv-gross-sub" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+      <div class="kpi-sub" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
         <button id="inr-badge" onclick="toggleINR()" title="Toggle INR / USD"
-          style="font-size:10px;font-weight:800;letter-spacing:.1em;color:var(--gold3);cursor:pointer;
-          border:1.5px solid var(--gold);padding:3px 10px;border-radius:12px;
-          background:rgba(201,164,74,.12);font-family:inherit;transition:all .2s;">USD ⇄ INR</button>
+          style="font-size:10px;font-weight:800;letter-spacing:.1em;color:var(--gold3);cursor:pointer;border:1.5px solid var(--gold);padding:3px 10px;border-radius:12px;background:rgba(201,164,74,.12);font-family:inherit;transition:all .2s;">USD ⇄ INR</button>
         <span id="kv-gross-sub-txt" style="color:var(--muted);font-size:10px;">—</span>
       </div>
     </div>
     <div class="kpi-cell" style="border-right:1px solid rgba(201,164,74,.15);">
-      <div class="kpi-lbl">Exp. Share</div>
-      <div class="kpi-val" id="kv-share" style="color:var(--gold2);">—</div>
+      <div class="kpi-lbl">Exp. Share</div><div class="kpi-val" id="kv-share" style="color:var(--gold2);">—</div>
       <div class="kpi-sub" id="kv-share-sub">Est. distributor net</div>
     </div>
     <div class="kpi-cell"><div class="kpi-lbl">Theaters</div><div class="kpi-val" id="kv-thtr">—</div><div class="kpi-sub" id="kv-thtr-sub">—</div></div>
@@ -325,7 +261,6 @@ tbody tr:nth-child(3) .rnk{color:#cd7f32;}
   </div>
 </div>
 
-<!-- TABS -->
 <div class="tabs-wrap">
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('map',this)">🗺 Map</button>
@@ -335,7 +270,6 @@ tbody tr:nth-child(3) .rnk{color:#cd7f32;}
   </div>
 </div>
 
-<!-- MAP -->
 <div id="panel-map" class="panel active">
   <div class="wrap">
     <div class="sh"><h2>Geographic Distribution</h2><span class="sh-badge" id="map-badge">—</span></div>
@@ -350,54 +284,35 @@ tbody tr:nth-child(3) .rnk{color:#cd7f32;}
   </div>
 </div>
 
-<!-- TABLE -->
 <div id="panel-table" class="panel">
   <div class="wrap">
     <div class="sh"><h2>Market Rankings</h2><span class="sh-badge" id="tbl-badge">—</span></div>
     <div class="tcard">
-      <div class="tcard-head">
-        <h3>Metro Performance</h3>
-        <span class="tcard-note" id="tcard-note">—</span>
-      </div>
-      <div class="tbl-wrap">
-        <div class="tbl-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th class="st nr">#</th>
-                <th class="st2">Metro</th>
-                <th class="nr">Gross</th>
-                <th class="nr">Theaters</th>
-                <th class="nr">Avg / Theater</th>
-                <th>Top Theater</th>
-                <th class="nr">Top Gross</th>
-              </tr>
-            </thead>
-            <tbody id="tbl-body"></tbody>
-          </table>
-        </div>
-      </div>
+      <div class="tcard-head"><h3>Metro Performance</h3><span class="tcard-note" id="tcard-note">—</span></div>
+      <div class="tbl-wrap"><div class="tbl-scroll">
+        <table>
+          <thead><tr>
+            <th class="st nr">#</th><th class="st2">Metro</th>
+            <th class="nr">Gross</th><th class="nr">Theaters</th>
+            <th class="nr">Avg / Theater</th><th>Top Theater</th><th class="nr">Top Gross</th>
+          </tr></thead>
+          <tbody id="tbl-body"></tbody>
+        </table>
+      </div></div>
     </div>
     <p class="fn"><strong>Note:</strong> Avg/theater = total gross ÷ locations in that metro.</p>
   </div>
 </div>
 
-<!-- STATS -->
 <div id="panel-stats" class="panel">
   <div class="wrap">
     <div class="stats-grid">
       <div class="scard">
-        <div class="scard-h">
-          <h3>Top 10 Metros — Gross</h3>
-          <span class="scard-filter-note" id="ins-filter-label">All Markets</span>
-        </div>
+        <div class="scard-h"><h3>Top 10 Metros — Gross</h3><span class="scard-filter-note" id="ins-filter-label">All Markets</span></div>
         <div class="scard-b" id="stats-bar"></div>
       </div>
       <div class="scard">
-        <div class="scard-h">
-          <h3>Market Snapshot</h3>
-          <span class="scard-filter-note" id="ins-filter-label2">All Markets</span>
-        </div>
+        <div class="scard-h"><h3>Market Snapshot</h3><span class="scard-filter-note" id="ins-filter-label2">All Markets</span></div>
         <div class="scard-b">
           <div class="stat-kpi-row">
             <div class="sk"><div class="sk-v" id="ins-gross">—</div><div class="sk-l">Total Gross</div></div>
@@ -410,25 +325,18 @@ tbody tr:nth-child(3) .rnk{color:#cd7f32;}
         </div>
       </div>
       <div class="scard">
-        <div class="scard-h">
-          <h3>Avg Gross / Theater</h3>
-          <span class="scard-filter-note" id="ins-filter-label3">All Markets</span>
-        </div>
+        <div class="scard-h"><h3>Avg Gross / Theater</h3><span class="scard-filter-note" id="ins-filter-label3">All Markets</span></div>
         <div class="scard-b" id="stats-avg"></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- CIRCUITS PANEL -->
 <div id="panel-circuits" class="panel">
   <div class="wrap">
     <div class="sh"><h2>Circuit Breakdown</h2><span class="sh-badge" id="circ-badge">—</span></div>
     <div class="scard" style="margin-top:0;">
-      <div class="scard-h">
-        <h3 id="circ-title">All Circuits</h3>
-        <span class="scard-filter-note" id="circ-filter-label">All Markets</span>
-      </div>
+      <div class="scard-h"><h3 id="circ-title">All Circuits</h3><span class="scard-filter-note" id="circ-filter-label">All Markets</span></div>
       <div class="scard-b" id="stats-circuits" style="overflow-x:auto;"></div>
     </div>
     <div class="scard" style="margin-top:16px;">
@@ -437,740 +345,288 @@ tbody tr:nth-child(3) .rnk{color:#cd7f32;}
     </div>
   </div>
 </div>
-
-</div><!-- #app -->
+</div>
 
 <script>
-// ── SUPABASE REST ─────────────────────────────────────────────────────────────
 var SUPABASE_URL  = 'https://xqhdzxxzfurexehmrhtc.supabase.co';
-var SUPABASE_ANON = 'PASTE_YOUR_NEW_ANON_KEY_HERE';
+var SUPABASE_ANON = 'sb_publishable_4M_3OGrLqY9V6n4uSqB0gg_n_LwdRgy';
 
 async function sbFetch(table, params) {
-  var url = SUPABASE_URL + '/rest/v1/' + table + '?' + params;
-  var res = await fetch(url, {
-    headers: {
-      'apikey':        SUPABASE_ANON,
-      'Authorization': 'Bearer ' + SUPABASE_ANON,
-      'Accept':        'application/json'
-    }
+  var res = await fetch(SUPABASE_URL + '/rest/v1/' + table + '?' + params, {
+    headers: {'apikey': SUPABASE_ANON, 'Authorization': 'Bearer ' + SUPABASE_ANON, 'Accept': 'application/json'}
   });
-  if (!res.ok) {
-    var err = await res.text();
-    throw new Error(table + ' ' + res.status + ': ' + err);
-  }
+  if (!res.ok) throw new Error(table + ' ' + res.status + ': ' + await res.text());
   return res.json();
 }
 
-async function loadFilm(filmId) {
-  if (cache[filmId]) return cache[filmId];
-
-  var enc = encodeURIComponent;
-
-  var results = await Promise.all([
-    sbFetch('metros',   'film_id=eq.' + enc(filmId) + '&order=gross.desc&select=*'),
-    sbFetch('circuits', 'film_id=eq.' + enc(filmId) + '&order=gross_all.desc&select=*'),
-    sbFetch('theaters', 'film_id=eq.' + enc(filmId) + '&select=*')
-  ]);
-
-  var metroData   = results[0];
-  var circuitData = results[1];
-  var theaterData = results[2];
-
-  // Group theaters by metro_name
-  var theatersByMetro = {};
-  var owgByMetro = {};
-  theaterData.forEach(function(th) {
-    if (!theatersByMetro[th.metro_name]) theatersByMetro[th.metro_name] = [];
-    theatersByMetro[th.metro_name].push({
-      n:   th.name,
-      owg: th.opening_weekend,
-      drg: th.total_gross
-    });
-    owgByMetro[th.metro_name] = (owgByMetro[th.metro_name] || 0) + th.opening_weekend;
-  });
-
-  var metros = metroData.map(function(m) {
-    return {
-      n:   m.name,
-      g:   m.gross,
-      gl:  '$' + m.gross.toLocaleString(),
-      t:   m.theaters,
-      a:   Math.round(m.gross / m.theaters),
-      tt:  m.top_theater,
-      tg:  m.top_gross,
-      lat: parseFloat(m.lat),
-      lon: parseFloat(m.lon),
-      c:   m.country
-    };
-  });
-
-  var circuits = circuitData.map(function(c) {
-    var pct = parseFloat(c.settlement_pct);
-    return {
-      n:   c.name,
-      pct: pct,
-      all: c.locations_all, us: c.locations_us, ca: c.locations_ca,
-      g:   c.gross_all,     gu: c.gross_us,     gc: c.gross_ca,
-      es:  Math.round(c.gross_all * pct),
-      esu: Math.round(c.gross_us  * pct),
-      esc: Math.round(c.gross_ca  * pct)
-    };
-  });
-
-  cache[filmId] = {
-    metros:       metros,
-    circuits_all: circuits,
-    theatres:     theatersByMetro,
-    owgByMetro:   owgByMetro
-  };
-
-  return cache[filmId];
-}
-// Film metadata (labels/badges only — no box office data)
 var FILM_META = {
-  KR:{label:"Karuppu",badge:"KR"},   AT:{label:"Athiradi",badge:"AT"},
-  D3:{label:"Drishyam 3",badge:"D3"},PT:{label:"Patriot",badge:"PT"},
-  MH:{label:"Mohiniattam",badge:"MH"},V2:{label:"Vaazha 2",badge:"V2"},
-  A3:{label:"Aadu 3",badge:"A3"},    AA:{label:"Ashakal Aayiram",badge:"AA"},
-  PP:{label:"Pennum Porattum",badge:"PP"},PK:{label:"Prakambanam",badge:"PK"},
-  VK:{label:"Valathuvasathe Kallan",badge:"VK"},BG:{label:"Baby Girl",badge:"BG"},
-  DI:{label:"Dies Irae",badge:"DI"}, VB:{label:"Vilayath Budha",badge:"VB"},
-  HP:{label:"Hridayapoorvam",badge:"HP"},LK:{label:"Lokah",badge:"LK"},
-  TH:{label:"Thudarum",badge:"TH"},  EP:{label:"Empuraan",badge:"EP"},
-  MB:{label:"Manjummel Boys",badge:"MB"},NR:{label:"Neru",badge:"NR"}
+  KR:{label:'Karuppu',badge:'KR'},AT:{label:'Athiradi',badge:'AT'},
+  D3:{label:'Drishyam 3',badge:'D3'},PT:{label:'Patriot',badge:'PT'},
+  MH:{label:'Mohiniattam',badge:'MH'},V2:{label:'Vaazha 2',badge:'V2'},
+  A3:{label:'Aadu 3',badge:'A3'},AA:{label:'Ashakal Aayiram',badge:'AA'},
+  PP:{label:'Pennum Porattum',badge:'PP'},PK:{label:'Prakambanam',badge:'PK'},
+  VK:{label:'Valathuvasathe Kallan',badge:'VK'},BG:{label:'Baby Girl',badge:'BG'},
+  DI:{label:'Dies Irae',badge:'DI'},VB:{label:'Vilayath Budha',badge:'VB'},
+  HP:{label:'Hridayapoorvam',badge:'HP'},LK:{label:'Lokah',badge:'LK'},
+  TH:{label:'Thudarum',badge:'TH'},EP:{label:'Empuraan',badge:'EP'},
+  MB:{label:'Manjummel Boys',badge:'MB'},NR:{label:'Neru',badge:'NR'}
 };
 
-// Per-film cache — populated on demand
-var cache = {};
+var cache={}, activeFilm='D3', activeFilter='all', showINR=false, expandedMetro=null, mapInited=false, INR_RATE=95.45;
 
-async function loadFilm(filmId) {
-  if (cache[filmId]) return cache[filmId];
-
-  var results = await Promise.all([
-    sb.from('metros').select('*').eq('film_id', filmId).order('gross', {ascending: false}),
-    sb.from('circuits').select('*').eq('film_id', filmId).order('gross_all', {ascending: false}),
-    sb.from('theaters').select('*').eq('film_id', filmId)
+async function loadFilm(id) {
+  if (cache[id]) return cache[id];
+  var enc=encodeURIComponent;
+  var r = await Promise.all([
+    sbFetch('metros',  'film_id=eq.'+enc(id)+'&order=gross.desc&select=*'),
+    sbFetch('circuits','film_id=eq.'+enc(id)+'&order=gross_all.desc&select=*'),
+    sbFetch('theaters','film_id=eq.'+enc(id)+'&select=*')
   ]);
-
-  var metroRes   = results[0];
-  var circuitRes = results[1];
-  var theaterRes = results[2];
-
-  if (metroRes.error)   { console.error('metros:', metroRes.error);   }
-  if (circuitRes.error) { console.error('circuits:', circuitRes.error); }
-  if (theaterRes.error) { console.error('theaters:', theaterRes.error); }
-
-  // Group theaters by metro_name for drill-down
-  var theatersByMetro = {};
-  (theaterRes.data || []).forEach(function(th) {
-    if (!theatersByMetro[th.metro_name]) theatersByMetro[th.metro_name] = [];
-    theatersByMetro[th.metro_name].push({n: th.name, owg: th.opening_weekend, drg: th.total_gross});
+  var thByMetro={}, owgByMetro={};
+  r[2].forEach(function(th){
+    if(!thByMetro[th.metro_name]) thByMetro[th.metro_name]=[];
+    thByMetro[th.metro_name].push({n:th.name,owg:th.opening_weekend,drg:th.total_gross});
+    owgByMetro[th.metro_name]=(owgByMetro[th.metro_name]||0)+th.opening_weekend;
   });
-
-  // Build metro-level owg lookup (sum of theater opening weekends per metro)
-  var owgByMetro = {};
-  (theaterRes.data || []).forEach(function(th) {
-    owgByMetro[th.metro_name] = (owgByMetro[th.metro_name] || 0) + th.opening_weekend;
-  });
-
-  // Map to shape render functions expect
-  var metros = (metroRes.data || []).map(function(m) {
-    return {
-      n:   m.name,
-      g:   m.gross,
-      gl:  '$' + m.gross.toLocaleString(),
-      t:   m.theaters,
-      a:   Math.round(m.gross / m.theaters),
-      tt:  m.top_theater,
-      tg:  m.top_gross,
-      lat: parseFloat(m.lat),
-      lon: parseFloat(m.lon),
-      c:   m.country
-    };
-  });
-
-  var circuits = (circuitRes.data || []).map(function(c) {
-    var pct = parseFloat(c.settlement_pct);
-    return {
-      n:   c.name,
-      pct: pct,
-      all: c.locations_all, us: c.locations_us, ca: c.locations_ca,
-      g:   c.gross_all,     gu: c.gross_us,     gc: c.gross_ca,
-      es:  Math.round(c.gross_all * pct),
-      esu: Math.round(c.gross_us  * pct),
-      esc: Math.round(c.gross_ca  * pct)
-    };
-  });
-
-  cache[filmId] = {
-    metros:       metros,
-    circuits_all: circuits,
-    theatres:     theatersByMetro,
-    owgByMetro:   owgByMetro
+  cache[id]={
+    metros: r[0].map(function(m){return{n:m.name,g:m.gross,gl:'$'+m.gross.toLocaleString(),t:m.theaters,a:Math.round(m.gross/m.theaters),tt:m.top_theater,tg:m.top_gross,lat:parseFloat(m.lat),lon:parseFloat(m.lon),c:m.country};}),
+    circuits_all: r[1].map(function(c){var p=parseFloat(c.settlement_pct);return{n:c.name,pct:p,all:c.locations_all,us:c.locations_us,ca:c.locations_ca,g:c.gross_all,gu:c.gross_us,gc:c.gross_ca,es:Math.round(c.gross_all*p),esu:Math.round(c.gross_us*p),esc:Math.round(c.gross_ca*p)};}),
+    theatres:thByMetro, owgByMetro:owgByMetro
   };
-
-  return cache[filmId];
+  return cache[id];
 }
 
-function currentFilmData() {
-  return cache[activeFilm] || {metros:[], circuits_all:[], theatres:{}, owgByMetro:{}};
-}
+function cur(){return cache[activeFilm]||{metros:[],circuits_all:[],theatres:{},owgByMetro:{}};}
+function filmData(){return cur().metros;}
+function filtered(){var d=filmData();return activeFilter==='all'?d:d.filter(function(m){return m.c===activeFilter;});}
 
-// ── STATE ─────────────────────────────────────────────────────────────────────
-var activeFilm   = 'D3';
-var activeFilter = 'all';
-var showINR      = false;
-var expandedMetro = null;
-var mapInited    = false;
-var INR_RATE     = 95.45;
-
-// ── GATE ──────────────────────────────────────────────────────────────────────
-function checkPw() {
-  if (document.getElementById('pw').value === 'avdcinemas') {
-    document.getElementById('gate').style.display = 'none';
-    init();
-  } else {
-    document.getElementById('pw').classList.add('err');
-    document.getElementById('g-err').classList.add('show');
-    document.getElementById('pw').value = '';
-    document.getElementById('pw').focus();
-  }
+function checkPw(){
+  if(document.getElementById('pw').value==='avdcinemas'){document.getElementById('gate').style.display='none';init();}
+  else{document.getElementById('pw').classList.add('err');document.getElementById('g-err').classList.add('show');document.getElementById('pw').value='';document.getElementById('pw').focus();}
 }
-document.getElementById('pw').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') { checkPw(); return; }
-  this.classList.remove('err');
-  document.getElementById('g-err').classList.remove('show');
+document.getElementById('pw').addEventListener('keydown',function(e){
+  if(e.key==='Enter'){checkPw();return;}
+  this.classList.remove('err');document.getElementById('g-err').classList.remove('show');
 });
 
-// ── LOADING STATE ─────────────────────────────────────────────────────────────
-function showLoading() {
-  document.getElementById('loading').style.display = 'flex';
-  document.getElementById('app').style.display = 'none';
-}
-function hideLoading() {
-  document.getElementById('loading').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
-}
+function showLoading(){document.getElementById('loading').style.display='flex';document.getElementById('app').style.display='none';}
+function hideLoading(){document.getElementById('loading').style.display='none';document.getElementById('app').style.display='block';}
 
-// ── FILM SELECT ───────────────────────────────────────────────────────────────
-async function setFilm(id) {
-  if (id === activeFilm && cache[id]) return;
-  activeFilm = id;
-  expandedMetro = null;
-
-  var meta = FILM_META[id] || {label: id, badge: id};
-  document.getElementById('hdr-badge').textContent = meta.badge;
-  document.getElementById('hdr-title').innerHTML =
-    '<em>' + meta.label + '</em> &mdash; North America Collections';
-
-  // Show spinner only if not cached
-  if (!cache[id]) {
-    document.getElementById('kv-gross').textContent = '...';
-    document.getElementById('kv-share').textContent = '...';
-  }
-
-  await loadFilm(id);
-  renderAll();
+async function setFilm(id){
+  if(id===activeFilm&&cache[id])return;
+  activeFilm=id;expandedMetro=null;
+  var meta=FILM_META[id]||{label:id,badge:id};
+  document.getElementById('hdr-badge').textContent=meta.badge;
+  document.getElementById('hdr-title').innerHTML='<em>'+meta.label+'</em> &mdash; North America Collections';
+  if(!cache[id]){document.getElementById('kv-gross').textContent='...';document.getElementById('kv-share').textContent='...';}
+  await loadFilm(id);renderAll();
 }
 
-// ── MARKET FILTER ─────────────────────────────────────────────────────────────
-function setFilter(f, btn) {
-  activeFilter = f;
-  document.querySelectorAll('.ctrl-group .pill:not(.film-pill)').forEach(function(p) {
-    p.classList.remove('active');
-  });
-  btn.classList.add('active');
-  expandedMetro = null;
-  renderAll();
+function setFilter(f,btn){
+  activeFilter=f;
+  document.querySelectorAll('.ctrl-group .pill:not(.film-pill)').forEach(function(p){p.classList.remove('active');});
+  btn.classList.add('active');expandedMetro=null;renderAll();
 }
 
-// ── RENDER ALL ────────────────────────────────────────────────────────────────
-function renderAll() {
-  var fd = currentFilmData();
-  if (!fd.metros.length) return;
-  updateKPIs();
-  renderMap();
-  renderTable();
-  renderStats();
-  renderCircuits();
-  renderOWG();
+function renderAll(){if(!cur().metros.length)return;updateKPIs();renderMap();renderTable();renderStats();renderCircuits();renderOWG();}
+
+function fmt(n){if(n>=1e6)return'$'+(n/1e6).toFixed(2)+'M';if(n>=1000)return'$'+(n/1000).toFixed(1)+'K';return'$'+n.toLocaleString();}
+function fmtFull(n){return'$'+n.toLocaleString();}
+function fmtINR(n){var r=n*INR_RATE;if(r>=1e7)return'₹'+(r/1e7).toFixed(2)+' Cr';if(r>=1e5)return'₹'+(r/1e5).toFixed(1)+' L';return'₹'+Math.round(r).toLocaleString();}
+function fmtD(n){return(showINR&&activeFilter==='US')?fmtINR(n):fmt(n);}
+function fl(){return activeFilter==='CA'?'Canada':activeFilter==='US'?'United States':'All Markets';}
+
+function toggleINR(){
+  showINR=!showINR;
+  var b=document.getElementById('inr-badge');
+  if(b){b.style.background=showINR?'rgba(201,164,74,.3)':'rgba(201,164,74,.12)';b.style.borderColor=showINR?'var(--gold3)':'var(--gold)';b.style.boxShadow=showINR?'0 0 8px rgba(201,164,74,.35)':'none';}
+  updateKPIs();renderCircuits();renderOWG();
 }
 
-function filmData()  { return currentFilmData().metros; }
-function filtered()  {
-  var d = filmData();
-  if (activeFilter === 'all') return d;
-  return d.filter(function(m) { return m.c === activeFilter; });
+function updateKPIs(){
+  var d=filtered(),all=filmData(),isCA=activeFilter==='CA',isUS=activeFilter==='US';
+  var total=all.reduce(function(s,m){return s+m.g;},0);
+  var gross=d.reduce(function(s,m){return s+m.g;},0);
+  var thtr=d.reduce(function(s,m){return s+m.t;},0);
+  var top=d[0],pct=((gross/total)*100).toFixed(1);
+  var expShare=cur().circuits_all.reduce(function(s,c){return s+(isCA?c.esc:isUS?c.esu:c.es);},0);
+  document.getElementById('kv-gross').textContent=fmtD(gross);
+  document.getElementById('kv-gross-sub-txt').textContent=fl()+(showINR&&isUS?' · INR':'');
+  document.getElementById('kv-share').textContent=(showINR&&isUS)?fmtINR(expShare):fmt(expShare);
+  document.getElementById('kv-share-sub').textContent='Est. distributor net';
+  document.getElementById('kv-thtr').textContent=thtr;
+  document.getElementById('kv-thtr-sub').textContent=fl();
+  document.getElementById('kv-met').textContent=d.length;
+  document.getElementById('kv-met-sub').textContent='Markets';
+  document.getElementById('kv-top').textContent=top.n;
+  document.getElementById('kv-top-sub').textContent=fmtFull(top.g)+' · '+pct+'% of total';
+  var topT=d.reduce(function(b,m){return m.tg>b.tg?m:b;},d[0]);
+  document.getElementById('kv-t1').textContent=topT.tt.split('(')[0].trim();
+  document.getElementById('kv-t1-sub').textContent=fmtFull(topT.tg);
 }
 
-// ── FORMAT HELPERS ────────────────────────────────────────────────────────────
-function fmt(n) {
-  if (n >= 1000000) return '$' + (n/1000000).toFixed(2) + 'M';
-  if (n >= 1000)    return '$' + (n/1000).toFixed(1) + 'K';
-  return '$' + n.toLocaleString();
-}
-function fmtFull(n) { return '$' + n.toLocaleString(); }
-function fmtINR(n) {
-  var r = n * INR_RATE;
-  if (r >= 10000000) return '₹' + (r/10000000).toFixed(2) + ' Cr';
-  if (r >= 100000)   return '₹' + (r/100000).toFixed(1) + ' L';
-  return '₹' + Math.round(r).toLocaleString();
-}
-function fmtDisplay(n) {
-  if (showINR && activeFilter === 'US') return fmtINR(n);
-  return fmt(n);
-}
-function filterLabel() {
-  return activeFilter === 'CA' ? 'Canada' : activeFilter === 'US' ? 'United States' : 'All Markets';
-}
-
-function toggleINR() {
-  showINR = !showINR;
-  var badge = document.getElementById('inr-badge');
-  if (badge) {
-    badge.style.background   = showINR ? 'rgba(201,164,74,.3)'  : 'rgba(201,164,74,.12)';
-    badge.style.borderColor  = showINR ? 'var(--gold3)' : 'var(--gold)';
-    badge.style.boxShadow    = showINR ? '0 0 8px rgba(201,164,74,.35)' : 'none';
-  }
-  updateKPIs();
-  renderCircuits();
-  renderOWG();
+function renderMap(){
+  var d=filtered(),maxG=Math.max.apply(null,d.map(function(m){return m.g;}));
+  var thresh=maxG*0.045,lblMet=d.filter(function(m){return m.g>=thresh;});
+  var lblTxt=lblMet.map(function(m){return m.n.replace(/-Oak-San Jose/,'').replace(/-Ft\. Worth/,'').replace(/, (ON|AB|BC|MB|SK)$/,'')+'<br>'+m.gl;});
+  var latR,lonR,ctr;
+  if(activeFilter==='CA'){latR=[43,57];lonR=[-131,-62];ctr={lat:52,lon:-96};}
+  else if(activeFilter==='US'){latR=[24,50];lonR=[-126,-66];ctr={lat:38,lon:-96};}
+  else{latR=[24,57];lonR=[-131,-60];ctr={};}
+  var trB={type:'scattergeo',mode:'markers',lat:d.map(function(m){return m.lat;}),lon:d.map(function(m){return m.lon;}),
+    marker:{size:d.map(function(m){return Math.sqrt(m.g/maxG)*52+8;}),sizemode:'diameter',color:d.map(function(m){return m.g;}),
+      colorscale:[[0,'rgb(22,7,4)'],[0.1,'rgb(70,14,8)'],[0.28,'rgb(138,24,24)'],[0.52,'rgb(175,92,18)'],[0.76,'rgb(201,164,74)'],[1,'rgb(240,214,138)']],
+      showscale:false,opacity:0.88,line:{width:0.8,color:'rgba(201,164,74,0.38)'}},
+    hovertext:d.map(function(m){return'<b>'+m.n+'</b><br>Gross: '+m.gl+'<br>Theaters: '+m.t+'<br>Avg/Theater: $'+m.a.toLocaleString()+'<br>Top: '+m.tt.substring(0,38)+'<br>Top Gross: $'+m.tg.toLocaleString();}),
+    hovertemplate:'%{hovertext}<extra></extra>',hoverlabel:{bgcolor:'#0e1822',bordercolor:'#c9a44a',font:{color:'#ece4d2',size:12}}};
+  var trL={type:'scattergeo',mode:'text',lat:lblMet.map(function(m){return m.lat;}),lon:lblMet.map(function(m){return m.lon;}),
+    text:lblTxt,hoverinfo:'skip',textfont:{color:'rgba(240,214,138,0.88)',size:10},textposition:'top center'};
+  var layout={geo:{scope:'north america',projection:{type:'natural earth'},center:ctr,lataxis:{range:latR},lonaxis:{range:lonR},
+    showland:true,landcolor:'rgb(11,19,29)',showocean:true,oceancolor:'rgb(5,10,15)',
+    showcountries:true,countrycolor:'rgba(88,68,38,0.38)',showsubunits:true,subunitcolor:'rgba(88,68,38,0.22)',
+    showlakes:true,lakecolor:'rgb(5,10,15)',bgcolor:'rgba(0,0,0,0)'},
+    paper_bgcolor:'rgba(0,0,0,0)',plot_bgcolor:'rgba(0,0,0,0)',
+    font:{color:'#c9a44a',family:'DM Sans, Arial, sans-serif',size:12},margin:{l:0,r:0,t:0,b:0},dragmode:'pan',showlegend:false};
+  var cfg={responsive:true,scrollZoom:true,displayModeBar:true,displaylogo:false,
+    modeBarButtonsToRemove:['select2d','lasso2d','hoverClosestGeo'],toImageButtonOptions:{format:'png',filename:'malayalam_box_office_map'}};
+  if(!mapInited){Plotly.newPlot('map-plotly',[trB,trL],layout,cfg);mapInited=true;}
+  else{Plotly.react('map-plotly',[trB,trL],layout,cfg);}
+  document.getElementById('map-badge').textContent=d.length+' Metro'+(d.length!==1?'s':'');
 }
 
-// ── KPIs ──────────────────────────────────────────────────────────────────────
-function updateKPIs() {
-  var d     = filtered();
-  var all   = filmData();
-  var isCA  = activeFilter === 'CA';
-  var isUS  = activeFilter === 'US';
-  var total = all.reduce(function(s,m) { return s + m.g; }, 0);
-  var gross = d.reduce(function(s,m)   { return s + m.g; }, 0);
-  var thtr  = d.reduce(function(s,m)   { return s + m.t; }, 0);
-  var pct   = ((gross / total) * 100).toFixed(1);
-  var top   = d[0];
-
-  var circs    = currentFilmData().circuits_all;
-  var expShare = circs.reduce(function(s,c) {
-    return s + (isCA ? c.esc : isUS ? c.esu : c.es);
-  }, 0);
-
-  document.getElementById('kv-gross').textContent = fmtDisplay(gross);
-  var subTxt = document.getElementById('kv-gross-sub-txt');
-  if (subTxt) subTxt.textContent = filterLabel() + (showINR && isUS ? ' · INR' : '');
-
-  document.getElementById('kv-share').textContent     = (showINR && isUS) ? fmtINR(expShare) : fmt(expShare);
-  document.getElementById('kv-share-sub').textContent = 'Est. distributor net';
-  document.getElementById('kv-thtr').textContent      = thtr;
-  document.getElementById('kv-thtr-sub').textContent  = filterLabel();
-  document.getElementById('kv-met').textContent       = d.length;
-  document.getElementById('kv-met-sub').textContent   = 'Markets';
-  document.getElementById('kv-top').textContent       = top.n;
-  document.getElementById('kv-top-sub').textContent   = fmtFull(top.g) + ' · ' + pct + '% of total';
-
-  var topT = d.reduce(function(best,m) { return m.tg > best.tg ? m : best; }, d[0]);
-  document.getElementById('kv-t1').textContent     = topT.tt.split('(')[0].trim();
-  document.getElementById('kv-t1-sub').textContent = fmtFull(topT.tg);
-}
-
-// ── MAP ───────────────────────────────────────────────────────────────────────
-function renderMap() {
-  var d    = filtered();
-  var maxG = Math.max.apply(null, d.map(function(m) { return m.g; }));
-
-  var thresh = maxG * 0.045;
-  var lblMet = d.filter(function(m) { return m.g >= thresh; });
-  var lblTxt = lblMet.map(function(m) {
-    var n = m.n.replace(/-Oak-San Jose/,'').replace(/-Ft\. Worth/,'').replace(/, (ON|AB|BC|MB|SK)$/,'');
-    return n + '<br>' + m.gl;
-  });
-
-  var latR, lonR, ctr;
-  if (activeFilter === 'CA')      { latR=[43,57]; lonR=[-131,-62]; ctr={lat:52,lon:-96}; }
-  else if (activeFilter === 'US') { latR=[24,50]; lonR=[-126,-66]; ctr={lat:38,lon:-96}; }
-  else                            { latR=[24,57]; lonR=[-131,-60]; ctr={}; }
-
-  var trB = {
-    type:'scattergeo', mode:'markers',
-    lat:  d.map(function(m){ return m.lat; }),
-    lon:  d.map(function(m){ return m.lon; }),
-    marker:{
-      size:  d.map(function(m){ return Math.sqrt(m.g / maxG) * 52 + 8; }),
-      sizemode:'diameter',
-      color: d.map(function(m){ return m.g; }),
-      colorscale:[
-        [0.0,'rgb(22,7,4)'],[0.1,'rgb(70,14,8)'],
-        [0.28,'rgb(138,24,24)'],[0.52,'rgb(175,92,18)'],
-        [0.76,'rgb(201,164,74)'],[1.0,'rgb(240,214,138)']
-      ],
-      showscale:false, opacity:0.88,
-      line:{width:0.8, color:'rgba(201,164,74,0.38)'}
-    },
-    hovertext: d.map(function(m) {
-      return '<b>' + m.n + '</b><br>Gross: ' + m.gl +
-        '<br>Theaters: ' + m.t +
-        '<br>Avg/Theater: $' + m.a.toLocaleString() +
-        '<br>Top: ' + m.tt.substring(0,38) +
-        '<br>Top Gross: $' + m.tg.toLocaleString();
-    }),
-    hovertemplate:'%{hovertext}<extra></extra>',
-    hoverlabel:{bgcolor:'#0e1822',bordercolor:'#c9a44a',font:{color:'#ece4d2',size:12}}
-  };
-
-  var trL = {
-    type:'scattergeo', mode:'text',
-    lat:  lblMet.map(function(m){ return m.lat; }),
-    lon:  lblMet.map(function(m){ return m.lon; }),
-    text: lblTxt, hoverinfo:'skip',
-    textfont:{color:'rgba(240,214,138,0.88)',size:10},
-    textposition:'top center'
-  };
-
-  var layout = {
-    geo:{
-      scope:'north america', projection:{type:'natural earth'},
-      center:ctr, lataxis:{range:latR}, lonaxis:{range:lonR},
-      showland:true,    landcolor:'rgb(11,19,29)',
-      showocean:true,   oceancolor:'rgb(5,10,15)',
-      showcountries:true, countrycolor:'rgba(88,68,38,0.38)',
-      showsubunits:true,  subunitcolor:'rgba(88,68,38,0.22)',
-      showlakes:true,   lakecolor:'rgb(5,10,15)',
-      bgcolor:'rgba(0,0,0,0)'
-    },
-    paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
-    font:{color:'#c9a44a',family:'DM Sans, Arial, sans-serif',size:12},
-    margin:{l:0,r:0,t:0,b:0},
-    dragmode:'pan', showlegend:false
-  };
-
-  var cfg = {
-    responsive:true, scrollZoom:true, displayModeBar:true, displaylogo:false,
-    modeBarButtonsToRemove:['select2d','lasso2d','hoverClosestGeo'],
-    toImageButtonOptions:{format:'png',filename:'malayalam_box_office_map'}
-  };
-
-  if (!mapInited) {
-    Plotly.newPlot('map-plotly', [trB, trL], layout, cfg);
-    mapInited = true;
-  } else {
-    Plotly.react('map-plotly', [trB, trL], layout, cfg);
-  }
-  document.getElementById('map-badge').textContent = d.length + ' Metro' + (d.length !== 1 ? 's' : '');
-}
-
-// ── TABLE ─────────────────────────────────────────────────────────────────────
-function toggleMetroDrill(metroName) {
-  expandedMetro = (expandedMetro === metroName) ? null : metroName;
-  renderTable();
-}
-
-function renderTable() {
-  var d       = filtered();
-  var thData  = currentFilmData().theatres || {};
-  var rows    = '';
-
-  d.forEach(function(m, i) {
-    var hasMulti   = m.t > 1;
-    var isExpanded = expandedMetro === m.n;
-    var arrowStyle = 'display:inline-block;margin-left:6px;font-size:10px;color:var(--gold);transition:transform .2s;'
-                   + (isExpanded ? 'transform:rotate(90deg);' : '');
-    var rowStyle = 'cursor:' + (hasMulti ? 'pointer' : 'default') + ';'
-                 + (isExpanded ? 'background:rgba(201,164,74,.07);' : '');
-    var safeMetro = m.n.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-
-    rows += '<tr style="' + rowStyle + '"'
-          + (hasMulti ? ' onclick="toggleMetroDrill(\'' + safeMetro + '\')"' : '') + '>'
-          + '<td class="rnk st nr">' + (i+1) + '</td>'
-          + '<td class="mc st2">' + m.n + (hasMulti ? '<span style="' + arrowStyle + '">▶</span>' : '') + '</td>'
-          + '<td class="gc2 nr">' + m.gl + '</td>'
-          + '<td class="nr">' + m.t + '</td>'
-          + '<td class="gc2 nr">$' + m.a.toLocaleString() + '</td>'
-          + '<td class="tc">' + m.tt + '</td>'
-          + '<td class="gc2 nr">$' + m.tg.toLocaleString() + '</td>'
-          + '</tr>';
-
-    if (isExpanded && thData[m.n] && thData[m.n].length) {
-      thData[m.n].forEach(function(th, ti) {
-        var isTop = (th.n === m.tt);
-        rows += '<tr style="background:rgba(14,24,34,.85);">'
-              + '<td class="nr" style="padding:5px 8px 5px 16px;color:var(--muted);font-size:10px;">' + (ti+1) + '</td>'
-              + '<td colspan="4" style="padding:5px 8px;font-size:11px;color:' + (isTop ? 'var(--gold2)' : 'var(--text2)') + ';">'
-              + (isTop ? '⭐ ' : '　') + th.n + '</td>'
-              + '<td style="padding:5px 8px;font-size:11px;color:var(--text2);text-align:right;">OW: $' + th.owg.toLocaleString() + '</td>'
-              + '<td class="gc2 nr" style="font-size:11px;color:' + (isTop ? 'var(--gold2)' : 'var(--text2)') + ';">$' + th.drg.toLocaleString() + '</td>'
-              + '</tr>';
+function toggleMetroDrill(n){expandedMetro=(expandedMetro===n)?null:n;renderTable();}
+function renderTable(){
+  var d=filtered(),thData=cur().theatres||{},rows='';
+  d.forEach(function(m,i){
+    var hasMulti=m.t>1,isExp=expandedMetro===m.n;
+    var aStyle='display:inline-block;margin-left:6px;font-size:10px;color:var(--gold);transition:transform .2s;'+(isExp?'transform:rotate(90deg);':'');
+    var rStyle='cursor:'+(hasMulti?'pointer':'default')+';'+(isExp?'background:rgba(201,164,74,.07);':'');
+    var safe=m.n.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    rows+='<tr style="'+rStyle+'"'+(hasMulti?' onclick="toggleMetroDrill(\''+safe+'\')"':'')+'>'+
+      '<td class="rnk st nr">'+(i+1)+'</td>'+
+      '<td class="mc st2">'+m.n+(hasMulti?'<span style="'+aStyle+'">▶</span>':'')+'</td>'+
+      '<td class="gc2 nr">'+m.gl+'</td><td class="nr">'+m.t+'</td>'+
+      '<td class="gc2 nr">$'+m.a.toLocaleString()+'</td>'+
+      '<td class="tc">'+m.tt+'</td><td class="gc2 nr">$'+m.tg.toLocaleString()+'</td></tr>';
+    if(isExp&&thData[m.n]&&thData[m.n].length){
+      thData[m.n].forEach(function(th,ti){
+        var isTop=th.n===m.tt;
+        rows+='<tr style="background:rgba(14,24,34,.85);">'+
+          '<td class="nr" style="padding:5px 8px 5px 16px;color:var(--muted);font-size:10px;">'+(ti+1)+'</td>'+
+          '<td colspan="4" style="padding:5px 8px;font-size:11px;color:'+(isTop?'var(--gold2)':'var(--text2)')+';">'+(isTop?'⭐ ':'　')+th.n+'</td>'+
+          '<td style="padding:5px 8px;font-size:11px;color:var(--text2);text-align:right;">OW: $'+th.owg.toLocaleString()+'</td>'+
+          '<td class="gc2 nr" style="font-size:11px;color:'+(isTop?'var(--gold2)':'var(--text2)')+';">$'+th.drg.toLocaleString()+'</td></tr>';
       });
     }
   });
-
-  document.getElementById('tbl-body').innerHTML = rows;
-  document.getElementById('tbl-badge').textContent  = d.length + ' market' + (d.length !== 1 ? 's' : '');
-  document.getElementById('tcard-note').textContent = 'Click multi-theater metros to expand · ' + filterLabel();
+  document.getElementById('tbl-body').innerHTML=rows;
+  document.getElementById('tbl-badge').textContent=d.length+' market'+(d.length!==1?'s':'');
+  document.getElementById('tcard-note').textContent='Click multi-theater metros to expand · '+fl();
 }
 
-// ── STATS ─────────────────────────────────────────────────────────────────────
-function renderStats() {
-  var d     = filtered();
-  var all   = filmData();
-  var total = all.reduce(function(s,m) { return s + m.g; }, 0);
-  var gross = d.reduce(function(s,m)   { return s + m.g; }, 0);
-  var thtr  = d.reduce(function(s,m)   { return s + m.t; }, 0);
-  var fl    = filterLabel();
-
-  ['ins-filter-label','ins-filter-label2','ins-filter-label3'].forEach(function(id) {
-    var el = document.getElementById(id);
-    if (el) el.textContent = fl;
-  });
-
-  document.getElementById('ins-gross').textContent = fmt(gross);
-  document.getElementById('ins-met').textContent   = d.length;
-  document.getElementById('ins-thtr').textContent  = thtr;
-  document.getElementById('ins-share').textContent = ((gross/total)*100).toFixed(1) + '%';
-
-  var caMetros = d.filter(function(m) { return m.c === 'CA'; });
-  var caGross  = caMetros.reduce(function(s,m) { return s + m.g; }, 0);
-  var laMetro  = d.find(function(m) { return m.n === 'Los Angeles'; });
-  var laRank   = laMetro ? d.indexOf(laMetro) + 1 : null;
-  var topByAvg = d.slice().sort(function(a,b) { return b.a - a.a; })[0];
-  var top5g    = d.slice(0,5).reduce(function(s,m) { return s + m.g; }, 0);
-  var top5pct  = ((top5g / gross) * 100).toFixed(0);
-
-  var bullets = [];
-  bullets.push({i:'🎯',
-    t:'<strong>Top 5 metros = ' + top5pct + '% of ' + fl.toLowerCase() + ' gross.</strong> '
-     + d.slice(0,5).map(function(m) {
-         return m.n.replace(/-Oak-San Jose/,'').replace(/-Ft\. Worth/,'').replace(/, (ON|AB|BC|MB)$/,'');
-       }).join(', ') + ' drive the majority of revenue.'
-  });
-
-  if (activeFilter === 'all') {
-    var caPct = ((caGross/total)*100).toFixed(1);
-    bullets.push({i:'🇨🇦',
-      t:'<strong>Canada generates ' + caPct + '% of total gross</strong> from just ' + caMetros.length
-       + ' metros and ' + caMetros.reduce(function(s,m) { return s + m.t; }, 0) + ' theaters — '
-       + (caPct > 30 ? 'a dramatic overperformance' : 'a strong showing') + ' for a diaspora-driven film.'
-    });
-  }
-
-  if (activeFilter === 'all' || activeFilter === 'CA') {
-    var york = d.find(function(m) { return m.n === 'Toronto, ON'; });
-    if (york) bullets.push({i:'⚡',
-      t:'<strong>York Cinema (Richmond Hill, ON)</strong> is the #1 single location — '
-       + 'outgrossing entire metros. Pure Kerala diaspora concentration effect.'
-    });
-  }
-
-  if ((activeFilter === 'all' || activeFilter === 'US') && laMetro) {
-    bullets.push({i:'🔍',
-      t:'<strong>LA ranks #' + laRank + ' in ' + fl.toLowerCase() + '</strong> with ' + laMetro.gl
-       + ' across ' + laMetro.t + ' locations. The Kerala community here is smaller than Toronto, Bay Area, or even Kitchener.'
-    });
-  }
-
-  bullets.push({i:'📍',
-    t:'<strong>Efficiency leader: ' + topByAvg.n + '</strong> at $' + topByAvg.a.toLocaleString()
-     + ' avg per theater. High avg = diaspora-dense location, not mainstream multiplex performance.'
-  });
-
-  document.getElementById('ins-bullets').innerHTML = bullets.map(function(b) {
-    return '<li class="in"><span class="ii">' + b.i + '</span><div class="it">' + b.t + '</div></li>';
-  }).join('');
-
-  var top10 = d.slice(0,10);
-  var maxG  = top10[0] ? top10[0].g : 1;
-  document.getElementById('stats-bar').innerHTML = top10.map(function(m) {
-    var pct = (m.g/maxG*100).toFixed(1);
-    var lbl = m.n.replace(/-Oak-San Jose/,'').replace(/-Ft\. Worth/,'').replace(/, (ON|AB|BC|MB|SK)$/,'');
-    return '<div class="br"><span class="bl">' + lbl + '</span>'
-         + '<div class="bt"><div class="bf" style="width:' + pct + '%"><span class="bv">' + m.gl + '</span></div></div></div>';
-  }).join('');
-
-  var byAvg = d.slice().sort(function(a,b) { return b.a - a.a; }).slice(0,10);
-  var maxA  = byAvg[0] ? byAvg[0].a : 1;
-  document.getElementById('stats-avg').innerHTML = byAvg.map(function(m) {
-    var pct = (m.a/maxA*100).toFixed(1);
-    var lbl = m.n.replace(/-Oak-San Jose/,'').replace(/-Ft\. Worth/,'').replace(/, (ON|AB|BC|MB|SK)$/,'');
-    return '<div class="br"><span class="bl">' + lbl + '</span>'
-         + '<div class="bt"><div class="bf" style="width:' + pct + '%"><span class="bv">$' + m.a.toLocaleString() + '</span></div></div></div>';
-  }).join('');
+function renderStats(){
+  var d=filtered(),all=filmData(),label=fl();
+  var total=all.reduce(function(s,m){return s+m.g;},0);
+  var gross=d.reduce(function(s,m){return s+m.g;},0);
+  var thtr=d.reduce(function(s,m){return s+m.t;},0);
+  ['ins-filter-label','ins-filter-label2','ins-filter-label3'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=label;});
+  document.getElementById('ins-gross').textContent=fmt(gross);
+  document.getElementById('ins-met').textContent=d.length;
+  document.getElementById('ins-thtr').textContent=thtr;
+  document.getElementById('ins-share').textContent=((gross/total)*100).toFixed(1)+'%';
+  var caM=d.filter(function(m){return m.c==='CA';}),caG=caM.reduce(function(s,m){return s+m.g;},0);
+  var laM=d.find(function(m){return m.n==='Los Angeles';}),laR=laM?d.indexOf(laM)+1:null;
+  var topAvg=d.slice().sort(function(a,b){return b.a-a.a;})[0];
+  var top5g=d.slice(0,5).reduce(function(s,m){return s+m.g;},0),top5p=((top5g/gross)*100).toFixed(0);
+  var bullets=[];
+  bullets.push({i:'🎯',t:'<strong>Top 5 metros = '+top5p+'% of '+label.toLowerCase()+' gross.</strong> '+d.slice(0,5).map(function(m){return m.n.replace(/-Oak-San Jose/,'').replace(/-Ft\. Worth/,'').replace(/, (ON|AB|BC|MB)$/,'');}).join(', ')+' drive the majority of revenue.'});
+  if(activeFilter==='all'){var caPct=((caG/total)*100).toFixed(1);bullets.push({i:'🇨🇦',t:'<strong>Canada generates '+caPct+'% of total gross</strong> from just '+caM.length+' metros and '+caM.reduce(function(s,m){return s+m.t;},0)+' theaters — '+(caPct>30?'a dramatic overperformance':'a strong showing')+' for a diaspora-driven film.'});}
+  if((activeFilter==='all'||activeFilter==='CA')){var york=d.find(function(m){return m.n==='Toronto, ON';});if(york)bullets.push({i:'⚡',t:'<strong>York Cinema (Richmond Hill, ON)</strong> is the #1 single location — outgrossing entire metros. Pure Kerala diaspora concentration effect.'});}
+  if((activeFilter==='all'||activeFilter==='US')&&laM)bullets.push({i:'🔍',t:'<strong>LA ranks #'+laR+' in '+label.toLowerCase()+'</strong> with '+laM.gl+' across '+laM.t+' locations. The Kerala community here is smaller than Toronto, Bay Area, or even Kitchener.'});
+  bullets.push({i:'📍',t:'<strong>Efficiency leader: '+topAvg.n+'</strong> at $'+topAvg.a.toLocaleString()+' avg per theater. High avg = diaspora-dense location, not mainstream multiplex performance.'});
+  document.getElementById('ins-bullets').innerHTML=bullets.map(function(b){return'<li class="in"><span class="ii">'+b.i+'</span><div class="it">'+b.t+'</div></li>';}).join('');
+  var top10=d.slice(0,10),maxG=top10[0]?top10[0].g:1;
+  document.getElementById('stats-bar').innerHTML=top10.map(function(m){var p=(m.g/maxG*100).toFixed(1),l=m.n.replace(/-Oak-San Jose/,'').replace(/-Ft\. Worth/,'').replace(/, (ON|AB|BC|MB|SK)$/,'');return'<div class="br"><span class="bl">'+l+'</span><div class="bt"><div class="bf" style="width:'+p+'%"><span class="bv">'+m.gl+'</span></div></div></div>';}).join('');
+  var byAvg=d.slice().sort(function(a,b){return b.a-a.a;}).slice(0,10),maxA=byAvg[0]?byAvg[0].a:1;
+  document.getElementById('stats-avg').innerHTML=byAvg.map(function(m){var p=(m.a/maxA*100).toFixed(1),l=m.n.replace(/-Oak-San Jose/,'').replace(/-Ft\. Worth/,'').replace(/, (ON|AB|BC|MB|SK)$/,'');return'<div class="br"><span class="bl">'+l+'</span><div class="bt"><div class="bf" style="width:'+p+'%"><span class="bv">$'+m.a.toLocaleString()+'</span></div></div></div>';}).join('');
 }
 
-// ── CIRCUITS ──────────────────────────────────────────────────────────────────
-function renderCircuits() {
-  var isCA = activeFilter === 'CA';
-  var isUS = activeFilter === 'US';
-  var fl   = filterLabel();
-
-  var circEl = document.getElementById('circ-filter-label');
-  var owEl   = document.getElementById('ow-filter-label');
-  if (circEl) circEl.textContent = fl;
-  if (owEl)   owEl.textContent   = fl;
-
-  var allCircs = currentFilmData().circuits_all;
-  var circs = allCircs.map(function(c) {
-    return {
-      n:     c.n,
-      pct:   c.pct,
-      locs:  isCA ? c.ca  : isUS ? c.us  : c.all,
-      gross: isCA ? c.gc  : isUS ? c.gu  : c.g,
-      es:    isCA ? c.esc : isUS ? c.esu : c.es
-    };
-  }).filter(function(c) { return c.locs > 0; });
-
-  var totGross = circs.reduce(function(s,c) { return s + c.gross; }, 0);
-  var totES    = circs.reduce(function(s,c) { return s + c.es;    }, 0);
-  var totLocs  = circs.reduce(function(s,c) { return s + c.locs;  }, 0);
-
-  var badge = document.getElementById('circ-badge');
-  if (badge) badge.textContent = circs.length + ' circuits · ' + totLocs + ' locations';
-
-  function fmtC(n) {
-    if (showINR && !isCA) return fmtINR(n);
-    if (n >= 1000000) return '$' + (n/1000000).toFixed(2) + 'M';
-    if (n >= 1000)    return '$' + (n/1000).toFixed(1) + 'K';
-    return '$' + n.toLocaleString();
-  }
-
-  var circDiv = document.getElementById('stats-circuits');
-  if (!circDiv) return;
-
-  if (!circs.length) {
-    circDiv.innerHTML = '<p style="color:var(--muted);padding:12px 0">No data for this filter</p>';
-    return;
-  }
-
-  var hdr = '<table style="width:100%;border-collapse:collapse;font-size:11.5px;">'
-    + '<thead><tr style="border-bottom:1.5px solid var(--gold);">'
-    + '<th style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 10px;text-align:left;min-width:110px;">Circuit</th>'
-    + '<th style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 6px;text-align:right;">Locs</th>'
-    + '<th style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 6px;text-align:right;">Gross</th>'
-    + '<th style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 6px;text-align:right;">Exp. Share ($)</th>'
-    + '<th style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 10px;text-align:right;">Rate</th>'
-    + '</tr></thead><tbody>';
-
-  var body = circs.map(function(c) {
-    return '<tr style="border-bottom:1px solid rgba(28,47,64,.45);">'
-      + '<td style="padding:8px 10px;color:var(--white);font-weight:500;">' + c.n + '</td>'
-      + '<td style="padding:8px 6px;color:var(--text2);text-align:right;">' + c.locs + '</td>'
-      + '<td style="padding:8px 6px;color:var(--text2);text-align:right;white-space:nowrap;">' + fmtC(c.gross) + '</td>'
-      + '<td style="padding:8px 6px;color:var(--gold2);font-weight:700;text-align:right;white-space:nowrap;">' + fmtC(c.es) + '</td>'
-      + '<td style="padding:8px 10px;color:var(--gold);text-align:right;font-weight:600;">' + (c.pct*100).toFixed(0) + '%</td>'
-      + '</tr>';
-  }).join('');
-
-  var foot = '<tfoot><tr style="border-top:1.5px solid var(--gold);background:rgba(201,164,74,.06);">'
-    + '<td style="padding:8px 10px;color:var(--gold3);font-weight:800;font-size:11px;">TOTAL</td>'
-    + '<td style="padding:8px 6px;color:var(--gold3);font-weight:800;text-align:right;">' + totLocs + '</td>'
-    + '<td style="padding:8px 6px;color:var(--gold3);font-weight:800;text-align:right;white-space:nowrap;">' + fmtC(totGross) + '</td>'
-    + '<td style="padding:8px 6px;color:var(--gold3);font-weight:800;text-align:right;white-space:nowrap;">' + fmtC(totES) + '</td>'
-    + '<td style="padding:8px 10px;color:var(--muted);text-align:right;font-size:10px;">Wtd avg: '
-    + (totGross > 0 ? (totES/totGross*100).toFixed(1) : '0.0') + '%</td>'
-    + '</tr></tfoot>';
-
-  circDiv.innerHTML = hdr + body + foot + '</table>';
+function renderCircuits(){
+  var isCA=activeFilter==='CA',isUS=activeFilter==='US',label=fl();
+  var cEl=document.getElementById('circ-filter-label'),oEl=document.getElementById('ow-filter-label');
+  if(cEl)cEl.textContent=label;if(oEl)oEl.textContent=label;
+  var circs=cur().circuits_all.map(function(c){return{n:c.n,pct:c.pct,locs:isCA?c.ca:isUS?c.us:c.all,gross:isCA?c.gc:isUS?c.gu:c.g,es:isCA?c.esc:isUS?c.esu:c.es};}).filter(function(c){return c.locs>0;});
+  var tG=circs.reduce(function(s,c){return s+c.gross;},0),tE=circs.reduce(function(s,c){return s+c.es;},0),tL=circs.reduce(function(s,c){return s+c.locs;},0);
+  var badge=document.getElementById('circ-badge');if(badge)badge.textContent=circs.length+' circuits · '+tL+' locations';
+  function fmtC(n){if(showINR&&!isCA)return fmtINR(n);if(n>=1e6)return'$'+(n/1e6).toFixed(2)+'M';if(n>=1000)return'$'+(n/1000).toFixed(1)+'K';return'$'+n.toLocaleString();}
+  var div=document.getElementById('stats-circuits');if(!div)return;
+  if(!circs.length){div.innerHTML='<p style="color:var(--muted);padding:12px 0">No data for this filter</p>';return;}
+  div.innerHTML='<table style="width:100%;border-collapse:collapse;font-size:11.5px;"><thead><tr style="border-bottom:1.5px solid var(--gold);">'+
+    '<th style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 10px;text-align:left;min-width:110px;">Circuit</th>'+
+    '<th style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 6px;text-align:right;">Locs</th>'+
+    '<th style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 6px;text-align:right;">Gross</th>'+
+    '<th style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 6px;text-align:right;">Exp. Share ($)</th>'+
+    '<th style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 10px;text-align:right;">Rate</th>'+
+    '</tr></thead><tbody>'+
+    circs.map(function(c){return'<tr style="border-bottom:1px solid rgba(28,47,64,.45);"><td style="padding:8px 10px;color:var(--white);font-weight:500;">'+c.n+'</td><td style="padding:8px 6px;color:var(--text2);text-align:right;">'+c.locs+'</td><td style="padding:8px 6px;color:var(--text2);text-align:right;white-space:nowrap;">'+fmtC(c.gross)+'</td><td style="padding:8px 6px;color:var(--gold2);font-weight:700;text-align:right;white-space:nowrap;">'+fmtC(c.es)+'</td><td style="padding:8px 10px;color:var(--gold);text-align:right;font-weight:600;">'+(c.pct*100).toFixed(0)+'%</td></tr>';}).join('')+
+    '</tbody><tfoot><tr style="border-top:1.5px solid var(--gold);background:rgba(201,164,74,.06);">'+
+    '<td style="padding:8px 10px;color:var(--gold3);font-weight:800;font-size:11px;">TOTAL</td>'+
+    '<td style="padding:8px 6px;color:var(--gold3);font-weight:800;text-align:right;">'+tL+'</td>'+
+    '<td style="padding:8px 6px;color:var(--gold3);font-weight:800;text-align:right;white-space:nowrap;">'+fmtC(tG)+'</td>'+
+    '<td style="padding:8px 6px;color:var(--gold3);font-weight:800;text-align:right;white-space:nowrap;">'+fmtC(tE)+'</td>'+
+    '<td style="padding:8px 10px;color:var(--muted);text-align:right;font-size:10px;">Wtd avg: '+(tG>0?(tE/tG*100).toFixed(1):'0.0')+'%</td>'+
+    '</tr></tfoot></table>';
 }
 
-// ── OPENING WEEKEND ───────────────────────────────────────────────────────────
-function renderOWG() {
-  var isCA = activeFilter === 'CA';
-  var d    = filtered();
-  var owgByMetro = currentFilmData().owgByMetro || {};
-  var owDiv = document.getElementById('stats-owg');
-  if (!owDiv) return;
-
-  var comps = d.map(function(m) {
-    var owg = owgByMetro[m.n] || 0;
-    return {
-      n:   m.n,
-      owg: owg,
-      drg: m.g,
-      legs: m.g - owg,
-      pct: owg > 0 ? ((m.g/owg - 1)*100).toFixed(0) : null
-    };
-  }).filter(function(x) { return x.owg > 0; }).slice(0,20);
-
-  if (!comps.length) {
-    owDiv.innerHTML = '<p style="color:var(--muted);padding:12px 0">No opening weekend data available</p>';
-    return;
-  }
-
-  var maxDRG  = Math.max.apply(null, comps.map(function(x) { return x.drg; }));
-  var totOWG  = comps.reduce(function(s,x) { return s + x.owg; }, 0);
-  var totDRG  = comps.reduce(function(s,x) { return s + x.drg; }, 0);
-
-  function fmtO(n) {
-    if (showINR && !isCA) return fmtINR(n);
-    if (n >= 1000000) return '$' + (n/1000000).toFixed(2) + 'M';
-    if (n >= 1000)    return '$' + (n/1000).toFixed(1) + 'K';
-    return '$' + n.toLocaleString();
-  }
-
-  var hdr = '<table style="width:100%;border-collapse:collapse;font-size:11px;">'
-    + '<thead><tr style="border-bottom:1.5px solid var(--gold);">'
-    + '<th style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 10px;text-align:left;">Metro</th>'
-    + '<th style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 6px;text-align:right;">Open Wknd</th>'
-    + '<th style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 6px;text-align:right;">Total Gross</th>'
-    + '<th style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 6px;text-align:right;">Legs</th>'
-    + '<th style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 10px;text-align:right;">% Growth</th>'
-    + '</tr></thead><tbody>';
-
-  var body = comps.map(function(x) {
-    var nm      = x.n.replace(/-Oak-San Jose/,'').replace(/-Ft\. Worth/,'').replace(/, (ON|AB|BC|MB|SK)$/,'');
-    var barOwg  = (x.owg/maxDRG*100).toFixed(1);
-    var barDRG  = (x.drg/maxDRG*100).toFixed(1);
-    var pctStr  = x.pct !== null ? '+' + x.pct + '%' : '—';
-    var pctCol  = x.pct > 0 ? 'var(--gold2)' : 'var(--muted)';
-    return '<tr style="border-bottom:1px solid rgba(28,47,64,.4);">'
-      + '<td style="padding:8px 10px;color:var(--white);font-weight:500;min-width:100px;">' + nm + '</td>'
-      + '<td style="padding:8px 6px;color:var(--text2);text-align:right;white-space:nowrap;">' + fmtO(x.owg) + '</td>'
-      + '<td style="padding:8px 6px;text-align:right;white-space:nowrap;">'
-      +   '<span style="color:var(--gold2);font-weight:600;">' + fmtO(x.drg) + '</span>'
-      +   '<div style="margin-top:3px;height:3px;border-radius:2px;background:var(--s3);overflow:hidden;position:relative;">'
-      +     '<div style="position:absolute;left:0;height:100%;width:' + barOwg + '%;background:rgba(138,24,24,.7);border-radius:2px;"></div>'
-      +     '<div style="position:absolute;left:0;height:100%;width:' + barDRG + '%;background:linear-gradient(90deg,var(--cr),var(--gold));border-radius:2px;opacity:.5;"></div>'
-      +   '</div>'
-      + '</td>'
-      + '<td style="padding:8px 6px;color:var(--text2);text-align:right;white-space:nowrap;">' + fmtO(x.legs) + '</td>'
-      + '<td style="padding:8px 10px;color:' + pctCol + ';font-weight:700;text-align:right;">' + pctStr + '</td>'
-      + '</tr>';
-  }).join('');
-
-  var foot = '</tbody><tfoot><tr style="border-top:1.5px solid var(--gold);background:rgba(201,164,74,.06);">'
-    + '<td style="padding:8px 10px;color:var(--gold3);font-weight:800;font-size:11px;">TOTAL</td>'
-    + '<td style="padding:8px 6px;color:var(--gold3);font-weight:800;text-align:right;white-space:nowrap;">' + fmtO(totOWG) + '</td>'
-    + '<td style="padding:8px 6px;color:var(--gold3);font-weight:800;text-align:right;white-space:nowrap;">' + fmtO(totDRG) + '</td>'
-    + '<td style="padding:8px 6px;color:var(--gold3);font-weight:800;text-align:right;white-space:nowrap;">' + fmtO(totDRG - totOWG) + '</td>'
-    + '<td style="padding:8px 10px;color:var(--gold2);font-weight:700;text-align:right;">'
-    + (totOWG > 0 ? '+' + (((totDRG/totOWG)-1)*100).toFixed(0) + '%' : '—') + '</td>'
-    + '</tr></tfoot></table>';
-
-  owDiv.innerHTML = hdr + body + foot;
+function renderOWG(){
+  var isCA=activeFilter==='CA',d=filtered(),owg=cur().owgByMetro||{};
+  var div=document.getElementById('stats-owg');if(!div)return;
+  var comps=d.map(function(m){var o=owg[m.n]||0;return{n:m.n,owg:o,drg:m.g,legs:m.g-o,pct:o>0?((m.g/o-1)*100).toFixed(0):null};}).filter(function(x){return x.owg>0;}).slice(0,20);
+  if(!comps.length){div.innerHTML='<p style="color:var(--muted);padding:12px 0">No opening weekend data available</p>';return;}
+  var maxD=Math.max.apply(null,comps.map(function(x){return x.drg;}));
+  var tO=comps.reduce(function(s,x){return s+x.owg;},0),tD=comps.reduce(function(s,x){return s+x.drg;},0);
+  function fmtO(n){if(showINR&&!isCA)return fmtINR(n);if(n>=1e6)return'$'+(n/1e6).toFixed(2)+'M';if(n>=1000)return'$'+(n/1000).toFixed(1)+'K';return'$'+n.toLocaleString();}
+  div.innerHTML='<table style="width:100%;border-collapse:collapse;font-size:11px;"><thead><tr style="border-bottom:1.5px solid var(--gold);">'+
+    '<th style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 10px;text-align:left;">Metro</th>'+
+    '<th style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 6px;text-align:right;">Open Wknd</th>'+
+    '<th style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 6px;text-align:right;">Total Gross</th>'+
+    '<th style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 6px;text-align:right;">Legs</th>'+
+    '<th style="color:var(--gold);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:8px 10px;text-align:right;">% Growth</th>'+
+    '</tr></thead><tbody>'+
+    comps.map(function(x){
+      var nm=x.n.replace(/-Oak-San Jose/,'').replace(/-Ft\. Worth/,'').replace(/, (ON|AB|BC|MB|SK)$/,'');
+      var bO=(x.owg/maxD*100).toFixed(1),bD=(x.drg/maxD*100).toFixed(1);
+      var ps=x.pct!==null?'+'+x.pct+'%':'—',pc=x.pct>0?'var(--gold2)':'var(--muted)';
+      return'<tr style="border-bottom:1px solid rgba(28,47,64,.4);"><td style="padding:8px 10px;color:var(--white);font-weight:500;min-width:100px;">'+nm+'</td>'+
+        '<td style="padding:8px 6px;color:var(--text2);text-align:right;white-space:nowrap;">'+fmtO(x.owg)+'</td>'+
+        '<td style="padding:8px 6px;text-align:right;white-space:nowrap;"><span style="color:var(--gold2);font-weight:600;">'+fmtO(x.drg)+'</span>'+
+        '<div style="margin-top:3px;height:3px;border-radius:2px;background:var(--s3);overflow:hidden;position:relative;">'+
+        '<div style="position:absolute;left:0;height:100%;width:'+bO+'%;background:rgba(138,24,24,.7);border-radius:2px;"></div>'+
+        '<div style="position:absolute;left:0;height:100%;width:'+bD+'%;background:linear-gradient(90deg,var(--cr),var(--gold));border-radius:2px;opacity:.5;"></div></div></td>'+
+        '<td style="padding:8px 6px;color:var(--text2);text-align:right;white-space:nowrap;">'+fmtO(x.legs)+'</td>'+
+        '<td style="padding:8px 10px;color:'+pc+';font-weight:700;text-align:right;">'+ps+'</td></tr>';
+    }).join('')+
+    '</tbody><tfoot><tr style="border-top:1.5px solid var(--gold);background:rgba(201,164,74,.06);">'+
+    '<td style="padding:8px 10px;color:var(--gold3);font-weight:800;font-size:11px;">TOTAL</td>'+
+    '<td style="padding:8px 6px;color:var(--gold3);font-weight:800;text-align:right;white-space:nowrap;">'+fmtO(tO)+'</td>'+
+    '<td style="padding:8px 6px;color:var(--gold3);font-weight:800;text-align:right;white-space:nowrap;">'+fmtO(tD)+'</td>'+
+    '<td style="padding:8px 6px;color:var(--gold3);font-weight:800;text-align:right;white-space:nowrap;">'+fmtO(tD-tO)+'</td>'+
+    '<td style="padding:8px 10px;color:var(--gold2);font-weight:700;text-align:right;">'+(tO>0?'+'+((tD/tO-1)*100).toFixed(0)+'%':'—')+'</td>'+
+    '</tr></tfoot></table>';
 }
 
-// ── TABS ──────────────────────────────────────────────────────────────────────
-function switchTab(id, btn) {
-  document.querySelectorAll('.panel').forEach(function(p)   { p.classList.remove('active'); });
-  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
-  document.getElementById('panel-' + id).classList.add('active');
-  btn.classList.add('active');
-  if (id === 'map')      setTimeout(function() { Plotly.Plots.resize('map-plotly'); }, 50);
-  if (id === 'circuits') { renderCircuits(); renderOWG(); }
+function switchTab(id,btn){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('panel-'+id).classList.add('active');btn.classList.add('active');
+  if(id==='map')setTimeout(function(){Plotly.Plots.resize('map-plotly');},50);
+  if(id==='circuits'){renderCircuits();renderOWG();}
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────────────
-async function init() {
+async function init(){
   showLoading();
-  try {
-    await loadFilm('D3');
-    hideLoading();
-    renderAll();
-    window.addEventListener('resize', function() {
-      if (mapInited) Plotly.Plots.resize('map-plotly');
-    });
-  } catch(err) {
-    console.error('Init failed:', err);
-    hideLoading();
-    document.getElementById('app').style.display = 'block';
-  }
+  try{await loadFilm('D3');hideLoading();renderAll();window.addEventListener('resize',function(){if(mapInited)Plotly.Plots.resize('map-plotly');});}
+  catch(err){console.error('Init failed:',err);hideLoading();document.getElementById('app').style.display='block';}
 }
 </script>
 </body>
