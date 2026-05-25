@@ -18,6 +18,7 @@
   --white:#ece4d2;--r:12px;--sh:0 8px 28px rgba(0,0,0,.6);
 }
 html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent;}
+select option{background:#0e1822;color:#ece4d2;}
 body{background:var(--bg);color:var(--text);font-family:"DM Sans",system-ui,sans-serif;font-size:14px;line-height:1.6;min-height:100vh;overflow-x:hidden;
   background-image:radial-gradient(ellipse 140% 45% at 50% 0%,rgba(138,24,24,.2) 0%,transparent 55%);}
 
@@ -256,7 +257,7 @@ tbody tr:nth-child(3) .rnk{color:#cd7f32;}
   <div class="ctrl-inner">
     <div class="ctrl-group">
       <span class="ctrl-label">Film</span>
-      <select class="pill" style="min-width:220px;padding:6px 10px;font-size:11.5px;color:var(--gold3);background:rgba(138,24,24,.15);border-color:var(--cr2);" onchange="setFilm(this.value,this)">
+      <select class="pill" style="min-width:220px;padding:6px 10px;font-size:11.5px;color:var(--gold3);background:#0e1822;border-color:var(--cr2);" onchange="setFilm(this.value,this)">
           <option value="KR">Karuppu · May 2026</option>
           <option value="AT">Athiradi · May 2026</option>
           <option value="D3"  selected>Drishyam 3 · May 2026</option>
@@ -292,7 +293,7 @@ tbody tr:nth-child(3) .rnk{color:#cd7f32;}
 <!-- KPI STRIP -->
 <div class="kpi-strip">
   <div class="kpi-grid">
-    <div class="kpi-cell"><div class="kpi-lbl">Total Gross <span id="inr-badge" style="font-size:8px;color:var(--gold);cursor:pointer;border:1px solid rgba(201,164,74,.3);padding:1px 5px;border-radius:8px;margin-left:4px;" onclick="toggleINR()" title="Toggle INR">USD</span></div><div class="kpi-val" id="kv-gross">—</div><div class="kpi-sub" id="kv-gross-sub">—</div></div>
+    <div class="kpi-cell"><div class="kpi-lbl">Total Gross <button id="inr-badge" onclick="toggleINR()" title="Toggle INR / USD" style="font-size:9px;font-weight:700;letter-spacing:.06em;color:var(--gold3);cursor:pointer;border:1px solid rgba(201,164,74,.35);padding:2px 7px;border-radius:10px;margin-left:5px;background:rgba(201,164,74,.12);font-family:inherit;display:inline-block;vertical-align:middle;">USD</button></div><div class="kpi-val" id="kv-gross">—</div><div class="kpi-sub" id="kv-gross-sub">—</div></div>
     <div class="kpi-cell"><div class="kpi-lbl">Theaters</div><div class="kpi-val" id="kv-thtr">—</div><div class="kpi-sub" id="kv-thtr-sub">—</div></div>
     <div class="kpi-cell"><div class="kpi-lbl">Metros</div><div class="kpi-val" id="kv-met">—</div><div class="kpi-sub" id="kv-met-sub">—</div></div>
     <div class="kpi-cell"><div class="kpi-lbl">Top Metro</div><div class="kpi-val" id="kv-top" style="font-size:clamp(12px,2.2vw,16px);padding-top:3px;">—</div><div class="kpi-sub" id="kv-top-sub">—</div></div>
@@ -497,8 +498,7 @@ function fmtDisplay(n) {
 // ── KPIs ──
 function updateKPIs() {
   var d = filtered();
-  var all = filmData();
-  var totalAll = all.reduce(function(s,m){ return s+m.g; }, 0);
+  var totalAll = filmData().reduce(function(s,m){ return s+m.g; }, 0);
   var gross = d.reduce(function(s,m){ return s+m.g; }, 0);
   var thtr  = d.reduce(function(s,m){ return s+m.t; }, 0);
   var met   = d.length;
@@ -636,8 +636,7 @@ function renderTable() {
 // ── STATS ──
 function renderStats() {
   var d = filtered();
-  var all = filmData();
-  var totalAll = all.reduce(function(s,m){ return s+m.g; },0);
+  var totalAll = filmData().reduce(function(s,m){ return s+m.g; },0);
   var gross = d.reduce(function(s,m){ return s+m.g; },0);
   var thtr  = d.reduce(function(s,m){ return s+m.t; },0);
   var fl = filterLabel();
@@ -725,19 +724,29 @@ function renderStats() {
     return "<div class='br'><span class='bl'>"+lbl+"</span><div class='bt'><div class='bf' style='width:"+pct+"%'><span class='bv'>$"+m.a.toLocaleString()+"</span></div></div></div>";
   }).join("");
 
-  // ── Card 4: circuit breakdown filtered ──
-  var circ = FILMS[activeFilm].circuits_all;
-  var maxC = circ[0].all;
-  document.getElementById("stats-circuits").innerHTML = circ.map(function(c){
-    var count = activeFilter === "CA" ? c.ca : activeFilter === "US" ? c.us : c.all;
-    if (count === 0) return "";
-    var pct = (count/maxC*100).toFixed(1);
+  // ── Card 4: circuit breakdown — derived from top-theater naming ──
+  var d4 = filtered();
+  var circs = {Cinemark:0,Regal:0,AMC:0,CLG:0,CWBS:0,WOOD:0,Other:0};
+  d4.forEach(function(m){
+    var tt = m.tt || "";
+    if(/cinemark|cineplex/i.test(tt)) circs.Cinemark++;
+    else if(/regal/i.test(tt)) circs.Regal++;
+    else if(/amc/i.test(tt)) circs.AMC++;
+    else if(/cine lounge/i.test(tt)) circs.CLG++;
+    else if(/hollywood cinema|imagine cinemas|apollo cinema|garden city/i.test(tt)) circs.CWBS++;
+    else if(/york cinema|albion|woodside|central parkway/i.test(tt)) circs.WOOD++;
+    else circs.Other++;
+  });
+  var circArr = Object.keys(circs).map(function(n){return {n:n,v:circs[n]};}).filter(function(c){return c.v>0;}).sort(function(a,b){return b.v-a.v;});
+  var maxCV = circArr.length ? circArr[0].v : 1;
+  document.getElementById("stats-circuits").innerHTML = circArr.length ? circArr.map(function(c){
+    var pct = (c.v/maxCV*100).toFixed(1);
     return "<div style='display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(28,47,64,.5);font-size:12px;'>" +
-      "<span style='color:var(--text2);font-weight:500;min-width:90px;'>"+c.n+"</span>" +
+      "<span style='color:var(--text2);font-weight:500;min-width:80px;'>"+c.n+"</span>" +
       "<div style='flex:1;margin:0 10px;height:4px;background:var(--s3);border-radius:2px;overflow:hidden;'>" +
       "<div style='height:100%;width:"+pct+"%;border-radius:2px;background:linear-gradient(90deg,var(--cr),var(--gold));'></div></div>" +
-      "<span style='color:var(--gold2);font-weight:700;white-space:nowrap;font-size:11.5px;'>"+count+" loc.</span></div>";
-  }).join("");
+      "<span style='color:var(--gold2);font-weight:700;white-space:nowrap;font-size:11.5px;'>"+c.v+" loc.</span></div>";
+  }).join("") : "<p style='color:var(--muted);font-size:12px;padding:10px 0'>No data</p>";
 }
 
 // ── TABS ──
